@@ -1,7 +1,11 @@
+import { Navigation } from "./components/Navigation";
+import { Landing } from "./pages/Landing";
+
 function App() {
   return (
     <>
-      <h1>hello world</h1>
+      <Navigation></Navigation>
+      <Landing />
     </>
   );
 }
