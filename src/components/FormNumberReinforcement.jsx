@@ -39,77 +39,122 @@ export function FormNumberReinforcement() {
                   required: true,
                 })}
               />
-
               <InputGroup.Text id="basic-addon1">
                 <MathJax>{"\\([cm] \\)"}</MathJax>
               </InputGroup.Text>
             </InputGroup>
+
             {errors.Stegbreite && (
               <div className="error-validation mt-1 ms-2 text-danger">
-                Gebe die vorhandene Stegbreite in cm an!
+                Vorhandene Stegbreite in cm
               </div>
             )}
           </div>
 
-          {/* cnom */}
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">
-              <MathJax>{"\\(c_{nom,sw} \\)"}</MathJax>
-            </InputGroup.Text>
-            <Form.Control
-              placeholder="Durchmesser Bügel"
-              aria-label="Durchmesser Bügel"
-              aria-describedby="basic-addon1"
-            />
-            <InputGroup.Text id="basic-addon1">
-              <MathJax>{"\\([cm] \\)"}</MathJax>
-            </InputGroup.Text>
-          </InputGroup>
+          <div className="mb-3">
+            {/* cnom */}
+            <InputGroup>
+              <InputGroup.Text id="basic-addon1">
+                <MathJax>{"\\(c_{nom,sw} \\)"}</MathJax>
+              </InputGroup.Text>
+              <Form.Control
+                type="number"
+                placeholder="Betondeckung Bügel"
+                aria-label="Betondeckung Bügel"
+                aria-describedby="basic-addon1"
+                {...register("BetondeckungBügel", {
+                  required: true,
+                })}
+              />
+              <InputGroup.Text id="basic-addon1">
+                <MathJax>{"\\([cm] \\)"}</MathJax>
+              </InputGroup.Text>
+            </InputGroup>
+            {errors.BetondeckungBügel && (
+              <div className="error-validation mt-1 ms-2 text-danger">
+                Betondeckung der Bügel in cm
+              </div>
+            )}
+          </div>
 
-          {/* theta_bügel */}
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">
-              <MathJax>{"\\(\\theta_{sw} \\)"}</MathJax>
-            </InputGroup.Text>
-            <Form.Control
-              placeholder="Durchmesser Bügel"
-              aria-label="Durchmesser Bügel"
-              aria-describedby="basic-addon1"
-            />
-            <InputGroup.Text id="basic-addon1">
-              <MathJax>{"\\([cm] \\)"}</MathJax>
-            </InputGroup.Text>
-          </InputGroup>
+          <div className="mb-3">
+            {/* theta_bügel */}
+            <InputGroup>
+              <InputGroup.Text id="basic-addon1">
+                <MathJax>{"\\(\\theta_{sw} \\)"}</MathJax>
+              </InputGroup.Text>
+              <Form.Control
+                type="number"
+                placeholder="Durchmesser Bügel"
+                aria-label="Durchmesser Bügel"
+                aria-describedby="basic-addon1"
+                {...register("DurchmesserBügel", {
+                  required: true,
+                })}
+              />
+              <InputGroup.Text id="basic-addon1">
+                <MathJax>{"\\([cm] \\)"}</MathJax>
+              </InputGroup.Text>
+            </InputGroup>
+            {errors.BetondeckungBügel && (
+              <div className="error-validation mt-1 ms-2 text-danger">
+                Bügeldurchmesser in cm
+              </div>
+            )}
+          </div>
 
-          {/* theta_stab */}
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">
-              <MathJax>{"\\(\\theta_{sl} \\)"}</MathJax>
-            </InputGroup.Text>
-            <Form.Control
-              placeholder=" Durchmesser Längsstäbe "
-              aria-label="Durchmesser Längsstäbe"
-              aria-describedby="basic-addon1"
-            />
-            <InputGroup.Text id="basic-addon1">
-              <MathJax>{"\\([cm] \\)"}</MathJax>
-            </InputGroup.Text>
-          </InputGroup>
+          <div className="mb-3">
+            {/* theta_stab */}
+            <InputGroup>
+              <InputGroup.Text id="basic-addon1">
+                <MathJax>{"\\(\\theta_{sl} \\)"}</MathJax>
+              </InputGroup.Text>
+              <Form.Control
+                type="number"
+                placeholder=" Durchmesser Längsstäbe "
+                aria-label="Durchmesser Längsstäbe"
+                aria-describedby="basic-addon1"
+                {...register("DurchmesserLängsstäbe", {
+                  required: true,
+                })}
+              />
+              <InputGroup.Text id="basic-addon1">
+                <MathJax>{"\\([cm] \\)"}</MathJax>
+              </InputGroup.Text>
+            </InputGroup>
 
-          {/* a */}
-          <InputGroup className="mb-3">
-            <InputGroup.Text id="basic-addon1">
-              <MathJax>{"\\(a \\)"}</MathJax>
-            </InputGroup.Text>
-            <Form.Control
-              placeholder="Abstand Stäbe"
-              aria-label="Abstand Stäbe"
-              aria-describedby="basic-addon1"
-            />
-            <InputGroup.Text id="basic-addon1">
-              <MathJax>{"\\([cm] \\)"}</MathJax>
-            </InputGroup.Text>
-          </InputGroup>
+            {errors.DurchmesserLängsstäbe && (
+              <div className="error-validation mt-1 ms-2 text-danger">
+                Durchmesser der Längsstäbe in cm
+              </div>
+            )}
+          </div>
+
+          <div className="mb-3">
+            {/* a */}
+            <InputGroup>
+              <InputGroup.Text id="basic-addon1">
+                <MathJax>{"\\(a \\)"}</MathJax>
+              </InputGroup.Text>
+              <Form.Control
+                type="number"
+                placeholder="Abstand Stäbe"
+                aria-label="Abstand Stäbe"
+                aria-describedby="basic-addon1"
+                {...register("abstandStäbe", {
+                  required: true,
+                })}
+              />
+              <InputGroup.Text id="basic-addon1">
+                <MathJax>{"\\([cm] \\)"}</MathJax>
+              </InputGroup.Text>
+            </InputGroup>
+            {errors.abstandStäbe && (
+              <div className="error-validation mt-1 ms-2 text-danger">
+                Abstand der Längsstäbe in cm
+              </div>
+            )}
+          </div>
         </Form.Group>
         <Button type="submit" variant="primary">
           Submit
