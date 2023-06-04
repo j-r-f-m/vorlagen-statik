@@ -1,8 +1,8 @@
 import Container from "react-bootstrap/Container";
 import Image from "react-bootstrap/Image";
-import { FormNumberReinforcement } from "../../components/FormNumberReinforcement";
 import { BrGeneralInfo } from "./BrGeneralInfo";
 import { BrCalculationInfo } from "./BrCalculationInfo";
+import { BrForm } from "./BrForm";
 
 export function BeamReinforcement() {
   return (
@@ -15,8 +15,7 @@ export function BeamReinforcement() {
         src="./imgs/stb-querschnitt-stäbe.png"
       />
       <BrCalculationInfo />
-
-      <FormNumberReinforcement />
+      <BrForm />
     </Container>
   );
 }
