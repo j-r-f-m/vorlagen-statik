@@ -101,6 +101,23 @@ export function BrCalculationInfo() {
                 </MathJax>
               </div>
             </ListGroup.Item>
+
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">
+                  Berechnung der maximalen Zahl &rdquo;n&rdquo; der Stäbe im
+                  Balkenquerschnitt
+                </div>
+                <MathJax className="fw-bold">
+                  {
+                    "\\(n=Ganzzahl \\left[ \\frac{b \\ - \\ c_{nom,a} \\ - \\ c_{nom,i} \\ - \\ 2 \\ \\cdot \\ \\theta_{Bü} \\ - \\ (1-\\frac{1}{\\sqrt{2}}) \\cdot D_{Bü}\\ - \\ \\frac{1}{\\sqrt{2}} \\cdot \\ \\theta \\ - \\ \\theta \\ - \\ s_{min} }{\\theta \\ + \\ s_{min}}  \\right] \\ + \\ 2  \\)"
+                  }
+                </MathJax>
+              </div>
+            </ListGroup.Item>
           </ListGroup>
         </Accordion.Body>
       </Accordion.Item>
