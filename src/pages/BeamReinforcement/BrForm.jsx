@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 
 import { MathJax } from "better-react-mathjax";
-import { maxNumBars } from "../../calculations/maxNumberBars";
+import { maxNumBars } from "../../calculations/maxNumberBars/maxNumberBars";
 
 export function BrForm() {
   //const [result, setResult] = useState({ nStäbe: null });

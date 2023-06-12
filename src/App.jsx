@@ -1,6 +1,6 @@
 import { Navigation } from "./components/Navigation";
 import { Landing } from "./pages/Landing";
-import { BeamReinforcement } from "./pages/BeamReinforcement";
+import { BeamReinforcement } from "./pages/BeamReinforcement/BeamReinforcement";
 import { Routes, Route } from "react-router-dom";
 import { MathJaxContext } from "better-react-mathjax";
 
