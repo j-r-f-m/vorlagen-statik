@@ -48,10 +48,8 @@ function term2(dMin) {
   const subTerm1 = -(1 - 1 / Math.sqrt(2));
   const interimResult = subTerm1 * dMin;
 
-  const roundedResult =
-    Math.round((interimResult + Number.EPSILON) * 100) / 100;
-
-  return roundedResult;
+  // return roundedResult;
+  return interimResult;
 }
 
 /**
@@ -62,9 +60,8 @@ function term2(dMin) {
  */
 function term3(theta, sMin) {
   const interimResult = -(1 / Math.sqrt(2)) * theta - theta - sMin;
-  const roundedResult =
-    Math.round((interimResult + Number.EPSILON) * 100) / 100;
-  return roundedResult;
+
+  return interimResult;
 }
 
 /**
@@ -78,7 +75,7 @@ function term4(theta, sMin) {
 }
 
 function maxNumBars(b, cNomA, cNomI, thetaBü, theta) {
-  const currentDmin = dMin(theta);
+  const currentDmin = dMin(thetaBü);
   const currentSmin = sMin(theta);
 
   const currentTerm1 = term1(b, cNomA, cNomI, thetaBü);
@@ -86,12 +83,22 @@ function maxNumBars(b, cNomA, cNomI, thetaBü, theta) {
   const currentTerm3 = term3(theta, currentSmin);
   const currentTerm4 = term4(theta, currentSmin);
 
-  const interimsResult = Math.floor(
-    (currentTerm1 + currentTerm2 + currentTerm3) / currentTerm4
-  );
-  console.log(interimsResult);
+  // console.log(currentDmin);
+  // console.log(currentSmin);
+  // console.log(currentTerm1);
+  // console.log(currentTerm2);
+  // console.log(currentTerm3);
+  // console.log(currentTerm4);
 
-  const nBars = interimsResult + 2;
+  const interimsResult =
+    (currentTerm1 + currentTerm2 + currentTerm3) / currentTerm4;
+
+  const interimsResultFloor = Math.floor(interimsResult);
+
+  console.log(interimsResult);
+  console.log(interimsResultFloor);
+
+  const nBars = interimsResultFloor + 2;
   return nBars;
 }
 

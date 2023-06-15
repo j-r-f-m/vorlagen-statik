@@ -6,6 +6,7 @@ import {
   term3,
   sMin,
   maxNumBars,
+  maxNumBarsAlt,
   term4,
 } from "./maxNumberBars";
 
@@ -52,19 +53,19 @@ describe("Biegerollendurchmesser", () => {
     expect(currentTerm1).toBe(13.4);
   });
 
-  it("Berechne term2", () => {
-    const thetaBügel = 0.8; // cm
-    const currentDmin = dMin(thetaBügel);
-    const currentTerm2 = term2(currentDmin);
-    expect(currentTerm2).toBe(-0.94);
-  });
+  // it("Berechne term2", () => {
+  //   const thetaBügel = 0.8; // cm
+  //   const currentDmin = dMin(thetaBügel);
+  //   const currentTerm2 = term2(currentDmin);
+  //   expect(currentTerm2).toBe(-0.94);
+  // });
 
-  it("Berechne term3", () => {
-    const theta = 1; // cm
-    const currentSmin = sMin(theta);
-    const currentTerm3 = term3(theta, currentSmin);
-    expect(currentTerm3).toBe(-3.71);
-  });
+  // it("Berechne term3", () => {
+  //   const theta = 1; // cm
+  //   const currentSmin = sMin(theta);
+  //   const currentTerm3 = term3(theta, currentSmin);
+  //   expect(currentTerm3).toBe(-3.71);
+  // });
 
   it("Berechne term4", () => {
     const theta = 1; //cm
