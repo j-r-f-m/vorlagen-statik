@@ -4,9 +4,13 @@ import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 
 import { MathJax } from "better-react-mathjax";
-import { maxNumBars } from "../../calculations/maxNumberBars/maxNumberBars";
+import {
+  maxNumBars,
+  dMin,
+  sMin,
+} from "../../calculations/maxNumberBars/maxNumberBars";
 
-export function BrForm() {
+export function BrForm(props) {
   //const [result, setResult] = useState({ nStäbe: null });
 
   const {
@@ -17,19 +21,48 @@ export function BrForm() {
 
   const onSubmit = (data) => {
     console.log(data);
-    console.log("lol");
-    const cnom = data.BetondeckungBügel;
-    const thetaBügel = data.DurchmesserBügel;
-    const thetaLängs = data.DurchmesserLängsstäbe;
-    const nStäbe = data.AnzahlLängsstäbe;
-    const aStäbe = data.abstandStäbe;
-    const minWidht = maxNumBars(cnom, thetaBügel, thetaLängs, nStäbe, aStäbe);
-    console.log(minWidht);
+    console.log(props);
+
+    const iptB = Number(data.b);
+    const iptCnomA = Number(data.cNomA);
+    const iptCnomI = Number(data.cNomI);
+    const iptThetaBügel = Number(data.thetaBügel);
+    const iptTheta = Number(data.theta);
+
+    // calculate n
+    const calculatedN = maxNumBars(
+      iptB,
+      iptCnomA,
+      iptCnomI,
+      iptThetaBügel,
+      iptTheta
+    );
+
+    const calculatedDmin = dMin(iptTheta);
+    const calculatedSmin = sMin(iptTheta);
+
+    console.log("hi");
+    console.log(calculatedN);
+
+    props.setDataChild(
+      iptB,
+      iptCnomA,
+      iptCnomI,
+      iptThetaBügel,
+      iptTheta,
+      calculatedN,
+      calculatedDmin,
+      calculatedSmin
+    );
+
+    // const minWidht = maxNumBars(cnom, thetaBügel, thetaLängs, nStäbe, aStäbe);
+    // console.log(minWidht);
   };
 
   return (
     <>
-      <Form className="mt-4" onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="mt-4">Randbedingungen</h2>
+      <Form onSubmit={handleSubmit(onSubmit)}>
         <Form.Group className="mb-3" controlId="formGroupEmail">
           {/* ---------------------------- inputs -------------------------- */}
           {/* stegbreite */}
@@ -41,10 +74,11 @@ export function BrForm() {
               </InputGroup.Text>
               <Form.Control
                 type="number"
+                step="0.1"
                 placeholder="Stegbreite"
                 aria-label="Stegbreite"
                 aria-describedby="basic-addon1"
-                {...register("Stegbreite", {
+                {...register("b", {
                   required: true,
                 })}
               />
@@ -53,7 +87,7 @@ export function BrForm() {
               </InputGroup.Text>
             </InputGroup>
 
-            {errors.Stegbreite && (
+            {errors.b && (
               <div className="error-validation mt-1 ms-2 text-danger">
                 Vorhandene Stegbreite in cm
               </div>
@@ -68,10 +102,11 @@ export function BrForm() {
               </InputGroup.Text>
               <Form.Control
                 type="number"
-                placeholder="Betondeckung Bügel"
-                aria-label="Betondeckung Bügel"
+                step="0.1"
+                placeholder="Cnom,a"
+                aria-label="Cnom,a"
                 aria-describedby="basic-addon1"
-                {...register("BetondeckungBügel", {
+                {...register("cNomA", {
                   required: true,
                 })}
               />
@@ -79,7 +114,7 @@ export function BrForm() {
                 <MathJax>{"\\([cm] \\)"}</MathJax>
               </InputGroup.Text>
             </InputGroup>
-            {errors.BetondeckungBügel && (
+            {errors.cNomA && (
               <div className="error-validation mt-1 ms-2 text-danger">
                 Betondeckung der Bügel außen
               </div>
@@ -90,14 +125,15 @@ export function BrForm() {
             {/* cnom,außen */}
             <InputGroup>
               <InputGroup.Text id="basic-addon1">
-                <MathJax>{"\\(c_{nom,a} \\)"}</MathJax>
+                <MathJax>{"\\(c_{nom,i} \\)"}</MathJax>
               </InputGroup.Text>
               <Form.Control
                 type="number"
-                placeholder="Betondeckung Bügel"
-                aria-label="Betondeckung Bügel"
+                step="0.1"
+                placeholder="Cnom,i"
+                aria-label="Cnom,i"
                 aria-describedby="basic-addon1"
-                {...register("BetondeckungBügel", {
+                {...register("cNomI", {
                   required: true,
                 })}
               />
@@ -105,7 +141,7 @@ export function BrForm() {
                 <MathJax>{"\\([cm] \\)"}</MathJax>
               </InputGroup.Text>
             </InputGroup>
-            {errors.BetondeckungBügel && (
+            {errors.cNomI && (
               <div className="error-validation mt-1 ms-2 text-danger">
                 Betondeckung der Bügel innen
               </div>
@@ -120,10 +156,11 @@ export function BrForm() {
               </InputGroup.Text>
               <Form.Control
                 type="number"
+                step="0.1"
                 placeholder="Durchmesser Bügel"
                 aria-label="Durchmesser Bügel"
                 aria-describedby="basic-addon1"
-                {...register("DurchmesserBügel", {
+                {...register("thetaBügel", {
                   required: true,
                 })}
               />
@@ -131,7 +168,7 @@ export function BrForm() {
                 <MathJax>{"\\([cm] \\)"}</MathJax>
               </InputGroup.Text>
             </InputGroup>
-            {errors.BetondeckungBügel && (
+            {errors.thetaBügel && (
               <div className="error-validation mt-1 ms-2 text-danger">
                 Bügeldurchmesser in cm
               </div>
@@ -146,10 +183,11 @@ export function BrForm() {
               </InputGroup.Text>
               <Form.Control
                 type="number"
+                step="0.1"
                 placeholder=" Durchmesser Längsstäbe "
                 aria-label="Durchmesser Längsstäbe"
                 aria-describedby="basic-addon1"
-                {...register("DurchmesserLängsstäbe", {
+                {...register("theta", {
                   required: true,
                 })}
               />
@@ -158,7 +196,7 @@ export function BrForm() {
               </InputGroup.Text>
             </InputGroup>
 
-            {errors.DurchmesserLängsstäbe && (
+            {errors.theta && (
               <div className="error-validation mt-1 ms-2 text-danger">
                 Durchmesser der Längsstäbe in cm
               </div>
@@ -166,24 +204,6 @@ export function BrForm() {
           </div>
 
           <div className="mb-3">
-            {/* a */}
-            <InputGroup>
-              <InputGroup.Text id="basic-addon1">
-                <MathJax>{"\\(s_{min} \\)"}</MathJax>
-              </InputGroup.Text>
-              <Form.Control
-                type="number"
-                placeholder="Abstand Stäbe"
-                aria-label="Abstand Stäbe"
-                aria-describedby="basic-addon1"
-                {...register("abstandStäbe", {
-                  required: true,
-                })}
-              />
-              <InputGroup.Text id="basic-addon1">
-                <MathJax>{"\\([cm] \\)"}</MathJax>
-              </InputGroup.Text>
-            </InputGroup>
             {errors.abstandStäbe && (
               <div className="error-validation mt-1 ms-2 text-danger">
                 Abstand der Längsstäbe in cm
