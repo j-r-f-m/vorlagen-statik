@@ -1,14 +1,5 @@
 // import { screen } from "@testing-library/react";
-import {
-  dMin,
-  term1,
-  term2,
-  term3,
-  sMin,
-  maxNumBars,
-  maxNumBarsAlt,
-  term4,
-} from "./maxNumberBars";
+import { dMin, term1, sMin, maxNumBars, term4 } from "./maxNumberBars";
 
 import { describe, it, expect } from "vitest";
 

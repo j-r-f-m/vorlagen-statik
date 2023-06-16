@@ -75,6 +75,8 @@ function term4(theta, sMin) {
 }
 
 function maxNumBars(b, cNomA, cNomI, thetaBü, theta) {
+  console.log("b");
+  console.log(b);
   const currentDmin = dMin(thetaBü);
   const currentSmin = sMin(theta);
 
