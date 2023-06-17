@@ -29,7 +29,9 @@ export function AlGeneralInfo() {
                   Beiwert&nbsp; {"\\( \\alpha_{a}\\)"} zusammengefasst und in
                   Tafel 8.62 beschrieben. <br />
                   <br />
-                  Im Folgenden wird die Ersatzverankerungslänge berechnet.
+                  Ersatzverankerungslänge (ist dem Bemessungswert{" "}
+                  {"\\(l_{bd}\\)"} äquivalent) Im Folgenden wird die
+                  Ersatzverankerungslänge berechnet.
                 </MathJax>
               </div>
             </ListGroup.Item>

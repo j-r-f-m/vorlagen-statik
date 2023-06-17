@@ -4,11 +4,9 @@ import { MathJax } from "better-react-mathjax";
 
 export function BrOutput(props) {
   console.log(props.data.data.b);
+
   return (
     <>
-      <div className="mt-3 fw-bold">
-        Anzahl an Stäben: n = {props.data.data.n}
-      </div>
       <Accordion className="mt-3 mb-3" style={{ width: "100%" }}>
         <Accordion.Item eventKey="0">
           <Accordion.Header>Bemessungsprotokoll</Accordion.Header>
@@ -17,12 +15,9 @@ export function BrOutput(props) {
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-start"
-                hideUntilTypeset={"first"}
-                inline
-                dynamic
               >
                 <div className="ms-2 me-auto d-flex">
-                  <MathJax inline dynamic>
+                  <MathJax>
                     <div className="fw-bold">Randbedingungen</div>
                     {"\\(b \\)"}&nbsp;{"\\(= \\)"}&nbsp;
                     {/* {`\\(${props.data.data.b} \\)`} */}
@@ -44,7 +39,7 @@ export function BrOutput(props) {
                 className="d-flex justify-content-between align-items-start"
               >
                 <div className="ms-2 me-auto d-flex">
-                  <MathJax hideUntilTypeset={"first"} inline dynamic>
+                  <MathJax>
                     {"\\(\\theta_{Bü} \\)"}&nbsp;
                     {"\\(= \\)"}&nbsp;
                     {props.data.data.thetaBügel}
@@ -62,7 +57,7 @@ export function BrOutput(props) {
                 className="d-flex justify-content-between align-items-start"
               >
                 <div className="ms-2 me-auto">
-                  <MathJax hideUntilTypeset={"first"} inline dynamic>
+                  <MathJax>
                     <div className="fw-bold">Zwischenergebnisse</div>
                     {"\\(D_{Bü} \\)"}&nbsp;
                     {"\\(= \\)"}&nbsp; {props.data.data.dMin}
@@ -83,7 +78,7 @@ export function BrOutput(props) {
                     Berechnung der maximalen Zahl &rdquo;n&rdquo; der Stäbe imr
                     Balkenquerschnitt
                   </div>
-                  <MathJax hideUntilTypeset={"first"} inline dynamic>
+                  <MathJax>
                     {`\\(n=Ganzzahl \\left[ \\frac{b \\ - \\ c_{nom,a} \\ - \\ c_{nom,i} \\ - \\ 2 \\ \\cdot \\ \\theta_{Bü} \\ - \\ (1-\\frac{1}{\\sqrt{2}}) \\cdot D_{Bü}\\ - \\ \\frac{1}{\\sqrt{2}} \\cdot \\ \\theta \\ - \\ \\theta \\ - \\ s_{min} }{\\theta \\ + \\ s_{min}}  \\right] \\ + \\ 2 =  \\)`}
                     &nbsp; {props.data.data.dMin}
                   </MathJax>

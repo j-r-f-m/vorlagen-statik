@@ -9,22 +9,17 @@ export function AlCalculationInfo() {
         <Accordion.Header>Berechnungsansatz</Accordion.Header>
         <Accordion.Body className="d-flex align-items-center justify-content-center flex-column p-0">
           <ListGroup style={{ width: "100%" }} as="ol">
+            {/* Ersatzverankerungslänge */}
             <ListGroup.Item
               as="li"
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
-                Hinweis: Randabstände liegen im Scheitel der Biegung des Bügels
-              </div>
-            </ListGroup.Item>
-
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
+                <div className="fw-bold">Ersatzverankerungslänge</div>
                 <MathJax>
-                  {"\\(\\theta \\)"} &emsp; Durchmesser Längsstab
+                  {
+                    "\\(l_{b,eq} = \\alpha_{a} \\cdot l_{b,rqd} \\cdot \\frac{A_{s,erf}}{A_{s,vorh}} 	\\geq l_{b,min}\\)"
+                  }{" "}
                 </MathJax>
               </div>
             </ListGroup.Item>
@@ -35,11 +30,25 @@ export function AlCalculationInfo() {
             >
               <div className="ms-2 me-auto">
                 <MathJax>
-                  {"\\(\\theta_{Bü} \\)"} &emsp; Durchmesser Bügel
+                  {"\\(l_{b,eq} \\)"} &emsp; Ersatzverankerungslänge (ist dem
+                  Bemessungswert {"\\(l_{bd}\\)"} äquivalent)
                 </MathJax>
               </div>
             </ListGroup.Item>
 
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax>
+                  {"\\(\\alpha_{a} \\)"} &emsp; Beiwert zur Berücksichtigung der
+                  Verankerungsart
+                </MathJax>
+              </div>
+            </ListGroup.Item>
+
+            {/* grundwert der verankerungslänge */}
             <ListGroup.Item
               as="li"
               className="d-flex justify-content-between align-items-start"
@@ -47,15 +56,23 @@ export function AlCalculationInfo() {
               <div className="ms-2 me-auto">
                 <div>
                   <MathJax>
-                    {"\\(D_{Bü} \\)"} &emsp; Biegerollendurchmesser Bügel
+                    {
+                      "\\(l_{b,rqd} = \\frac{\\theta_{s}}{4}  \\cdot \\frac{f_{yd}}{f_{bd}}\\)"
+                    }
                   </MathJax>
                 </div>
-
-                <MathJax>
-                  mit &nbsp;
-                  {
-                    "\\(\\theta_{Bü}<20 \\ mm  : D_{Bü}=4\\cdot\\theta_{Bü} \\ sonst \\ D_{Bü}=7\\cdot\\theta_{Bü}\\)"
-                  }
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(l_{b,rqd} \\)"}</div>
+                  <div>
+                    Grundwert der Verankerungslänge <br />
+                  </div>
                 </MathJax>
               </div>
             </ListGroup.Item>
@@ -65,17 +82,11 @@ export function AlCalculationInfo() {
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
-                <div>
-                  <MathJax>
-                    {"\\(s_{min} \\)"} &emsp;Mindest-Längsstababstand
-                  </MathJax>
-                </div>
-
-                <MathJax>
-                  mit &nbsp;
-                  {
-                    "\\(\\theta_{min}<20 \\ mm  : s_{min}=20 \\ mm \\ sonst \\ s_{min}=\\theta\\)"
-                  }
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(\\theta_{s} \\)"}</div>
+                  <div>
+                    Stabdurchmesser <br />
+                  </div>
                 </MathJax>
               </div>
             </ListGroup.Item>
@@ -85,8 +96,48 @@ export function AlCalculationInfo() {
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
-                <MathJax>
-                  {"\\(c_{nom,a} \\)"} &emsp; Betondeckung außen
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(f_{yd} \\)"}</div>
+                  <div>
+                    Bemessungswert der Streckgrenzee <br />
+                  </div>
+                </MathJax>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(f_{bd} \\)"}</div>
+                  <div>
+                    Grundwert der Verbundspannung <br />
+                  </div>
+                </MathJax>
+              </div>
+            </ListGroup.Item>
+
+            {/* Mindestverankerungslänge */}
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <div>Bei Zugstäben</div>
+                <MathJax>{"\\(l_{b,min} \\geq max \\{ 0,3\\} \\)"}</MathJax>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(l_{b,rqd} \\)"}</div>
+                  <div>
+                    Grundwert der Verankerungslänge <br />
+                  </div>
                 </MathJax>
               </div>
             </ListGroup.Item>
@@ -96,8 +147,11 @@ export function AlCalculationInfo() {
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
-                <MathJax>
-                  {"\\(c_{nom,i} \\)"} &emsp; Betondeckung innen
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(\\theta_{s} \\)"}</div>
+                  <div>
+                    Stabdurchmesser <br />
+                  </div>
                 </MathJax>
               </div>
             </ListGroup.Item>
@@ -107,14 +161,24 @@ export function AlCalculationInfo() {
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
-                <div className="fw-bold">
-                  Berechnung der maximalen Zahl &rdquo;n&rdquo; der Stäbe im
-                  Balkenquerschnitt
-                </div>
-                <MathJax className="fw-bold">
-                  {
-                    "\\(n=Ganzzahl \\left[ \\frac{b \\ - \\ c_{nom,a} \\ - \\ c_{nom,i} \\ - \\ 2 \\ \\cdot \\ \\theta_{Bü} \\ - \\ (1-\\frac{1}{\\sqrt{2}}) \\cdot D_{Bü}\\ - \\ \\frac{1}{\\sqrt{2}} \\cdot \\ \\theta \\ - \\ \\theta \\ - \\ s_{min} }{\\theta \\ + \\ s_{min}}  \\right] \\ + \\ 2  \\)"
-                  }
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(f_{yd} \\)"}</div>
+                  <div>
+                    Bemessungswert der Streckgrenzee <br />
+                  </div>
+                </MathJax>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(f_{bd} \\)"}</div>
+                  <div>
+                    Grundwert der Verbundspannung <br />
+                  </div>
                 </MathJax>
               </div>
             </ListGroup.Item>

@@ -18,12 +18,14 @@ export function Landing() {
       img: "imgs/bewehrung.png",
       description: "Ermittelt die maximale Anzahl an Bewehrungseisen",
       id: uniqid(),
+      link: "/balkenBewehrung",
     },
     {
       title: "Verankerungslänge",
       img: "imgs/verankerungslänge.png",
       description: "Ermittelt Verankerungs- oder Übergreifungslänge",
       id: uniqid(),
+      link: "/anchorageLength",
     },
     {
       title: "Lastannahmen",
@@ -50,7 +52,7 @@ export function Landing() {
               <Card.Body>
                 <Card.Text>{module.description}</Card.Text>
                 <Button variant="primary">
-                  <Nav.Link to="/balkenBewehrung" as={NavLink}>
+                  <Nav.Link to={module.link} as={NavLink}>
                     Balken Bewehrung
                   </Nav.Link>
                 </Button>

@@ -63,7 +63,7 @@ export function BeamReinforcement() {
         src="./imgs/stb-querschnitt-stäbe.png"
       />
       <BrCalculationInfo />
-      <BrForm setDataChild={setDataChild} />
+      <BrForm setDataChild={setDataChild} data={data} />
       <BrOutput data={data} />
     </Container>
   );
