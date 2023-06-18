@@ -1,6 +1,9 @@
 import Container from "react-bootstrap/Container";
 import { AlGeneralInfo } from "./AlGeneralInfo";
 import { AlCalculationInfo } from "./AlCalculationInfo";
+import { AlForm } from "./AlForm";
+import { ImgAccordion } from "../../components/ImgAccordion";
+import { AlOutput } from "./AlOutput";
 
 export function AnchorageLength() {
   return (
@@ -9,6 +12,9 @@ export function AnchorageLength() {
         <h1>Ersatzverankerungslänge</h1>
         <AlGeneralInfo />
         <AlCalculationInfo />
+        <ImgAccordion imgLink={"verankerungsarten.png"} />
+        <AlForm />
+        <AlOutput />
       </Container>
     </>
   );
