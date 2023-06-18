@@ -27,11 +27,10 @@ export function AlGeneralInfo() {
                   bezeichnet. Die im EC 2 hier verwendeten Beiwerte{" "}
                   {"\\( \\alpha_{1}\\)"} und {"\\( \\alpha_{2}\\)"} werden zum
                   Beiwert&nbsp; {"\\( \\alpha_{a}\\)"} zusammengefasst und in
-                  Tafel 8.62 beschrieben. <br />
+                  Tafel 8.62 beschrieben. Die Ersatzverankerungslänge ist dem
+                  Bemessungswert {"\\(l_{bd}\\)"} äquivalent <br />
                   <br />
-                  Ersatzverankerungslänge (ist dem Bemessungswert{" "}
-                  {"\\(l_{bd}\\)"} äquivalent) Im Folgenden wird die
-                  Ersatzverankerungslänge berechnet.
+                  Im Folgenden wird die Ersatzverankerungslänge berechnet.
                 </MathJax>
               </div>
             </ListGroup.Item>

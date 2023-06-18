@@ -29,9 +29,12 @@ export function AlCalculationInfo() {
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
-                <MathJax>
-                  {"\\(l_{b,eq} \\)"} &emsp; Ersatzverankerungslänge (ist dem
-                  Bemessungswert {"\\(l_{bd}\\)"} äquivalent)
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(l_{b,eq} \\)"}</div>
+                  <div>
+                    Ersatzverankerungslänge (ist dem Bemessungswert{" "}
+                    {"\\(l_{bd}\\)"} äquivalent)
+                  </div>
                 </MathJax>
               </div>
             </ListGroup.Item>
@@ -41,9 +44,9 @@ export function AlCalculationInfo() {
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
-                <MathJax>
-                  {"\\(\\alpha_{a} \\)"} &emsp; Beiwert zur Berücksichtigung der
-                  Verankerungsart
+                <MathJax className="d-flex">
+                  <div style={{ width: "3rem" }}>{"\\(\\alpha_{a} \\)"}</div>
+                  <div>Beiwert zur Berücksichtigung der Verankerungsart</div>
                 </MathJax>
               </div>
             </ListGroup.Item>

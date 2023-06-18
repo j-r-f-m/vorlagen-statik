@@ -1,6 +1,6 @@
 import Container from "react-bootstrap/Container";
 import { AlGeneralInfo } from "./AlGeneralInfo";
-import { AlCalculationInfo } from "./AlCalculation";
+import { AlCalculationInfo } from "./AlCalculationInfo";
 
 export function AnchorageLength() {
   return (
