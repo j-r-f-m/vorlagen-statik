@@ -4,7 +4,7 @@ import { MathJax } from "better-react-mathjax";
 
 export function AlCalculationInfo() {
   return (
-    <Accordion className="mt-3" style={{ width: "100%" }} defaultActiveKey="0">
+    <Accordion className="mt-3" style={{ width: "100%" }}>
       <Accordion.Item eventKey="0">
         <Accordion.Header>Berechnungsansatz</Accordion.Header>
         <Accordion.Body className="d-flex align-items-center justify-content-center flex-column p-0">
@@ -55,6 +55,7 @@ export function AlCalculationInfo() {
             >
               <div className="ms-2 me-auto">
                 <div>
+                  <div className="fw-bold">Grundwert der Verankerungslänge</div>
                   <MathJax>
                     {
                       "\\(l_{b,rqd} = \\frac{\\theta_{s}}{4}  \\cdot \\frac{f_{yd}}{f_{bd}}\\)"
@@ -124,61 +125,18 @@ export function AlCalculationInfo() {
               className="d-flex justify-content-between align-items-start"
             >
               <div className="ms-2 me-auto">
-                <div>Bei Zugstäben</div>
-                <MathJax>{"\\(l_{b,min} \\geq max \\{ 0,3\\} \\)"}</MathJax>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <MathJax className="d-flex">
-                  <div style={{ width: "3rem" }}>{"\\(l_{b,rqd} \\)"}</div>
-                  <div>
-                    Grundwert der Verankerungslänge <br />
-                  </div>
+                <div className="fw-bold">Mindestverankerungslänge</div>
+                <MathJax>
+                  {
+                    "\\(l_{b,min} \\geq max \\{ 0,3 \\cdot l_{b,rqd}:10 \\cdot \\theta_{s} \\} \\)"
+                  }
+                  &emsp; Bei Zugstäben
                 </MathJax>
-              </div>
-            </ListGroup.Item>
-
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <MathJax className="d-flex">
-                  <div style={{ width: "3rem" }}>{"\\(\\theta_{s} \\)"}</div>
-                  <div>
-                    Stabdurchmesser <br />
-                  </div>
-                </MathJax>
-              </div>
-            </ListGroup.Item>
-
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <MathJax className="d-flex">
-                  <div style={{ width: "3rem" }}>{"\\(f_{yd} \\)"}</div>
-                  <div>
-                    Bemessungswert der Streckgrenzee <br />
-                  </div>
-                </MathJax>
-              </div>
-            </ListGroup.Item>
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <MathJax className="d-flex">
-                  <div style={{ width: "3rem" }}>{"\\(f_{bd} \\)"}</div>
-                  <div>
-                    Grundwert der Verbundspannung <br />
-                  </div>
+                <MathJax>
+                  {
+                    "\\(l_{b,min} \\geq max \\{ 0,6 \\cdot l_{b,rqd}:10 \\cdot \\theta_{s} \\} \\)"
+                  }{" "}
+                  &emsp;Bei Druckstäben
                 </MathJax>
               </div>
             </ListGroup.Item>
