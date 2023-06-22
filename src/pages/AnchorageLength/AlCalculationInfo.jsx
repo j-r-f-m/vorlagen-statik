@@ -122,6 +122,78 @@ export function AlCalculationInfo() {
               </div>
             </ListGroup.Item>
 
+            {/* Bemessungswert der Verbundspannung */}
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <div>
+                  <div className="fw-bold">
+                    Bemessungswert der Verbundspannung
+                  </div>
+                  <MathJax>
+                    {
+                      "\\(f_{bd} = 2,25  \\cdot \\eta_{1} \\cdot \\frac{f_{ctk;0,05}}{\\gamma_{c}}\\)"
+                    }
+                  </MathJax>
+                </div>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax className="d-flex">
+                  <div style={{ width: "4rem" }}>{"\\(f_{bd} \\)"}</div>
+                  <div>
+                    Bemessungswert der Verbundspannung
+                    <br />
+                  </div>
+                </MathJax>
+              </div>
+            </ListGroup.Item>
+
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax className="d-flex">
+                  <div style={{ width: "4rem" }}>{"\\(\\eta_{1} \\)"}</div>
+                  <div>Verbundbedingung</div>
+                </MathJax>
+              </div>
+            </ListGroup.Item>
+
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax className="d-flex">
+                  <div style={{ width: "4rem" }}>{"\\(f_{ctk;0,05} \\)"}</div>
+                  <div>
+                    5 % Quantil der Zugfestigkeit <br />
+                  </div>
+                </MathJax>
+              </div>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <MathJax className="d-flex">
+                  <div style={{ width: "4rem" }}>{"\\(\\gamma_{c} \\)"}</div>
+                  <div>
+                    Teilsicherheitsbeiwert für Beton <br />
+                  </div>
+                </MathJax>
+              </div>
+            </ListGroup.Item>
+
             {/* Mindestverankerungslänge */}
             <ListGroup.Item
               as="li"

@@ -1,5 +1,3 @@
-function verbundspannung() {}
-
 /**
  * Returns rounded number
  * @param {number} decimals
@@ -15,6 +13,18 @@ function verbundspannung() {}
 const round1decimal = (num) => {
   const roundedFctm = Math.round((num + Number.EPSILON) * 10) / 10;
   return roundedFctm;
+};
+
+const round3decimalStr = (num) => {
+  // const roundedFctm = Math.round((num + Number.EPSILON) * 100) / 100;
+  // return roundedFctm;
+  return Number(num.toPrecision(3));
+};
+
+const round2decimalStr = (num) => {
+  // const roundedFctm = Math.round((num + Number.EPSILON) * 100) / 100;
+  // return roundedFctm;
+  return Number(num.toPrecision(2));
 };
 
 /**
@@ -54,7 +64,7 @@ const fctmBigger50 = (fck) => {
  * @returns number
  */
 const fctm = (fck) => {
-  if (fck >= 50) {
+  if (fck > 50) {
     return fctmBigger50(fck);
   } else if (fck <= 50) {
     const currFctm = fctmSmaller50(fck);
@@ -71,14 +81,81 @@ const fctk005 = (fctm) => {
   return 0.7 * fctm;
 };
 
-// const fbd = (fctk005, verbundBedingung) => {
+/**
+ * Bemessungswert der Streckgrenze
+ * @param {number} fyk charakteristischer Wert der Streckgrenze
+ * @param {number} gamma_s Teilsicherheitsbeiwert für Betonstahl und Spannstahl
+ * @returns number
+ */
+const fyd = (fyk, gamma_s) => {
+  return fyk / gamma_s;
+};
 
-//     if (verbundBedingung ==="guterVerbund") {
-//         const eta1
-//     } if (verbundBedingung ==="schlechterVerbund") {
-//         const eta1
-//     }
+/**
+ * Bemessungswert der Verbundspannung f_bd für guten Verbund und theta_s < 32 mm
+ * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
+ * @returns number
+ */
+const fbdGuterVerbund = (fck) => {
+  const currFctm = fctm(fck);
+  /**
+   * Aufgrund der höheren Sprödigkeit wird die Verbundfestigkeit für
+   * Betone > C55/67 auf den Wert von C60/75 begrenzt.
+   */
+  if (fck > 55) {
+    return 4.57;
+  } else {
+    const currFctk005 = fctk005(currFctm);
+    const eta_1 = 1; // guter verbund
+    const gamma_c = 1.5;
+    const currFbd = 2.25 * eta_1 * (currFctk005 / gamma_c);
+    return currFbd;
+  }
+};
 
-// };
+/**
+ * Bemessungswert der Verbundspannung f_bd für mässigen Verbund und theta_s < 32 mm
+ * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
+ * @returns
+ */
+const fbdMaessigerVerbund = (fck) => {
+  const currFctm = fctm(fck);
+  /**
+   * Aufgrund der höheren Sprödigkeit wird die Verbundfestigkeit für
+   * Betone > C55/67 auf den Wert von C60/75 begrenzt.
+   */
+  if (fck > 55) {
+    return 3.2;
+  } else {
+    const currFctk005 = fctk005(currFctm);
+    const eta_1 = 0.7; // mässiger verbund
+    const gamma_c = 1.5;
+    const currFbd = 2.25 * eta_1 * (currFctk005 / gamma_c);
+    return currFbd;
+  }
+};
 
-export { fctm, fctk005, fctmSmaller50, fctmBigger50, round1decimal };
+/**
+ * Grundwert der Verankerungslänge bei gutem Verbund
+ * @param {number} theta Durchmesser Stab
+ * @param {number} fyd Bemessungswert der Streckgrenze
+ * @param {number} fbd Bemessungswert der Verbundspannung
+ * @returns number
+ */
+const l_brqd_guterVerbund = (theta, fyd, fbd) => {
+  return (theta / 4) * (fyd / fbd);
+};
+
+export {
+  round1decimal,
+  round2decimalStr,
+  round3decimalStr,
+  fctm,
+  fctk005,
+  fctmSmaller50,
+  fctmBigger50,
+  fyd,
+  fbdGuterVerbund,
+  fbdMaessigerVerbund,
+  l_brqd_guterVerbund,
+};
