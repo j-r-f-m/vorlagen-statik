@@ -14,6 +14,7 @@ import {
   fbd,
   lbrqd,
   lbeq,
+  lBimZug,
 } from "./anchorageLength";
 
 describe("Mittelwert der Zugfestigkeit", () => {
@@ -117,7 +118,8 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      // lbrqd wird in mm berechnet
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -138,7 +140,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -159,7 +161,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -180,7 +182,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -199,7 +201,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -220,7 +222,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -239,7 +241,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -260,7 +262,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -279,7 +281,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -300,7 +302,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -319,7 +321,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -340,7 +342,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -359,7 +361,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -380,7 +382,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -399,7 +401,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -420,7 +422,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -439,7 +441,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -458,7 +460,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -477,7 +479,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdGuterVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -498,7 +500,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
       const currFbd = fbdMaessigerVerbund(fck);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd;
+      return currLbrqd / 10;
     };
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
@@ -539,7 +541,8 @@ describe("Ersatzverankerungslänge", () => {
      * die ist aufgrund unterschiedlicher Rundungsentscheidungen
      * Beispiel lb,rqd = 177mm und hier berechnen wir 175mm bzw. 17.5 cm
      */
-
-    expect(roundCurrLbeq).toBe(17.5);
+    const currLbminZug = lBimZug(currFck, currVerbund, currTheta);
+    console.log(currLbminZug);
+    expect(roundCurrLbeq).toBe(174.5);
   });
 });

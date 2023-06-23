@@ -160,10 +160,10 @@ const fbd = (fck, verbund) => {
  * @param {number} fyd Bemessungswert der Streckgrenze
  * @param {number} fbd Bemessungswert der Verbundspannung in Abhängigkeit der
  * Verbundbedingung
- * @returns number [cm]
+ * @returns number
  */
 const lbrqd = (theta, fyd, fbd) => {
-  return ((theta / 4) * (fyd / fbd)) / 10;
+  return (theta / 4) * (fyd / fbd);
 };
 
 /**
@@ -183,7 +183,7 @@ const lbeq = (fck, alpha_a, verbund, theta, a_serf, a_svorh) => {
   const currFyd = fyd(fyk, gamma_s);
   const currFbd = fbd(fck, verbund);
   const currLbrqd = lbrqd(theta, currFyd, currFbd);
-  console.log(currLbrqd);
+  // console.log(currLbrqd);
   return alpha_a * currLbrqd * (a_serf / a_svorh);
 };
 
@@ -217,4 +217,5 @@ export {
   fbd,
   lbrqd,
   lbeq,
+  lBimZug,
 };
