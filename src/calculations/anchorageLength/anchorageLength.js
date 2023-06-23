@@ -141,6 +141,24 @@ const fbdMaessigerVerbund = (fck) => {
 };
 
 /**
+ * Entscheidungsfunktion - Bemessungswert der Verbundspannung
+ * Die Funktion führt eine Fallunterscheidung durch und ruft die entsprechenden
+ * Funktionen auf
+ * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
+ * @param {string} verbund Verbundbedingung
+ * @returns number
+ */
+const fbd = (fck, verbund) => {
+  let currFbd = null; // initilized currFbd
+  if (verbund === "guterVerbund") {
+    currFbd = fbdGuterVerbund(fck);
+  } else if (verbund === "schlechterVerbund") {
+    currFbd = fbdMaessigerVerbund(fck);
+  }
+  return currFbd;
+};
+
+/**
  * Grundwert der Verankerungslänge bei gutem Verbund
  * @param {number} theta Durchmesser Stab [mm]
  * @param {number} fyd Bemessungswert der Streckgrenze
@@ -153,17 +171,13 @@ const lbrqd = (theta, fyd, fbd) => {
 };
 
 const lbeq = (fck, alpha_a, verbund, theta, a_serf, a_svorh) => {
+  const fyk = 500; // N/mm²
+  const gamma_s = 1.15;
 
-  const fyk = 500 // N/mm²
-  const gamma_s = 1.15
-  const currFyd = fyd(fyk, gamma_s)
-
-  if (verbund ==="guterVerbund") {
-    const currFbd = fbdGuterVerbund(fck)
-  } else if(verbund ==="schlechterVerbund") {
-    const currFbd = fbdMaessigerVerbund(fck)
-  }
-  return ()
+  const currFyd = fyd(fyk, gamma_s);
+  const currFbd = fbd(fck, verbund);
+  const currLbrqd = lbrqd(theta, currFyd, currFbd);
+  return alpha_a * currLbrqd * (a_serf / a_svorh);
 };
 
 export {
@@ -171,12 +185,14 @@ export {
   round1decimal,
   round2decimalStr,
   round3decimalStr,
-  fctm,
   fctk005,
   fctmSmaller50,
   fctmBigger50,
+  fctm,
   fyd,
   fbdGuterVerbund,
   fbdMaessigerVerbund,
+  fbd,
   lbrqd,
+  lbeq,
 };

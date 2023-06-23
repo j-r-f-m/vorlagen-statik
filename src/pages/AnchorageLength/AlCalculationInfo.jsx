@@ -6,7 +6,7 @@ export function AlCalculationInfo() {
   return (
     <Accordion className="mt-3" style={{ width: "100%" }}>
       <Accordion.Item eventKey="0">
-        <Accordion.Header>Berechnungsansatz</Accordion.Header>
+        <Accordion.Header>Formeln</Accordion.Header>
         <Accordion.Body className="d-flex align-items-center justify-content-center flex-column p-0">
           <ListGroup style={{ width: "100%" }} as="ol">
             {/* Ersatzverankerungslänge */}

@@ -66,7 +66,7 @@ export function AlForm(props) {
         defaultActiveKey="0"
       >
         <Accordion.Item eventKey="0">
-          <Accordion.Header>Randbedingungen</Accordion.Header>
+          <Accordion.Header>Berechnung</Accordion.Header>
           <Accordion.Body>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Form.Group className="mb-3" controlId="formGroupEmail">

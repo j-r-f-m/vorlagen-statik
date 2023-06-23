@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
+  roundWhole,
   round1decimal,
   round2decimalStr,
   round3decimalStr,
@@ -10,8 +11,9 @@ import {
   fyd,
   fbdGuterVerbund,
   fbdMaessigerVerbund,
+  fbd,
   lbrqd,
-  roundWhole,
+  lbeq,
 } from "./anchorageLength";
 
 describe("Mittelwert der Zugfestigkeit", () => {
@@ -51,6 +53,44 @@ describe("f_bd Bemessungswert der Verbundspannung", () => {
     ]);
   });
 
+  /**
+   * Entscheidungfunktion für fbd je nach Verbundbedingung
+   */
+  it("fbd Entscheidungsfunktion guter Verbund", () => {
+    const currFck = 30;
+    const currVerbund = "guterVerbund";
+    const currFbd = fbd(currFck, currVerbund);
+    const roundFbd = round3decimalStr(currFbd);
+    expect(roundFbd).toBe(3.04);
+  });
+
+  it("fbd Entscheidungsfunktion guter Verbund", () => {
+    const currFck = 30;
+    const currVerbund = "schlechterVerbund";
+    const currFbd = fbd(currFck, currVerbund);
+    const roundFbd = round3decimalStr(currFbd);
+    expect(roundFbd).toBe(2.13);
+  });
+
+  it("fbd Entscheidungsfunktion guter Verbund", () => {
+    const currFck = 100;
+    const currVerbund = "guterVerbund";
+    const currFbd = fbd(currFck, currVerbund);
+    const roundFbd = round3decimalStr(currFbd);
+    expect(roundFbd).toBe(4.57);
+  });
+
+  it("fbd Entscheidungsfunktion guter Verbund", () => {
+    const currFck = 100;
+    const currVerbund = "schlechterVerbund";
+    const currFbd = fbd(currFck, currVerbund);
+    const roundFbd = round3decimalStr(currFbd);
+    expect(roundFbd).toBe(3.2);
+  });
+
+  /**
+   * Bemessungswert der Streckgrenze
+   */
   it("Bemessungswert der Streckgrenz - N/mm²", () => {
     const fyk = 500; // N/mm²
     const gamma_s = 1.15;
@@ -103,11 +143,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([
       56, 75, 94, 113, 132, 150, 188, 235, 263,
     ]);
@@ -149,11 +185,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([47, 62, 78, 93, 109, 124, 155, 194, 217]);
   });
 
@@ -193,11 +225,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([40, 54, 67, 80, 94, 107, 134, 167, 187]);
   });
 
@@ -237,11 +265,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([35, 46, 58, 69, 81, 92, 115, 144, 161]);
   });
 
@@ -281,11 +305,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([31, 41, 51, 61, 71, 82, 102, 128, 143]);
   });
 
@@ -325,11 +345,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([28, 37, 46, 55, 64, 74, 92, 115, 129]);
   });
 
@@ -369,11 +385,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([25, 34, 42, 51, 59, 67, 84, 105, 118]);
   });
 
@@ -413,11 +425,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([25, 34, 42, 51, 59, 67, 84, 105, 118]);
   });
 
@@ -436,9 +444,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-
     expect(roundedCurrLbrqd).toEqual([16, 22, 27, 33, 38, 44, 55, 68, 76]);
   });
 
@@ -457,11 +463,7 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([23, 31, 39, 47, 55, 62, 78, 97, 109]);
   });
 
@@ -501,11 +503,30 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
-
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
-
     expect(roundedCurrLbrqd).toEqual([22, 29, 36, 44, 51, 58, 73, 91, 102]);
   });
+
+  // it("l_beq ", () => {
+  //   const test = (theta) => {
+  //     const fck = 30; // mm
+
+  //     const fyk = 500; // N/mm²
+  //     const gamma_s = 1.15;
+  //     const currFyd = fyd(fyk, gamma_s);
+
+  //     const currFbd = fbdMaessigerVerbund(fck);
+  //     const currLbrqd = lbrqd(theta, currFyd, currFbd);
+  //     return currLbrqd;
+  //   };
+
+  //   const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+  //   const currLbrqd = theta.map(test);
+  //   console.log(currLbrqd);
+
+  //   const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+  //   console.log(roundedCurrLbrqd);
+
+  //   expect(roundedCurrLbrqd).toEqual([22, 29, 36, 44, 51, 58, 73, 91, 102]);
+  // });
 });
