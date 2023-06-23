@@ -21,14 +21,10 @@ const round1decimal = (num) => {
 };
 
 const round3decimalStr = (num) => {
-  // const roundedFctm = Math.round((num + Number.EPSILON) * 100) / 100;
-  // return roundedFctm;
   return Number(num.toPrecision(3));
 };
 
 const round2decimalStr = (num) => {
-  // const roundedFctm = Math.round((num + Number.EPSILON) * 100) / 100;
-  // return roundedFctm;
   return Number(num.toPrecision(2));
 };
 
@@ -170,6 +166,16 @@ const lbrqd = (theta, fyd, fbd) => {
   return ((theta / 4) * (fyd / fbd)) / 10;
 };
 
+/**
+ * Berechnet die Ersatzverankerungslänge
+ * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
+ * @param {number} alpha_a Beiwert zur Berücksichtigung der Verankerungsart
+ * @param {string} verbund Verbundbedingung
+ * @param {number} theta Durchmesser
+ * @param {number} a_serf Erforderliche Stahlfäche
+ * @param {number} a_svorh Vorhandene Stahlfläche
+ * @returns number
+ */
 const lbeq = (fck, alpha_a, verbund, theta, a_serf, a_svorh) => {
   const fyk = 500; // N/mm²
   const gamma_s = 1.15;
@@ -177,6 +183,7 @@ const lbeq = (fck, alpha_a, verbund, theta, a_serf, a_svorh) => {
   const currFyd = fyd(fyk, gamma_s);
   const currFbd = fbd(fck, verbund);
   const currLbrqd = lbrqd(theta, currFyd, currFbd);
+  console.log(currLbrqd);
   return alpha_a * currLbrqd * (a_serf / a_svorh);
 };
 

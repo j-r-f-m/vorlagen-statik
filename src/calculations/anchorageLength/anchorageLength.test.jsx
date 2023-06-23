@@ -506,27 +506,40 @@ describe("Grundwert der Verankerungslänge", () => {
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
     expect(roundedCurrLbrqd).toEqual([22, 29, 36, 44, 51, 58, 73, 91, 102]);
   });
+});
 
-  // it("l_beq ", () => {
-  //   const test = (theta) => {
-  //     const fck = 30; // mm
+describe("Ersatzverankerungslänge", () => {
+  /**
+   * tests für Ersatzverankerungslänge
+   * Die hier berechnete Ersatzverankerungslänge wird mit verschiedenen
+   * Berechnungsbeispielen aus der Literatur verglichen
+   */
+  it("l_beq ", () => {
+    /**
+     * Aus "Stahlbetonbau in Beispielen Teil 1 Beispiel 4.1, S.73"
+     */
+    const currFck = 30; // N/mm²
+    const currAlphaA = 1; // gerades Stabende
+    const currVerbund = "guterVerbund";
+    const currTheta = 20; // mm
+    const currAserf = 2.3; // cm²
+    const currAsvorh = 9.42; // cm²
 
-  //     const fyk = 500; // N/mm²
-  //     const gamma_s = 1.15;
-  //     const currFyd = fyd(fyk, gamma_s);
+    const currLbeq = lbeq(
+      currFck,
+      currAlphaA,
+      currVerbund,
+      currTheta,
+      currAserf,
+      currAsvorh
+    );
+    const roundCurrLbeq = round1decimal(currLbeq);
+    /**
+     * der .toBe-Wert entspricht nicht genau dem Wert aus dem Verifikationsbeispiel
+     * die ist aufgrund unterschiedlicher Rundungsentscheidungen
+     * Beispiel lb,rqd = 177mm und hier berechnen wir 175mm bzw. 17.5 cm
+     */
 
-  //     const currFbd = fbdMaessigerVerbund(fck);
-  //     const currLbrqd = lbrqd(theta, currFyd, currFbd);
-  //     return currLbrqd;
-  //   };
-
-  //   const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
-  //   const currLbrqd = theta.map(test);
-  //   console.log(currLbrqd);
-
-  //   const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-  //   console.log(roundedCurrLbrqd);
-
-  //   expect(roundedCurrLbrqd).toEqual([22, 29, 36, 44, 51, 58, 73, 91, 102]);
-  // });
+    expect(roundCurrLbeq).toBe(17.5);
+  });
 });
