@@ -122,9 +122,9 @@ describe("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-
+    console.log(currLbrqd);
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-
+    console.log(roundedCurrLbrqd);
     expect(roundedCurrLbrqd).toEqual([40, 53, 66, 79, 92, 105, 132, 165, 184]);
   });
 
