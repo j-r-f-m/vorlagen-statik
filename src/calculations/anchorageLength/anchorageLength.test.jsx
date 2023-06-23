@@ -10,7 +10,8 @@ import {
   fyd,
   fbdGuterVerbund,
   fbdMaessigerVerbund,
-  l_brqd_guterVerbund,
+  lbrqd,
+  roundWhole,
 } from "./anchorageLength";
 
 describe("Mittelwert der Zugfestigkeit", () => {
@@ -55,59 +56,456 @@ describe("f_bd Bemessungswert der Verbundspannung", () => {
     const gamma_s = 1.15;
     const currFyd = fyd(fyk, gamma_s);
     const roundedCurrFyd = round3decimalStr(currFyd);
-    console.log(roundedCurrFyd);
+
     expect(roundedCurrFyd).toBe(435);
   });
 });
 
+/**
+ * Tests für die Berechnung des Grundwerts der Verankerungslänge für
+ *  C12/15 - C50/60 in Abhängigkeit von
+ *
+ */
 describe("Grundwert der Verankerungslänge", () => {
-  it("l_brqd guter Verbund", () => {
-    const test = (fck) => {
-      const currTheta = 12; // mm
+  it("l_brqd guter Verbund C12/15", () => {
+    const test = (theta) => {
+      const fck = 12; // mm
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
       const currFyd = fyd(fyk, gamma_s);
 
       const currFbd = fbdGuterVerbund(fck);
-      const l_brqd = l_brqd_guterVerbund(currTheta, currFyd, currFbd);
-      return l_brqd;
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
     };
 
-    const fcks = [12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100];
-    const currLbrqd = fcks.map(test);
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([40, 53, 66, 79, 92, 105, 132, 165, 184]);
+  });
+
+  it("l_brqd mässiger Verbund C12/15", () => {
+    const test = (theta) => {
+      const fck = 12; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
     console.log(currLbrqd);
-    const roundedCurrLbrqd = currLbrqd.map(round2decimalStr);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
     console.log(roundedCurrLbrqd);
+
     expect(roundedCurrLbrqd).toEqual([
-      790, 650, 560, 480, 430, 390, 350, 330, 310, 290, 290, 290, 290, 290, 290,
+      56, 75, 94, 113, 132, 150, 188, 235, 263,
     ]);
   });
+
+  it("l_brqd guter Verbund C16/20", () => {
+    const test = (theta) => {
+      const fck = 16; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([33, 43, 54, 65, 76, 87, 109, 136, 152]);
+  });
+
+  it("l_brqd mässiger Verbund C16/20", () => {
+    const test = (theta) => {
+      const fck = 16; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([47, 62, 78, 93, 109, 124, 155, 194, 217]);
+  });
+
+  it("l_brqd guter Verbund C20/25", () => {
+    const test = (theta) => {
+      const fck = 20; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([28, 37, 47, 56, 66, 75, 94, 117, 131]);
+  });
+
+  it("l_brqd mässiger Verbund C20/25", () => {
+    const test = (theta) => {
+      const fck = 20; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([40, 54, 67, 80, 94, 107, 134, 167, 187]);
+  });
+
+  it("l_brqd guter Verbund C25/30", () => {
+    const test = (theta) => {
+      const fck = 25; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([24, 32, 40, 48, 57, 65, 81, 101, 113]);
+  });
+
+  it("l_brqd mässiger Verbund C25/30", () => {
+    const test = (theta) => {
+      const fck = 25; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([35, 46, 58, 69, 81, 92, 115, 144, 161]);
+  });
+
+  it("l_brqd guter Verbund C30/37", () => {
+    const test = (theta) => {
+      const fck = 30; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([21, 29, 36, 43, 50, 57, 71, 89, 100]);
+  });
+
+  it("l_brqd mässiger Verbund C30/37", () => {
+    const test = (theta) => {
+      const fck = 30; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([31, 41, 51, 61, 71, 82, 102, 128, 143]);
+  });
+
+  it("l_brqd guter Verbund C35/45", () => {
+    const test = (theta) => {
+      const fck = 35; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([19, 26, 32, 39, 45, 52, 64, 81, 90]);
+  });
+
+  it("l_brqd mässiger Verbund C35/45", () => {
+    const test = (theta) => {
+      const fck = 35; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([28, 37, 46, 55, 64, 74, 92, 115, 129]);
+  });
+
+  it("l_brqd guter Verbund C40/50", () => {
+    const test = (theta) => {
+      const fck = 40; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([18, 24, 30, 35, 41, 47, 59, 74, 83]);
+  });
+
+  it("l_brqd mässiger Verbund C40/50", () => {
+    const test = (theta) => {
+      const fck = 40; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([25, 34, 42, 51, 59, 67, 84, 105, 118]);
+  });
+
+  it("l_brqd guter Verbund C40/50", () => {
+    const test = (theta) => {
+      const fck = 40; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([18, 24, 30, 35, 41, 47, 59, 74, 83]);
+  });
+
+  it("l_brqd mässiger Verbund C40/50", () => {
+    const test = (theta) => {
+      const fck = 40; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([25, 34, 42, 51, 59, 67, 84, 105, 118]);
+  });
+
+  it("l_brqd guter Verbund C45/55", () => {
+    const test = (theta) => {
+      const fck = 45; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([16, 22, 27, 33, 38, 44, 55, 68, 76]);
+  });
+
+  it("l_brqd mässiger Verbund C45/55", () => {
+    const test = (theta) => {
+      const fck = 45; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([23, 31, 39, 47, 55, 62, 78, 97, 109]);
+  });
+
+  it("l_brqd guter Verbund C50/60", () => {
+    const test = (theta) => {
+      const fck = 50; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdGuterVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
+    expect(roundedCurrLbrqd).toEqual([15, 20, 25, 31, 36, 41, 51, 64, 71]);
+  });
+
+  it("l_brqd mässiger Verbund C50/60", () => {
+    const test = (theta) => {
+      const fck = 50; // mm
+
+      const fyk = 500; // N/mm²
+      const gamma_s = 1.15;
+      const currFyd = fyd(fyk, gamma_s);
+
+      const currFbd = fbdMaessigerVerbund(fck);
+      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      return currLbrqd;
+    };
+
+    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
+    const currLbrqd = theta.map(test);
+    console.log(currLbrqd);
+
+    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+    console.log(roundedCurrLbrqd);
+
+    expect(roundedCurrLbrqd).toEqual([22, 29, 36, 44, 51, 58, 73, 91, 102]);
+  });
 });
-
-// fctk konnte nicht abschließend getestet werden. Es runden ist problemeatisch
-// describe("5 % Quantil der Zugfestigkeit", () => {
-//   it("fctk für C12/15 - C100/115", () => {
-//     // um die richtigen ergebnisse zu bekommen müssen alle formeln berechnet
-//     // es darf nicht mit gerundeten Werten direkt fctk005 berechnet werden
-//     // const fctm = [
-//     //   1.6, 1.9, 2.2, 2.6, 2.9, 3.2, 3.5, 3.8, 4.1, 4.2, 4.4, 4.6, 4.8, 5.0, 5.2,
-//     // ];
-
-//     const fcks = [12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100];
-//     const notRoundedFctms = fcks.map(fctm);
-//     console.log(notRoundedFctms);
-//     const notRoundedFctk005 = notRoundedFctms.map(fctk005);
-//     console.log(notRoundedFctk005);
-
-//     const roundedFctk005_1 = notRoundedFctk005.map(round3decimalStr);
-//     console.log(roundedFctk005_1);
-
-//     // const round_2_Fctk005_2 = roundedFctk005_1.map(round2decimalStr);
-//     // console.log(round_2_Fctk005_2);
-
-//     expect(roundedFctk005_1).toEqual([
-//       1.1, 1.3, 1.5, 1.8, 2, 2.2, 2.5, 2.7, 2.9, 3, 3.1, 3.2, 3.4, 3.5, 3.7,
-//     ]);
-//   });
-// });

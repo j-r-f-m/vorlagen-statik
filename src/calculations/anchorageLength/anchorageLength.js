@@ -10,6 +10,11 @@
 //   return roundedFctm;
 // };
 
+const roundWhole = (num) => {
+  const roundedNum = Math.round(num);
+  return roundedNum;
+};
+
 const round1decimal = (num) => {
   const roundedFctm = Math.round((num + Number.EPSILON) * 10) / 10;
   return roundedFctm;
@@ -137,16 +142,32 @@ const fbdMaessigerVerbund = (fck) => {
 
 /**
  * Grundwert der Verankerungslänge bei gutem Verbund
- * @param {number} theta Durchmesser Stab
+ * @param {number} theta Durchmesser Stab [mm]
  * @param {number} fyd Bemessungswert der Streckgrenze
- * @param {number} fbd Bemessungswert der Verbundspannung
- * @returns number
+ * @param {number} fbd Bemessungswert der Verbundspannung in Abhängigkeit der
+ * Verbundbedingung
+ * @returns number [cm]
  */
-const l_brqd_guterVerbund = (theta, fyd, fbd) => {
-  return (theta / 4) * (fyd / fbd);
+const lbrqd = (theta, fyd, fbd) => {
+  return ((theta / 4) * (fyd / fbd)) / 10;
+};
+
+const lbeq = (fck, alpha_a, verbund, theta, a_serf, a_svorh) => {
+
+  const fyk = 500 // N/mm²
+  const gamma_s = 1.15
+  const currFyd = fyd(fyk, gamma_s)
+
+  if (verbund ==="guterVerbund") {
+    const currFbd = fbdGuterVerbund(fck)
+  } else if(verbund ==="schlechterVerbund") {
+    const currFbd = fbdMaessigerVerbund(fck)
+  }
+  return ()
 };
 
 export {
+  roundWhole,
   round1decimal,
   round2decimalStr,
   round3decimalStr,
@@ -157,5 +178,5 @@ export {
   fyd,
   fbdGuterVerbund,
   fbdMaessigerVerbund,
-  l_brqd_guterVerbund,
+  lbrqd,
 };
