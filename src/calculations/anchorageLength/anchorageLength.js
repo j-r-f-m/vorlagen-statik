@@ -187,13 +187,14 @@ const lbeq = (fck, alpha_a, verbund, theta, a_serf, a_svorh) => {
   return alpha_a * currLbrqd * (a_serf / a_svorh);
 };
 
-const lBimZug = (fck, verbund, theta) => {
+const lBminZug = (fck, verbund, theta) => {
   const fyk = 500; // N/mm²
   const gamma_s = 1.15;
   const fyd = fyk / gamma_s;
 
   const currFbd = fbd(fck, verbund);
   const currLbrqd = lbrqd(theta, fyd, currFbd);
+  console.log(currLbrqd);
 
   if (0.3 * currLbrqd >= 10 * theta) {
     return 0.3 * currLbrqd;
@@ -217,5 +218,5 @@ export {
   fbd,
   lbrqd,
   lbeq,
-  lBimZug,
+  lBminZug,
 };

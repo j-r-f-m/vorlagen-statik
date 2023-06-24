@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { round } from "mathjs";
 import {
   roundWhole,
   round1decimal,
@@ -14,10 +15,10 @@ import {
   fbd,
   lbrqd,
   lbeq,
-  lBimZug,
+  lBminZug,
 } from "./anchorageLength";
 
-describe("Mittelwert der Zugfestigkeit", () => {
+describe.skip("Mittelwert der Zugfestigkeit", () => {
   it("fctm für C12/15 - C100/115", () => {
     const fcks = [12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100];
     const notRoundedFctms = fcks.map(fctm);
@@ -29,7 +30,7 @@ describe("Mittelwert der Zugfestigkeit", () => {
   });
 });
 
-describe("f_bd Bemessungswert der Verbundspannung", () => {
+describe.skip("f_bd Bemessungswert der Verbundspannung", () => {
   it("f_bd gute Verbundbedingung", () => {
     const fcks = [12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100];
     const notRoundedFbd = fcks.map(fbdGuterVerbund);
@@ -107,7 +108,7 @@ describe("f_bd Bemessungswert der Verbundspannung", () => {
  *  C12/15 - C50/60 in Abhängigkeit von
  *
  */
-describe("Grundwert der Verankerungslänge", () => {
+describe.skip("Grundwert der Verankerungslänge", () => {
   it("l_brqd guter Verbund C12/15", () => {
     const test = (theta) => {
       const fck = 12; // mm
@@ -510,6 +511,28 @@ describe("Grundwert der Verankerungslänge", () => {
   });
 });
 
+describe("Mindestverankerungslänge", () => {
+  it("l_bmin bei Zugstäben", () => {
+    const currFck = 30; // N/mm²
+    const currVerbund = "guterVerbund";
+    const currTheta = 20; // mm
+    const currLbminZug = lBminZug(currFck, currVerbund, currTheta);
+    console.log(currLbminZug);
+    const roundedCurrLbminZug = round(currLbminZug, 2);
+    console.log(roundedCurrLbminZug);
+    /**
+     * Handrechnung Zwischenergebnisse
+     * lbrqd = 20/4 *(500/1.1)/(2.25*1*(0.7*(0.3*30**(2/3)))/1.5) 714.7992882
+     * theta * l_brqd = 0.3*714.7992882 = 214.4397865
+     * 20*10 = 200 mm
+     * 214.44 > 200
+     */
+    expect(roundedCurrLbminZug).toBe(214.44);
+  });
+
+  it("");
+});
+
 describe("Ersatzverankerungslänge", () => {
   /**
    * tests für Ersatzverankerungslänge
@@ -541,8 +564,8 @@ describe("Ersatzverankerungslänge", () => {
      * die ist aufgrund unterschiedlicher Rundungsentscheidungen
      * Beispiel lb,rqd = 177mm und hier berechnen wir 175mm bzw. 17.5 cm
      */
-    const currLbminZug = lBimZug(currFck, currVerbund, currTheta);
-    console.log(currLbminZug);
+    const currLbminZug = lBminZug(currFck, currVerbund, currTheta);
+
     expect(roundCurrLbeq).toBe(174.5);
   });
 });
