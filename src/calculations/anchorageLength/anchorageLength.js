@@ -203,6 +203,22 @@ const lBminZug = (fck, verbund, theta) => {
   }
 };
 
+const lBminDruck = (fck, verbund, theta) => {
+  const fyk = 500; // N/mm²
+  const gamma_s = 1.15;
+  const fyd = fyk / gamma_s;
+
+  const currFbd = fbd(fck, verbund);
+  const currLbrqd = lbrqd(theta, fyd, currFbd);
+  console.log(currLbrqd);
+
+  if (0.6 * currLbrqd >= 10 * theta) {
+    return 0.6 * currLbrqd;
+  } else {
+    return 10 * theta;
+  }
+};
+
 export {
   roundWhole,
   round1decimal,
@@ -219,4 +235,5 @@ export {
   lbrqd,
   lbeq,
   lBminZug,
+  lBminDruck,
 };

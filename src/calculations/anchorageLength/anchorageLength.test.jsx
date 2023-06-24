@@ -16,6 +16,7 @@ import {
   lbrqd,
   lbeq,
   lBminZug,
+  lBminDruck,
 } from "./anchorageLength";
 
 describe.skip("Mittelwert der Zugfestigkeit", () => {
@@ -530,7 +531,21 @@ describe("Mindestverankerungslänge", () => {
     expect(roundedCurrLbminZug).toBe(214.44);
   });
 
-  it("");
+  it("l_bmin bei Druckstäben", () => {
+    const currFck = 30; // N/mm²
+    const currVerbund = "guterVerbund";
+    const currTheta = 20; // mm
+    const currLbminDruck = lBminDruck(currFck, currVerbund, currTheta);
+    const roundedCurrLbminDruck = round(currLbminDruck, 2);
+    /**
+     * Handrechnung Zwischenergebnisse
+     * lbrqd = 20/4 *(500/1.1)/(2.25*1*(0.7*(0.3*30**(2/3)))/1.5) 714.7992882
+     * theta * l_brqd = 0.6*714.7992882 = 428.8795729
+     * 20*10 = 200 mm
+     * 428.88 > 200
+     */
+    expect(roundedCurrLbminDruck).toBe(428.88);
+  });
 });
 
 describe("Ersatzverankerungslänge", () => {
