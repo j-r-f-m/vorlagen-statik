@@ -1,19 +1,17 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
 import { useCallback, useRef, useEffect } from "react";
 import { MathJax } from "better-react-mathjax";
-import {
-  maxNumBars,
-  dMin,
-  sMin,
-} from "../../calculations/maxNumberBars/maxNumberBars";
+import { fbd } from "../../calculations/anchorageLength/anchorageLength";
+
 import useAutoFocus from "../../hooks/Autofocus";
 
 export function AlForm(props) {
-  //const [result, setResult] = useState({ nStäbe: null });
+  const [result, setResult] = useState({ nStäbe: null });
 
   const {
     register,
@@ -23,39 +21,10 @@ export function AlForm(props) {
 
   const onSubmit = (data) => {
     console.log(data);
-    console.log(props);
+    console.log(data.fck);
 
-    // const iptB = Number(data.b);
-    // const iptCnomA = Number(data.cNomA);
-    // const iptCnomI = Number(data.cNomI);
-    // const iptThetaBügel = Number(data.thetaBügel);
-    // const iptTheta = Number(data.theta);
-
-    // // calculate n
-    // const calculatedN = maxNumBars(
-    //   iptB,
-    //   iptCnomA,
-    //   iptCnomI,
-    //   iptThetaBügel,
-    //   iptTheta
-    // );
-
-    // const calculatedDmin = dMin(iptTheta);
-    // const calculatedSmin = sMin(iptTheta);
-
-    // console.log("hi");
-    // console.log(calculatedN);
-
-    // props.setDataChild(
-    //   iptB,
-    //   iptCnomA,
-    //   iptCnomI,
-    //   iptThetaBügel,
-    //   iptTheta,
-    //   calculatedN,
-    //   calculatedDmin,
-    //   calculatedSmin
-    // );
+    // const currfbd = fbd(data.fck, data.verbund);
+    // console.log()
   };
 
   return (
@@ -105,6 +74,7 @@ export function AlForm(props) {
                   )}
                 </div>
 
+                {/* Verbundbedingung */}
                 <div className="mb-3">
                   <Form.Select
                     aria-label="Lagerungsart"
@@ -159,7 +129,7 @@ export function AlForm(props) {
                 </div>
 
                 <div className="mb-3">
-                  {/* cnom,außen */}
+                  {/* theta */}
                   <InputGroup>
                     <InputGroup.Text id="basic-addon1">
                       <MathJax>{"\\(\\theta_{s} \\)"}</MathJax>
@@ -183,6 +153,19 @@ export function AlForm(props) {
                       Stabdurchmesser
                     </div>
                   )}
+                </div>
+
+                {/* Stabart */}
+                <div className="mb-3">
+                  <Form.Select
+                    aria-label="Stabart"
+                    {...register("stab", {
+                      required: true,
+                    })}
+                  >
+                    <option value="zugstab">Zugstab</option>
+                    <option value="druckstab">Druckstab</option>
+                  </Form.Select>
                 </div>
 
                 <div className="mb-3">
@@ -245,6 +228,7 @@ export function AlForm(props) {
               </Button>
             </Form>
             <div className="mt-3 fw-bold">
+              lbeq
               {/* Anzahl an Stäben: n = {props.data.data.n} */}
             </div>
             {/* {renderResult} */}

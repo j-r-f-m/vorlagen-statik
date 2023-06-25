@@ -17,17 +17,13 @@ export function AlOutput(props) {
                 <div className="ms-2 me-auto d-flex">
                   <MathJax>
                     <div className="fw-bold">Randbedingungen</div>
-                    {"\\(b \\)"}&nbsp;{"\\(= \\)"}&nbsp;
+                    {"\\(fck \\)"}&nbsp;{"\\(= \\)"}&nbsp;
                     {/* {`\\(${props.data.data.b} \\)`} */}
                     {/* {props.data.data.b} */}
-                    &nbsp;{"\\(cm,\\)"}&emsp;{"\\(c_{nom,a} \\)"}&nbsp;
+                    &nbsp;{"\\(N/mm²,\\)"}&emsp;{"\\(Verbundbedingung \\)"}
+                    &nbsp;
                     {"\\(= \\)"}&nbsp;
                     {/* {props.data.data.cNomA} */}
-                    &nbsp;{"\\(cm,\\)"} &emsp;{"\\(c_{nom,i} \\)"}&nbsp;
-                    {"\\(= \\)"}&nbsp;
-                    {/* {`\\(${props.data.data.cNomI} \\)`} */}
-                    {/* {props.data.data.cNomI} */}
-                    &nbsp;{"\\(cm,\\)"}&nbsp;
                   </MathJax>
                 </div>
               </ListGroup.Item>
@@ -38,7 +34,7 @@ export function AlOutput(props) {
               >
                 <div className="ms-2 me-auto d-flex">
                   <MathJax>
-                    {"\\(\\theta_{Bü} \\)"}&nbsp;
+                    {"\\(\\alpha_{a} \\)"}&nbsp;
                     {"\\(= \\)"}&nbsp;
                     {/* {props.data.data.thetaBügel} */}
                     &nbsp;{"\\(cm,\\)"}&emsp;
@@ -57,12 +53,12 @@ export function AlOutput(props) {
                 <div className="ms-2 me-auto">
                   <MathJax>
                     <div className="fw-bold">Zwischenergebnisse</div>
-                    {"\\(D_{Bü} \\)"}&nbsp;
+                    {"\\(f_{yd} = \\)"}&nbsp;
                     {/* {"\\(= \\)"}&nbsp; {props.data.data.dMin} */}
-                    &nbsp;{"\\(cm,\\)"}&emsp;
-                    {"\\(s_{min} \\)"}&nbsp;
+                    &nbsp;{"\\(N/mm²\\)"}&emsp;
+                    {"\\(f_{bd} = \\)"}&nbsp;
                     {/* {"\\(= \\)"}&nbsp; {props.data.data.sMin} */}
-                    &nbsp;{"\\(cm,\\)"}
+                    &nbsp;{"\\(N/mm²,\\)"}
                   </MathJax>
                 </div>
               </ListGroup.Item>

@@ -13,8 +13,14 @@ export function AnchorageLength() {
         <h1>Ersatzverankerungslänge</h1>
         <AlGeneralInfo />
         <AlCalculationInfo />
-        <AlFlow />
-        <ImgAccordion imgLink={"verankerungsarten.png"} />
+        <ImgAccordion
+          imgLink="./imgs/verankerungsarten.png"
+          heading="Verankerungsarten"
+        />
+        <ImgAccordion
+          imgLink="./imgs/verbundbereich.png"
+          heading="Verbundbedingung"
+        />
         <AlForm />
         <AlOutput />
       </Container>

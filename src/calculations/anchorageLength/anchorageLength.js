@@ -1,3 +1,5 @@
+import { round } from "mathjs";
+
 /**
  * Returns rounded number
  * @param {number} decimals
@@ -219,6 +221,44 @@ const lBminDruck = (fck, verbund, theta) => {
   }
 };
 
+const lBmin = (stab, fck, verbund, theta) => {
+  if (stab === "zugstab") {
+    return lBminZug(fck, verbund, theta);
+  } else if (stab === "druckstab") {
+    return lBminDruck(fck, verbund, theta);
+  }
+};
+
+const lbeqDir = (lbeq) => {
+  return (2 / 3) * lbeq;
+};
+
+const lbeqIndir = (lbeq) => {
+  return lbeq;
+};
+
+const calculateAl = (fck, verbund, theta, stab) => {
+  // hardcoded values
+  const fyk = 500; // N/mm²
+  const gamma_s = 1.15;
+  const currFyd = fyd(fyk, gamma_s);
+  const roundedCurrFyd = round(currFyd, 2);
+
+  const currFbd = fbd(fck, verbund);
+  const roundedCurrFbd = round(currFbd, 2);
+
+  const currLbrqd = lbrqd(theta, roundedCurrFyd, roundedCurrFbd);
+  const roundedCurrLbrqd = round(currLbrqd, 0);
+
+  // const curr lbmin
+
+  return {
+    fyd: roundedCurrFyd,
+    fbd: roundedCurrFbd,
+    lbrqd: roundedCurrLbrqd,
+  };
+};
+
 export {
   roundWhole,
   round1decimal,
@@ -236,4 +276,5 @@ export {
   lbeq,
   lBminZug,
   lBminDruck,
+  calculateAl,
 };

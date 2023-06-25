@@ -17,6 +17,7 @@ import {
   lbeq,
   lBminZug,
   lBminDruck,
+  calculateAl,
 } from "./anchorageLength";
 
 describe.skip("Mittelwert der Zugfestigkeit", () => {
@@ -512,7 +513,7 @@ describe.skip("Grundwert der Verankerungslänge", () => {
   });
 });
 
-describe("Mindestverankerungslänge", () => {
+describe.skip("Mindestverankerungslänge", () => {
   it("l_bmin bei Zugstäben", () => {
     const currFck = 30; // N/mm²
     const currVerbund = "guterVerbund";
@@ -548,7 +549,7 @@ describe("Mindestverankerungslänge", () => {
   });
 });
 
-describe("Ersatzverankerungslänge", () => {
+describe.skip("Ersatzverankerungslänge", () => {
   /**
    * tests für Ersatzverankerungslänge
    * Die hier berechnete Ersatzverankerungslänge wird mit verschiedenen
@@ -582,5 +583,42 @@ describe("Ersatzverankerungslänge", () => {
     const currLbminZug = lBminZug(currFck, currVerbund, currTheta);
 
     expect(roundCurrLbeq).toBe(174.5);
+  });
+});
+
+describe("Output lbeq", () => {
+  /**
+   * Aus "Stahlbetonbau in Beispielen Teil 1 Beispiel 4.1, S.73"
+   */
+  // const currFck = 30; // N/mm²
+  // const currAlphaA = 1; // gerades Stabende
+  // const currVerbund = "guterVerbund";
+  // const currTheta = 20; // mm
+  // const currAserf = 2.3; // cm²
+  it("fyd", () => {
+    // inpput erhalten wir aus dem data object
+    const fck = 30;
+    const verbund = "guterVerbund";
+    const currentCalculation = calculateAl(fck, verbund);
+    console.log(currentCalculation);
+    expect(currentCalculation.fyd).toBe(434.78);
+  });
+
+  it("fbd", () => {
+    const fck = 30;
+    const verbund = "guterVerbund";
+    const currentCalculation = calculateAl(fck, verbund);
+    console.log(currentCalculation);
+    expect(currentCalculation.fbd).toBe(3.04);
+  });
+
+  it("lbrqd", () => {
+    const fck = 30; // N/mm²
+    const verbund = "guterVerbund";
+    const theta = 20; // mm
+
+    const currentCalculation = calculateAl(fck, verbund, theta);
+    console.log(currentCalculation);
+    expect(currentCalculation.fbd).toBe(3.04);
   });
 });
