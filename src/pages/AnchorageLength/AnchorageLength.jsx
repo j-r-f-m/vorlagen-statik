@@ -4,6 +4,7 @@ import { AlCalculationInfo } from "./AlCalculationInfo";
 import { AlForm } from "./AlForm";
 import { ImgAccordion } from "../../components/ImgAccordion";
 import { AlOutput } from "./AlOutput";
+import { AlFlow } from "./AlFlow";
 
 export function AnchorageLength() {
   return (
@@ -12,6 +13,7 @@ export function AnchorageLength() {
         <h1>Ersatzverankerungslänge</h1>
         <AlGeneralInfo />
         <AlCalculationInfo />
+        <AlFlow />
         <ImgAccordion imgLink={"verankerungsarten.png"} />
         <AlForm />
         <AlOutput />
