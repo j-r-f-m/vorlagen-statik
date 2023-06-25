@@ -7,11 +7,7 @@ export function ImgAccordion() {
       <Accordion.Item eventKey="0">
         <Accordion.Header>Verankerungsarten</Accordion.Header>
         <Accordion.Body className="d-flex justify-content-center">
-          <Image
-            // style={{ maxWidth: "50rem" }}
-            fluid
-            src="./imgs/verankerungsarten.png"
-          />
+          <Image fluid src="./imgs/verankerungsarten.png" />
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

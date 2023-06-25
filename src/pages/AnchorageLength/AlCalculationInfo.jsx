@@ -215,6 +215,30 @@ export function AlCalculationInfo() {
                 </MathJax>
               </div>
             </ListGroup.Item>
+
+            {/* Verankerung am Endauflager */}
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">Verankerung am Endauflager</div>
+                <MathJax className="d-flex">
+                  <div style={{ width: "15rem" }}>
+                    {
+                      "\\(l_{bd,dir} = 2/3 \\cdot l_{b,eq} \\geq 6,7 \\cdot \\theta \\)"
+                    }
+                  </div>
+                  <div>direkte Auflagerung</div>
+                </MathJax>{" "}
+                <MathJax className="d-flex">
+                  <div style={{ width: "15rem" }}>
+                    {"\\(l_{bd,ind} = l_{b,eq} \\geq 10 \\cdot \\theta \\)"}
+                  </div>
+                  <div> indirekte Auflagerung</div>
+                </MathJax>
+              </div>
+            </ListGroup.Item>
           </ListGroup>
         </Accordion.Body>
       </Accordion.Item>
