@@ -621,4 +621,13 @@ describe("Output lbeq", () => {
     console.log(currentCalculation);
     expect(currentCalculation.fbd).toBe(3.04);
   });
+
+  it("lbeq", () => 
+  {
+
+    const fck = 30; // N/mm²
+    const verbund = "guterVerbund";
+    const theta = 20; // mm
+    const currentCalculation = 
+  })
 });

@@ -237,7 +237,7 @@ const lbeqIndir = (lbeq) => {
   return lbeq;
 };
 
-const calculateAl = (fck, verbund, theta, stab) => {
+const calculateAl = (fck, verbund, theta, alpha_a) => {
   // hardcoded values
   const fyk = 500; // N/mm²
   const gamma_s = 1.15;
@@ -250,7 +250,7 @@ const calculateAl = (fck, verbund, theta, stab) => {
   const currLbrqd = lbrqd(theta, roundedCurrFyd, roundedCurrFbd);
   const roundedCurrLbrqd = round(currLbrqd, 0);
 
-  // const curr lbmin
+  const currLbeq = lbeq(fck, alpha_a);
 
   return {
     fyd: roundedCurrFyd,
