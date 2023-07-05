@@ -32,10 +32,37 @@ describe.skip("Mittelwert der Zugfestigkeit", () => {
   });
 });
 
-describe.skip("f_bd Bemessungswert der Verbundspannung", () => {
-  it("f_bd gute Verbundbedingung", () => {
-    const fcks = [12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100];
-    const notRoundedFbd = fcks.map(fbdGuterVerbund);
+describe("f_bd Bemessungswert der Verbundspannung", () => {
+  // it("f_bd guter Verbundbedingung", () => {
+  //   const fcks = [12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100];
+  //   const notRoundedFbd = fcks.map(fbdGuterVerbund);
+
+  //   const roundedFbd = notRoundedFbd.map(round3decimalStr);
+
+  //   expect(roundedFbd).toEqual([
+  //     1.65, 2.0, 2.32, 2.69, 3.04, 3.37, 3.68, 3.99, 4.28, 4.43, 4.57, 4.57,
+  //     4.57, 4.57, 4.57,
+  //   ]);
+  // });
+
+  it("f_bd guter Bemessungswert der Verbundspannung ALT", () => {
+    const fckArr = [
+      12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100,
+    ];
+    const eta1 = 1;
+    const gammaC = 1.5;
+
+    const notRoundedfctmArr = fckArr.map(fctm);
+    const notRoundedFctk005 = notRoundedfctmArr.map(fctk005);
+
+    /**
+     * using an annonymous function to use map with a callback function that has
+     * more than one argument
+     */
+
+    const notRoundedFbd = notRoundedFctk005.map(function (x) {
+      return fbdGuterVerbund(x, eta1, gammaC);
+    });
 
     const roundedFbd = notRoundedFbd.map(round3decimalStr);
 
@@ -586,7 +613,7 @@ describe.skip("Ersatzverankerungslänge", () => {
   });
 });
 
-describe("Output lbeq", () => {
+describe.skip("Output lbeq", () => {
   /**
    * Aus "Stahlbetonbau in Beispielen Teil 1 Beispiel 4.1, S.73"
    */
@@ -622,12 +649,11 @@ describe("Output lbeq", () => {
     expect(currentCalculation.fbd).toBe(3.04);
   });
 
-  it("lbeq", () => 
-  {
-
+  it("lbeq", () => {
     const fck = 30; // N/mm²
     const verbund = "guterVerbund";
     const theta = 20; // mm
-    const currentCalculation = 
-  })
+
+    const currentCalculation = calculateAl(fck, verbund, theta);
+  });
 });

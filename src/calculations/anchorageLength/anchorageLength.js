@@ -99,21 +99,15 @@ const fyd = (fyk, gamma_s) => {
  * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
  * @returns number
  */
-const fbdGuterVerbund = (fck) => {
-  const currFctm = fctm(fck);
+const fbdGuterVerbund = (fctk005, eta1, gammaC) => {
   /**
    * Aufgrund der höheren Sprödigkeit wird die Verbundfestigkeit für
    * Betone > C55/67 auf den Wert von C60/75 begrenzt.
    */
-  if (fck > 55) {
+  if (fctk005 > 3) {
     return 4.57;
-  } else {
-    const currFctk005 = fctk005(currFctm);
-    const eta_1 = 1; // guter verbund
-    const gamma_c = 1.5;
-    const currFbd = 2.25 * eta_1 * (currFctk005 / gamma_c);
-    return currFbd;
   }
+  return 2.25 * eta1 * (fctk005 / gammaC);
 };
 
 /**
@@ -238,6 +232,14 @@ const lbeqIndir = (lbeq) => {
 };
 
 const calculateAl = (fck, verbund, theta, alpha_a) => {
+  /***
+   * Für den output brauche ich zwei Dinge.
+   * 1. Es müssen alle Berechnungen aufgeschlüssel werden
+   * 2. Es muss der Konkrete Fall gerechnet werden
+   *
+   * Wenn ich die Verankeungslänge wissen will, möchte ich das für den konkreten
+   * Fall machen bzw aus verschiedenen Möglichkeiten wählen können.
+   */
   // hardcoded values
   const fyk = 500; // N/mm²
   const gamma_s = 1.15;
