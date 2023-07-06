@@ -115,37 +115,55 @@ const fbdGuterVerbund = (fctk005, eta1, gammaC) => {
  * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
  * @returns
  */
-const fbdMaessigerVerbund = (fck) => {
-  const currFctm = fctm(fck);
-  /**
-   * Aufgrund der höheren Sprödigkeit wird die Verbundfestigkeit für
-   * Betone > C55/67 auf den Wert von C60/75 begrenzt.
-   */
-  if (fck > 55) {
+
+const fbdMaessigerVerbund = (fctk005, eta1, gammaC) => {
+  if (fctk005 > 3) {
     return 3.2;
-  } else {
-    const currFctk005 = fctk005(currFctm);
-    const eta_1 = 0.7; // mässiger verbund
-    const gamma_c = 1.5;
-    const currFbd = 2.25 * eta_1 * (currFctk005 / gamma_c);
-    return currFbd;
   }
+  return 2.25 * eta1 * (fctk005 / gammaC);
 };
+
+// /**
+//  * Entscheidungsfunktion - Bemessungswert der Verbundspannung
+//  * Die Funktion führt eine Fallunterscheidung durch und ruft die entsprechenden
+//  * Funktionen auf
+//  * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
+//  * @param {string} verbund Verbundbedingung
+//  * @returns number
+//  */
+// const fbd = (fck, verbund) => {
+//   let currFbd = null; // initilized currFbd
+//   console.log(currFbd);
+//   if (verbund === "guterVerbund") {
+//     currFbd = fbdGuterVerbund(fck);
+//   } else if (verbund === "schlechterVerbund") {
+//     currFbd = fbdMaessigerVerbund(fck);
+//   }
+//   return currFbd;
+// };
 
 /**
  * Entscheidungsfunktion - Bemessungswert der Verbundspannung
  * Die Funktion führt eine Fallunterscheidung durch und ruft die entsprechenden
- * Funktionen auf
- * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
- * @param {string} verbund Verbundbedingung
- * @returns number
+ * Funktionen auf. Eta wird in abhängigkeit vom User Input in der Funktion
+ * definiert. Eventuell weiss der User nicht welcher Faktor welcher Verbund-
+ * bedingung entspricht. Deswegen erhält er die Möglichkeit sich zwischen
+ * zwei Strings zu entscheiden welche selbst erklärend sind
+ * @param {number} fctk005 5 % Quantil der Zugfestigkeit
+ * @param {number} eta1 faktor zur Berücksichtigung der Verbundbedingung
+ * @param {number} gammaC Teilsicherheitsbeiwert Beton
+ * @param {string} verbund "guterVerbund" "schlechterVerbund"
+ * @returns
  */
-const fbd = (fck, verbund) => {
+const fbd = (fctk005, gammaC, verbund) => {
   let currFbd = null; // initilized currFbd
+  console.log(currFbd);
   if (verbund === "guterVerbund") {
-    currFbd = fbdGuterVerbund(fck);
+    const eta1 = 1;
+    currFbd = fbdGuterVerbund(fctk005, eta1, gammaC);
   } else if (verbund === "schlechterVerbund") {
-    currFbd = fbdMaessigerVerbund(fck);
+    const eta1 = 0.7;
+    currFbd = fbdMaessigerVerbund(fctk005, eta1, gammaC);
   }
   return currFbd;
 };
