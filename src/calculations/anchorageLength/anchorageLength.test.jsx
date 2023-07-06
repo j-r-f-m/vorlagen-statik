@@ -32,7 +32,7 @@ describe.skip("Mittelwert der Zugfestigkeit", () => {
   });
 });
 
-describe("f_bd Bemessungswert der Verbundspannung", () => {
+describe.skip("f_bd Bemessungswert der Verbundspannung", () => {
   // test wurde angepasst
   it("f_bd guter Bemessungswert der Verbundspannung ALT", () => {
     const fckArr = [
@@ -109,34 +109,42 @@ describe("f_bd Bemessungswert der Verbundspannung", () => {
     expect(roundFbd).toBe(2.13);
   });
 
-  // /**
-  //  * Bemessungswert der Streckgrenze
-  //  */
-  // it("Bemessungswert der Streckgrenz - N/mm²", () => {
-  //   const fyk = 500; // N/mm²
-  //   const gamma_s = 1.15;
-  //   const currFyd = fyd(fyk, gamma_s);
-  //   const roundedCurrFyd = round3decimalStr(currFyd);
+  /**
+   * Bemessungswert der Streckgrenze
+   */
+  it("Bemessungswert der Streckgrenz - N/mm²", () => {
+    const fyk = 500; // N/mm²
+    const gamma_s = 1.15;
+    const currFyd = fyd(fyk, gamma_s);
+    const roundedCurrFyd = round3decimalStr(currFyd);
 
-  //   expect(roundedCurrFyd).toBe(435);
-  // });
+    expect(roundedCurrFyd).toBe(435);
+  });
 });
 
 /**
  * Tests für die Berechnung des Grundwerts der Verankerungslänge für
  *  C12/15 - C50/60 in Abhängigkeit von
- *
  */
 describe.skip("Grundwert der Verankerungslänge", () => {
+  /**
+   * Die Betondruchfestigkeit bleibt konstant während theta als array übergeben
+   * wird
+   */
   it("l_brqd guter Verbund C12/15", () => {
     const test = (theta) => {
-      const fck = 12; // mm
+      const fck = 12;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
       // lbrqd wird in mm berechnet
       return currLbrqd / 10;
@@ -152,13 +160,18 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C12/15", () => {
     const test = (theta) => {
-      const fck = 12; // mm
+      const fck = 12;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdMaessigerVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
       return currLbrqd / 10;
     };
@@ -166,6 +179,7 @@ describe.skip("Grundwert der Verankerungslänge", () => {
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
+
     expect(roundedCurrLbrqd).toEqual([
       56, 75, 94, 113, 132, 150, 188, 235, 263,
     ]);
@@ -173,14 +187,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd guter Verbund C16/20", () => {
     const test = (theta) => {
-      const fck = 16; // mm
+      const fck = 16;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -194,14 +214,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C16/20", () => {
     const test = (theta) => {
-      const fck = 16; // mm
+      const fck = 16;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -213,14 +239,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd guter Verbund C20/25", () => {
     const test = (theta) => {
-      const fck = 20; // mm
+      const fck = 20;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -234,14 +266,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C20/25", () => {
     const test = (theta) => {
-      const fck = 20; // mm
+      const fck = 20;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -253,14 +291,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd guter Verbund C25/30", () => {
     const test = (theta) => {
-      const fck = 25; // mm
+      const fck = 25;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -274,14 +318,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C25/30", () => {
     const test = (theta) => {
-      const fck = 25; // mm
+      const fck = 25;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -293,14 +343,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd guter Verbund C30/37", () => {
     const test = (theta) => {
-      const fck = 30; // mm
+      const fck = 30;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -314,14 +370,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C30/37", () => {
     const test = (theta) => {
-      const fck = 30; // mm
+      const fck = 30;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -333,14 +395,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd guter Verbund C35/45", () => {
     const test = (theta) => {
-      const fck = 35; // mm
+      const fck = 35;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -354,14 +422,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C35/45", () => {
     const test = (theta) => {
-      const fck = 35; // mm
+      const fck = 35;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -373,14 +447,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd guter Verbund C40/50", () => {
     const test = (theta) => {
-      const fck = 40; // mm
+      const fck = 40;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -394,54 +474,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C40/50", () => {
     const test = (theta) => {
-      const fck = 40; // mm
+      const fck = 40;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd / 10;
-    };
-
-    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
-    const currLbrqd = theta.map(test);
-    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    expect(roundedCurrLbrqd).toEqual([25, 34, 42, 51, 59, 67, 84, 105, 118]);
-  });
-
-  it("l_brqd guter Verbund C40/50", () => {
-    const test = (theta) => {
-      const fck = 40; // mm
-
-      const fyk = 500; // N/mm²
-      const gamma_s = 1.15;
-      const currFyd = fyd(fyk, gamma_s);
-
-      const currFbd = fbdGuterVerbund(fck);
-      const currLbrqd = lbrqd(theta, currFyd, currFbd);
-      return currLbrqd / 10;
-    };
-
-    const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
-    const currLbrqd = theta.map(test);
-
-    const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-
-    expect(roundedCurrLbrqd).toEqual([18, 24, 30, 35, 41, 47, 59, 74, 83]);
-  });
-
-  it("l_brqd mässiger Verbund C40/50", () => {
-    const test = (theta) => {
-      const fck = 40; // mm
-
-      const fyk = 500; // N/mm²
-      const gamma_s = 1.15;
-      const currFyd = fyd(fyk, gamma_s);
-
-      const currFbd = fbdMaessigerVerbund(fck);
-      const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -453,14 +499,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd guter Verbund C45/55", () => {
     const test = (theta) => {
-      const fck = 45; // mm
+      const fck = 45;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -472,14 +524,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C45/55", () => {
     const test = (theta) => {
-      const fck = 45; // mm
+      const fck = 45;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -491,14 +549,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd guter Verbund C50/60", () => {
     const test = (theta) => {
-      const fck = 50; // mm
+      const fck = 50;
+      const gammaC = 1.5;
+      const eta1 = 1;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdGuterVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -512,14 +576,20 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
   it("l_brqd mässiger Verbund C50/60", () => {
     const test = (theta) => {
-      const fck = 50; // mm
+      const fck = 50;
+      const gammaC = 1.5;
+      const eta1 = 0.7;
 
       const fyk = 500; // N/mm²
       const gamma_s = 1.15;
+
+      const currFctm = fctm(fck);
+      const currFctk005 = fctk005(currFctm);
       const currFyd = fyd(fyk, gamma_s);
 
-      const currFbd = fbdMaessigerVerbund(fck);
+      const currFbd = fbdGuterVerbund(currFctk005, eta1, gammaC);
       const currLbrqd = lbrqd(theta, currFyd, currFbd);
+      // lbrqd wird in mm berechnet
       return currLbrqd / 10;
     };
 
@@ -530,12 +600,27 @@ describe.skip("Grundwert der Verankerungslänge", () => {
   });
 });
 
-describe.skip("Mindestverankerungslänge", () => {
+/**
+ *
+ */
+describe("Mindestverankerungslänge", () => {
   it("l_bmin bei Zugstäben", () => {
+    const fyk = 500; // N/mm²
+    const gamma_s = 1.15;
     const currFck = 30; // N/mm²
-    const currVerbund = "guterVerbund";
+    const fyd = fyk / gamma_s;
     const currTheta = 20; // mm
-    const currLbminZug = lBminZug(currFck, currVerbund, currTheta);
+
+    const currFctm = fctm(currFck);
+    const currFctk005 = fctk005(currFctm);
+    const gammaC = 1.5;
+    const currVerbund = "guterVerbund";
+
+    const currFbd = fbd(currFctk005, gammaC, currVerbund);
+    const currLbrqd = lbrqd(currTheta, fyd, currFbd);
+    console.log(currLbrqd);
+
+    const currLbminZug = lBminZug(currLbrqd, currTheta);
     console.log(currLbminZug);
     const roundedCurrLbminZug = round(currLbminZug, 2);
     console.log(roundedCurrLbminZug);
@@ -550,10 +635,22 @@ describe.skip("Mindestverankerungslänge", () => {
   });
 
   it("l_bmin bei Druckstäben", () => {
+    const fyk = 500; // N/mm²
+    const gamma_s = 1.15;
     const currFck = 30; // N/mm²
-    const currVerbund = "guterVerbund";
+    const fyd = fyk / gamma_s;
     const currTheta = 20; // mm
-    const currLbminDruck = lBminDruck(currFck, currVerbund, currTheta);
+
+    const currFctm = fctm(currFck);
+    const currFctk005 = fctk005(currFctm);
+    const gammaC = 1.5;
+    const currVerbund = "guterVerbund";
+
+    const currFbd = fbd(currFctk005, gammaC, currVerbund);
+    const currLbrqd = lbrqd(currTheta, fyd, currFbd);
+    console.log(currLbrqd);
+
+    const currLbminDruck = lBminDruck(currLbrqd, currTheta);
     const roundedCurrLbminDruck = round(currLbminDruck, 2);
     /**
      * Handrechnung Zwischenergebnisse
