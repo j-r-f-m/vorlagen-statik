@@ -138,7 +138,6 @@ const fbdMaessigerVerbund = (fctk005, eta1, gammaC) => {
  */
 const fbd = (fctk005, gammaC, verbund) => {
   let currFbd = null; // initilized currFbd
-  console.log(currFbd);
   if (verbund === "guterVerbund") {
     const eta1 = 1;
     currFbd = fbdGuterVerbund(fctk005, eta1, gammaC);
@@ -182,14 +181,27 @@ const lbeq = (fck, alpha_a, verbund, theta, a_serf, a_svorh) => {
   return alpha_a * currLbrqd * (a_serf / a_svorh);
 };
 
-const lBminZug = (lbrqd, theta) => {
-  if (0.3 * lbrqd >= 10 * theta) {
-    return 0.3 * lbrqd;
+/**
+ * Mindestverankerungslänge bei Zugstäben
+ * @param {number} lbrqd Grundwert der Verankerungslänge
+ * @param {number} theta Durchmesser längsstab
+ * @param {number} alpha Beiwert zur Berücksichtigung der Verankerungsart
+ * @returns number lBminZug
+ */
+const lBminZug = (lbrqd, theta, alpha) => {
+  if (0.3 * alpha * lbrqd >= 10 * theta) {
+    return 0.3 * alpha * lbrqd;
   } else {
     return 10 * theta;
   }
 };
 
+/**
+ * Mindestverankerungslänge bei Druchstäben
+ * @param {number} lbrqd Grundwert der Verankerungslänge
+ * @param {number} theta Stab
+ * @returns number lBminDruck
+ */
 const lBminDruck = (lbrqd, theta) => {
   if (0.6 * lbrqd >= 10 * theta) {
     return 0.6 * lbrqd;
@@ -198,11 +210,18 @@ const lBminDruck = (lbrqd, theta) => {
   }
 };
 
-const lBmin = (stab, fck, verbund, theta) => {
+/**
+ * Entscheidungsfunktion
+ * @param {number} lbrqd Grundwert der Verankerungslänge
+ * @param {number} theta Durchmesser Stab
+ * @param {number} alpha Beiwert zur Berücksichtigun der Verankerungsart
+ * @returns number lbmin
+ */
+const lBmin = (lbrqd, theta, alpha) => {
   if (stab === "zugstab") {
-    return lBminZug(fck, verbund, theta);
+    return lBminZug(lbrqd, theta, alpha);
   } else if (stab === "druckstab") {
-    return lBminDruck(fck, verbund, theta);
+    return lBminDruck(lbrqd, theta, alpha);
   }
 };
 
@@ -261,5 +280,6 @@ export {
   lbeq,
   lBminZug,
   lBminDruck,
+  lBmin,
   calculateAl,
 };

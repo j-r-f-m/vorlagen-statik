@@ -17,6 +17,7 @@ import {
   lbeq,
   lBminZug,
   lBminDruck,
+  lBmin,
   calculateAl,
 } from "./anchorageLength";
 
@@ -610,6 +611,7 @@ describe("Mindestverankerungslänge", () => {
     const currFck = 30; // N/mm²
     const fyd = fyk / gamma_s;
     const currTheta = 20; // mm
+    const alpha = 1;
 
     const currFctm = fctm(currFck);
     const currFctk005 = fctk005(currFctm);
@@ -620,7 +622,7 @@ describe("Mindestverankerungslänge", () => {
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
     console.log(currLbrqd);
 
-    const currLbminZug = lBminZug(currLbrqd, currTheta);
+    const currLbminZug = lBminZug(currLbrqd, currTheta, alpha);
     console.log(currLbminZug);
     const roundedCurrLbminZug = round(currLbminZug, 2);
     console.log(roundedCurrLbminZug);
@@ -660,6 +662,21 @@ describe("Mindestverankerungslänge", () => {
      * 428.88 > 200
      */
     expect(roundedCurrLbminDruck).toBe(428.88);
+  });
+
+  it("l_bmin", () => {
+    const fyk = 500; // N/mm²
+    const gamma_s = 1.15;
+    const currFck = 30; // N/mm²
+    const fyd = fyk / gamma_s;
+    const currTheta = 20; // mm
+    const gammaC = 1.5;
+    const currVerbund = "guterVerbund";
+
+    const currFctm = fctm(currFck);
+    const currFctk005 = fctk005(currFctm);
+    const currFbd = fbd(currFctk005, gammaC, currVerbund);
+    const currLbrqd = lbrqd(currTheta, fyd, currFbd);
   });
 });
 
