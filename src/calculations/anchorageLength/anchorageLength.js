@@ -215,9 +215,10 @@ const lBminDruck = (lbrqd, theta) => {
  * @param {number} lbrqd Grundwert der Verankerungslänge
  * @param {number} theta Durchmesser Stab
  * @param {number} alpha Beiwert zur Berücksichtigun der Verankerungsart
+ * @param {string} stab Belastungsart des Stabes (Zug oder Druck)
  * @returns number lbmin
  */
-const lBmin = (lbrqd, theta, alpha) => {
+const lBmin = (lbrqd, theta, alpha, stab) => {
   if (stab === "zugstab") {
     return lBminZug(lbrqd, theta, alpha);
   } else if (stab === "druckstab") {

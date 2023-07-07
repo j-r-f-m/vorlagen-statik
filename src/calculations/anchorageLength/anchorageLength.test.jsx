@@ -620,12 +620,10 @@ describe("Mindestverankerungslänge", () => {
 
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
-    console.log(currLbrqd);
 
     const currLbminZug = lBminZug(currLbrqd, currTheta, alpha);
-    console.log(currLbminZug);
     const roundedCurrLbminZug = round(currLbminZug, 2);
-    console.log(roundedCurrLbminZug);
+
     /**
      * Handrechnung Zwischenergebnisse
      * lbrqd = 20/4 *(500/1.1)/(2.25*1*(0.7*(0.3*30**(2/3)))/1.5) 714.7992882
@@ -650,7 +648,7 @@ describe("Mindestverankerungslänge", () => {
 
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
-    console.log(currLbrqd);
+    // console.log(currLbrqd);
 
     const currLbminDruck = lBminDruck(currLbrqd, currTheta);
     const roundedCurrLbminDruck = round(currLbminDruck, 2);
@@ -664,7 +662,7 @@ describe("Mindestverankerungslänge", () => {
     expect(roundedCurrLbminDruck).toBe(428.88);
   });
 
-  it("l_bmin", () => {
+  it("l_bmin druckstab", () => {
     const fyk = 500; // N/mm²
     const gamma_s = 1.15;
     const currFck = 30; // N/mm²
@@ -672,11 +670,40 @@ describe("Mindestverankerungslänge", () => {
     const currTheta = 20; // mm
     const gammaC = 1.5;
     const currVerbund = "guterVerbund";
+    const stab = "druckstab";
+    const currAlpha = 1;
 
     const currFctm = fctm(currFck);
     const currFctk005 = fctk005(currFctm);
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
+
+    const currLbmin = lBmin(currLbrqd, currTheta, currAlpha, stab);
+    console.log(currLbmin);
+    const roundedCurrLbmin = round(currLbmin, 2);
+    expect(roundedCurrLbmin).toBe(428.88);
+  });
+
+  it("l_bmin zugstab", () => {
+    const fyk = 500; // N/mm²
+    const gamma_s = 1.15;
+    const currFck = 30; // N/mm²
+    const fyd = fyk / gamma_s;
+    const currTheta = 20; // mm
+    const gammaC = 1.5;
+    const currVerbund = "guterVerbund";
+    const stab = "zugstab";
+    const currAlpha = 1;
+
+    const currFctm = fctm(currFck);
+    const currFctk005 = fctk005(currFctm);
+    const currFbd = fbd(currFctk005, gammaC, currVerbund);
+    const currLbrqd = lbrqd(currTheta, fyd, currFbd);
+
+    const currLbmin = lBmin(currLbrqd, currTheta, currAlpha, stab);
+    console.log(currLbmin);
+    const roundedCurrLbmin = round(currLbmin, 2);
+    expect(roundedCurrLbmin).toBe(214.44);
   });
 });
 
