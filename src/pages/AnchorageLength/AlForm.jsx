@@ -7,7 +7,7 @@ import Accordion from "react-bootstrap/Accordion";
 import { MathJax } from "better-react-mathjax";
 import { calculateAl } from "../../calculations/anchorageLength/anchorageLength";
 
-export function AlForm() {
+export function AlForm(props) {
   // const [result, setResult] = useState({ nStäbe: null });
 
   const {
@@ -35,6 +35,22 @@ export function AlForm() {
       iptAsVor,
       data.lagerung,
       data.stab
+    );
+    console.log(currAnchorageLength);
+    // props.setDataChild();
+    console.log(props);
+    props.setDataChild(
+      currAnchorageLength.name,
+      currAnchorageLength.fck,
+      currAnchorageLength.fctk005,
+      currAnchorageLength.fctm,
+      currAnchorageLength.verbund,
+      currAnchorageLength.fbd,
+      currAnchorageLength.fyd,
+      currAnchorageLength.lbrqd,
+      currAnchorageLength.lbeq,
+      currAnchorageLength.lagerung,
+      currAnchorageLength.stab
     );
   };
 

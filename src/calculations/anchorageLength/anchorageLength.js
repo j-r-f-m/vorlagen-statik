@@ -229,13 +229,13 @@ const lBmin = (lbrqd, theta, alpha, stab) => {
   }
 };
 
-const lbeqDir = (lbeq) => {
-  return (2 / 3) * lbeq;
-};
+// const lbeqDir = (lbeq) => {
+//   return (2 / 3) * lbeq;
+// };
 
-const lbeqIndir = (lbeq) => {
-  return lbeq;
-};
+// const lbeqIndir = (lbeq) => {
+//   return lbeq;
+// };
 
 const calculateAl = (
   fck,
