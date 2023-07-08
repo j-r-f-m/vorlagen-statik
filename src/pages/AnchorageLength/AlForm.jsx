@@ -1,17 +1,14 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { useState } from "react";
+// import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
-import { useCallback, useRef, useEffect } from "react";
 import { MathJax } from "better-react-mathjax";
-import { fbd } from "../../calculations/anchorageLength/anchorageLength";
+import { calculateAl } from "../../calculations/anchorageLength/anchorageLength";
 
-import useAutoFocus from "../../hooks/Autofocus";
-
-export function AlForm(props) {
-  const [result, setResult] = useState({ nStäbe: null });
+export function AlForm() {
+  // const [result, setResult] = useState({ nStäbe: null });
 
   const {
     register,
@@ -21,10 +18,24 @@ export function AlForm(props) {
 
   const onSubmit = (data) => {
     console.log(data);
-    console.log(data.fck);
 
-    // const currfbd = fbd(data.fck, data.verbund);
-    // console.log()
+    // string -> number
+    const iptFck = Number(data.fck);
+    const iptThetaS = Number(data.thetaS);
+    const iptAlphaA = Number(data.alphaA);
+    const iptAsErf = Number(data.asErf);
+    const iptAsVor = Number(data.asVor);
+    // object
+    const currAnchorageLength = calculateAl(
+      iptFck,
+      data.verbund,
+      iptThetaS,
+      iptAlphaA,
+      iptAsErf,
+      iptAsVor,
+      data.lagerung,
+      data.stab
+    );
   };
 
   return (

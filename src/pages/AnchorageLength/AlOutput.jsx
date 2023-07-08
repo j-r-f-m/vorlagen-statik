@@ -2,7 +2,7 @@ import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
 import { MathJax } from "better-react-mathjax";
 
-export function AlOutput(props) {
+export function AlOutput() {
   return (
     <>
       <Accordion className="mt-3 mb-3" style={{ width: "100%" }}>

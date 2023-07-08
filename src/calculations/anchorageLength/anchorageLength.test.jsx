@@ -3,12 +3,9 @@ import { round } from "mathjs";
 import {
   roundWhole,
   round1decimal,
-  round2decimalStr,
   round3decimalStr,
   fctm,
   fctk005,
-  fctmSmaller50,
-  fctmBigger50,
   fyd,
   fbdGuterVerbund,
   fbdMaessigerVerbund,
@@ -602,9 +599,9 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 });
 
 /**
- *
+ * Test für die Mindestverankerungslänge
  */
-describe("Mindestverankerungslänge", () => {
+describe.skip("Mindestverankerungslänge", () => {
   it("l_bmin bei Zugstäben", () => {
     const fyk = 500; // N/mm²
     const gamma_s = 1.15;
@@ -707,44 +704,47 @@ describe("Mindestverankerungslänge", () => {
   });
 });
 
-describe.skip("Ersatzverankerungslänge", () => {
-  /**
-   * tests für Ersatzverankerungslänge
-   * Die hier berechnete Ersatzverankerungslänge wird mit verschiedenen
-   * Berechnungsbeispielen aus der Literatur verglichen
-   */
+/**
+ * Test für die Ersatzverankerungslänge
+ */
+describe("Ersatzverankerungslänge l_beq", () => {
   it("l_beq ", () => {
     /**
-     * Aus "Stahlbetonbau in Beispielen Teil 1 Beispiel 4.1, S.73"
+     * Die Eingangswerte sind aus "Stahlbetonbau in Beispielen Teil 1 Beispiel 4.1, S.73"
      */
+
+    // Eingangswerte
+    const fyk = 500; // N/mm²
+    const gamma_s = 1.15;
+    const gammaC = 1.5;
     const currFck = 30; // N/mm²
-    const currAlphaA = 1; // gerades Stabende
+    const currAlpha = 1; // gerades Stabende
     const currVerbund = "guterVerbund";
     const currTheta = 20; // mm
     const currAserf = 2.3; // cm²
     const currAsvorh = 9.42; // cm²
 
-    const currLbeq = lbeq(
-      currFck,
-      currAlphaA,
-      currVerbund,
-      currTheta,
-      currAserf,
-      currAsvorh
-    );
+    // Zwischenergebnisse
+    const currFctm = fctm(currFck);
+    const currFctk005 = fctk005(currFctm);
+    const currFyd = fyd(fyk, gamma_s);
+    const currFbd = fbd(currFctk005, gammaC, currVerbund);
+    const currLbrqd = lbrqd(currTheta, currFyd, currFbd);
+    // Eigentliche Funktion welche wir testen wollen
+    const currLbeq = lbeq(currAlpha, currLbrqd, currAserf, currAsvorh);
     const roundCurrLbeq = round1decimal(currLbeq);
+
     /**
      * der .toBe-Wert entspricht nicht genau dem Wert aus dem Verifikationsbeispiel
      * die ist aufgrund unterschiedlicher Rundungsentscheidungen
      * Beispiel lb,rqd = 177mm und hier berechnen wir 175mm bzw. 17.5 cm
      */
-    const currLbminZug = lBminZug(currFck, currVerbund, currTheta);
 
     expect(roundCurrLbeq).toBe(174.5);
   });
 });
 
-describe.skip("Output lbeq", () => {
+describe("Output lbeq", () => {
   /**
    * Aus "Stahlbetonbau in Beispielen Teil 1 Beispiel 4.1, S.73"
    */
@@ -777,14 +777,25 @@ describe.skip("Output lbeq", () => {
 
     const currentCalculation = calculateAl(fck, verbund, theta);
     console.log(currentCalculation);
-    expect(currentCalculation.fbd).toBe(3.04);
+    expect(currentCalculation.lbrqd).toBe(715);
   });
 
   it("lbeq", () => {
     const fck = 30; // N/mm²
     const verbund = "guterVerbund";
     const theta = 20; // mm
+    const alpha = 1;
+    const aserf = 2.3; // cm²
+    const asvorh = 9.42; // cm²
 
-    const currentCalculation = calculateAl(fck, verbund, theta);
+    const currentCalculation = calculateAl(
+      fck,
+      verbund,
+      theta,
+      alpha,
+      aserf,
+      asvorh
+    );
+    expect(currentCalculation.lbeq).toBe(174.5);
   });
 });

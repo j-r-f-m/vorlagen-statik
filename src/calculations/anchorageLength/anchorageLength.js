@@ -170,15 +170,18 @@ const lbrqd = (theta, fyd, fbd) => {
  * @param {number} a_svorh Vorhandene Stahlfläche
  * @returns number
  */
-const lbeq = (fck, alpha_a, verbund, theta, a_serf, a_svorh) => {
-  const fyk = 500; // N/mm²
-  const gamma_s = 1.15;
+const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
+  // const fyk = 500; // N/mm²
+  // const gamma_s = 1.15;
 
-  const currFyd = fyd(fyk, gamma_s);
-  const currFbd = fbd(fck, verbund);
-  const currLbrqd = lbrqd(theta, currFyd, currFbd);
+  // const currFyd = fyd(fyk, gamma_s);
+  // const currFbd = fbd(fck, verbund);
+  // const currLbrqd = lbrqd(theta, currFyd, currFbd);
+
+  console.log(alpha_a);
+  console.log(lbrqd);
   // console.log(currLbrqd);
-  return alpha_a * currLbrqd * (a_serf / a_svorh);
+  return alpha_a * lbrqd * (a_serf / a_svorh);
 };
 
 /**
@@ -211,7 +214,7 @@ const lBminDruck = (lbrqd, theta) => {
 };
 
 /**
- * Entscheidungsfunktion
+ * Entscheidungsfunktion für Mindestverankerungslänge
  * @param {number} lbrqd Grundwert der Verankerungslänge
  * @param {number} theta Durchmesser Stab
  * @param {number} alpha Beiwert zur Berücksichtigun der Verankerungsart
@@ -234,7 +237,16 @@ const lbeqIndir = (lbeq) => {
   return lbeq;
 };
 
-const calculateAl = (fck, verbund, theta, alpha_a) => {
+const calculateAl = (
+  fck,
+  verbund,
+  theta,
+  alpha_a,
+  a_serf,
+  a_svorh,
+  lagerung,
+  stab
+) => {
   /***
    * Für den output brauche ich zwei Dinge.
    * 1. Es müssen alle Berechnungen aufgeschlüssel werden
@@ -243,24 +255,47 @@ const calculateAl = (fck, verbund, theta, alpha_a) => {
    * Wenn ich die Verankeungslänge wissen will, möchte ich das für den konkreten
    * Fall machen bzw aus verschiedenen Möglichkeiten wählen können.
    */
-  // hardcoded values
+
+  /**
+   * Hardcoded values
+   * Die Teilsicherheitsbeiwerte soll der user erstmal nicht selber eingeben
+   * können.
+   */
   const fyk = 500; // N/mm²
   const gamma_s = 1.15;
+  const gamma_c = 1.5;
+
   const currFyd = fyd(fyk, gamma_s);
   const roundedCurrFyd = round(currFyd, 2);
 
-  const currFbd = fbd(fck, verbund);
+  const currfck = fck;
+  const currFctm = fctm(fck);
+  const roundedCurrFctm = round(currFctm, 1);
+  const currFctk005 = fctk005(currFctm);
+  const roundedCurrFctk005 = round(currFctk005, 1);
+  const currFbd = fbd(currFctk005, gamma_c, verbund);
   const roundedCurrFbd = round(currFbd, 2);
 
-  const currLbrqd = lbrqd(theta, roundedCurrFyd, roundedCurrFbd);
+  const currLbrqd = lbrqd(theta, currFyd, currFbd);
+  // const currLbrqd = lbrqd(theta, roundedCurrFyd, roundedCurrFbd);
   const roundedCurrLbrqd = round(currLbrqd, 0);
 
-  const currLbeq = lbeq(fck, alpha_a);
+  const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
+  const roundedCurrLbeq = round(currLbeq, 1);
+  console.log(roundedCurrLbeq);
 
   return {
-    fyd: roundedCurrFyd,
+    name: "anchorage length results",
+    fck: currfck,
+    fctk005: roundedCurrFctk005,
+    fctm: roundedCurrFctm,
+    verbund: verbund,
     fbd: roundedCurrFbd,
+    fyd: roundedCurrFyd,
     lbrqd: roundedCurrLbrqd,
+    lbeq: roundedCurrLbeq,
+    lagerung: lagerung,
+    stab: stab,
   };
 };
 
