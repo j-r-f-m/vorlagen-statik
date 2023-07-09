@@ -1,8 +1,9 @@
 import Accordion from "react-bootstrap/Accordion";
 import ListGroup from "react-bootstrap/ListGroup";
 import { MathJax } from "better-react-mathjax";
+import { PropTypes } from "prop-types";
 
-export function AlOutput() {
+export function AlOutput(props) {
   return (
     <>
       <Accordion className="mt-3 mb-3" style={{ width: "100%" }}>
@@ -18,6 +19,7 @@ export function AlOutput() {
                   <MathJax>
                     <div className="fw-bold">Randbedingungen</div>
                     {"\\(fck \\)"}&nbsp;{"\\(= \\)"}&nbsp;
+                    {props.data.data.fck}
                     {/* {`\\(${props.data.data.b} \\)`} */}
                     {/* {props.data.data.b} */}
                     &nbsp;{"\\(N/mm²,\\)"}&emsp;{"\\(Verbundbedingung \\)"}
@@ -94,3 +96,7 @@ export function AlOutput() {
     </>
   );
 }
+
+AlOutput.propTypes = {
+  fck: PropTypes.number,
+};

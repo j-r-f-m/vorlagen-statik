@@ -8,8 +8,6 @@ import { MathJax } from "better-react-mathjax";
 import { calculateAl } from "../../calculations/anchorageLength/anchorageLength";
 
 export function AlForm(props) {
-  // const [result, setResult] = useState({ nStäbe: null });
-
   const {
     register,
     handleSubmit,
@@ -25,6 +23,7 @@ export function AlForm(props) {
     const iptAlphaA = Number(data.alphaA);
     const iptAsErf = Number(data.asErf);
     const iptAsVor = Number(data.asVor);
+
     // calculate anchorage length for given inputs
     const currAnchorageLength = calculateAl(
       iptFck,
@@ -37,6 +36,7 @@ export function AlForm(props) {
       data.stab
     );
     console.log(currAnchorageLength);
+
     // set state
     console.log(props);
     props.setDataChild(
