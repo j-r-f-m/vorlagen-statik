@@ -220,13 +220,37 @@ const lBmin = (lbrqd, theta, alpha, stab) => {
   }
 };
 
-// const lbeqDir = (lbeq) => {
-//   return (2 / 3) * lbeq;
-// };
+/**
+ * Berechnet die Ersatzverankerungslänge bei direkter Lagerung
+ * @param {number} lbeq Ersatzverankerungslänge
+ * @returns number
+ */
+const lbeqDir = (lbeq) => {
+  return (2 / 3) * lbeq;
+};
 
-// const lbeqIndir = (lbeq) => {
-//   return lbeq;
-// };
+/**
+ * Berechnet die Ersatzverankerungslänge bei indirekter Lagerung
+ * @param {number} lbeq Ersatzverankerungslänge
+ * @returns number
+ */
+const lbeqIndir = (lbeq) => {
+  return lbeq;
+};
+
+/**
+ * Berechnet die erforderliche Vernakerungslänge am Endauflager
+ * @param {number} lbeq Ersatzverankerungslänge
+ * @param {string} lagerung Lagerungsbedingung
+ * @returns number
+ */
+const verankerungEndauflager = (lbeq, lagerung) => {
+  if (lagerung === "direkt") {
+    return lbeqDir(lbeq);
+  } else if (lagerung === "indirekt") {
+    return lbeqIndir;
+  }
+};
 
 const calculateAl = (
   fck,
@@ -268,6 +292,12 @@ const calculateAl = (
   const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
   const roundedCurrLbmin = round(currLbmin, 2);
 
+  // const currVerankerungAlr = verankerungEndauflager(currLbeq, lagerung);
+  // const roundedCurrVerankerungAlr = round(currVerankerungAlr, 2);
+
+  const currLbeqDir = lbeqDir(currLbeq);
+  const roundedCurrLbeqDir = round(currLbeqDir, 2);
+
   return {
     name: "anchorage length results",
     fck: currfck,
@@ -280,6 +310,7 @@ const calculateAl = (
     fyd: roundedCurrFyd,
     lbrqd: roundedCurrLbrqd,
     lbeq: roundedCurrLbeq,
+    lbeqDir: roundedCurrLbeqDir,
     lbmin: roundedCurrLbmin,
     lagerung: lagerung,
     stab: stab,

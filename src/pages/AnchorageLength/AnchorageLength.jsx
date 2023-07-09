@@ -18,6 +18,7 @@ export function AnchorageLength() {
     fyd: 0,
     lbrqd: 0,
     lbeq: 0,
+    lbeqDir: 0,
     lbmin: 0,
     lagerung: "",
     stab: "",
@@ -52,7 +53,8 @@ export function AnchorageLength() {
     iptStab,
     iptAlphaA,
     iptTheta,
-    iptLbmin
+    iptLbmin,
+    iptLbeqDir
   ) => {
     setData({
       ...data,
@@ -66,6 +68,7 @@ export function AnchorageLength() {
       fyd: iptFyd,
       lbrqd: iptLbrqd,
       lbeq: iptLbeq,
+      lbeqDir: iptLbeqDir,
       lbmin: iptLbmin,
       lagerung: iptLagerung,
       stab: iptStab,

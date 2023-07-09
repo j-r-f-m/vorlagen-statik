@@ -15,6 +15,7 @@ export function AlForm(props) {
   } = useForm();
 
   const onSubmit = (data) => {
+    // the data-object contains the input information of the form
     console.log(data);
 
     // conver strings to numbers
@@ -52,7 +53,8 @@ export function AlForm(props) {
       currAnchorageLength.stab,
       currAnchorageLength.alpha,
       currAnchorageLength.theta,
-      currAnchorageLength.lbmin
+      currAnchorageLength.lbmin,
+      currAnchorageLength.lbeqDir
     );
   };
 
