@@ -19,13 +19,13 @@ export function AlForm(props) {
   const onSubmit = (data) => {
     console.log(data);
 
-    // string -> number
+    // conver strings to numbers
     const iptFck = Number(data.fck);
     const iptThetaS = Number(data.thetaS);
     const iptAlphaA = Number(data.alphaA);
     const iptAsErf = Number(data.asErf);
     const iptAsVor = Number(data.asVor);
-    // object
+    // calculate anchorage length for given inputs
     const currAnchorageLength = calculateAl(
       iptFck,
       data.verbund,
@@ -37,7 +37,7 @@ export function AlForm(props) {
       data.stab
     );
     console.log(currAnchorageLength);
-    // props.setDataChild();
+    // set state
     console.log(props);
     props.setDataChild(
       currAnchorageLength.name,

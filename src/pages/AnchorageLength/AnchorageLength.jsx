@@ -22,14 +22,19 @@ export function AnchorageLength() {
       stab: "",
     },
   });
-
   /**
-   * Set state for maxNumBars
-   * @param {number} iptB Width of Beam in cm
-   * @param {number} iptCnomA Betondeckung Außen in cm
-   * @param {number} iptCnomI Betondeckung Innen in cm
-   * @param {number} iptThetaBügel Durchmesser Bügel in cm
-   * @param {number} iptTheta Durchmesser Längsstab in cm
+   * set state from child component
+   * @param {string} iptName name of calculation
+   * @param {number} iptFck Festigkeitsklasse
+   * @param {number} iptFctk005 5 % Quantil der Zugfestigkeit
+   * @param {number} iptFctm Mittelwert der Zugfestigkeit
+   * @param {string} iptVerbund Verbundbedingung
+   * @param {number} iptFbd Bemessungswert der Verbundspannung
+   * @param {number} iptFyd Bemessungswert der Streckgrenze
+   * @param {number} iptLbrqd Grundwert der Verankeungslänge
+   * @param {number} iptLbeq Erstazverankerungslänge
+   * @param {string} iptLagerung Lagerungsart
+   * @param {string} iptStab Stabart (Druck- oder Zugstab)
    */
   const setDataChild = (
     iptName,
@@ -77,7 +82,7 @@ export function AnchorageLength() {
           heading="Verbundbedingung"
         />
         <AlForm setDataChild={setDataChild} />
-        <AlOutput />
+        <AlOutput data={data} />
       </Container>
     </>
   );
