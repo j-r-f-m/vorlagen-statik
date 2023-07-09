@@ -7,23 +7,6 @@ import { ImgAccordion } from "../../components/ImgAccordion";
 import { AlOutput } from "./AlOutput";
 
 export function AnchorageLength() {
-  // old
-  // const [data, setData] = useState({
-  //   data: {
-  //     name: "",
-  //     fck: 0,
-  //     fctk005: 0,
-  //     fctm: 0,
-  //     verbund: "",
-  //     fbd: 0,
-  //     fyd: 0,
-  //     lbrqd: 0,
-  //     lbeq: 0,
-  //     lagerung: "",
-  //     stab: "",
-  //   },
-  // });
-
   const [data, setData] = useState({
     name: "",
     fck: 0,
@@ -35,6 +18,7 @@ export function AnchorageLength() {
     fyd: 0,
     lbrqd: 0,
     lbeq: 0,
+    lbmin: 0,
     lagerung: "",
     stab: "",
     alpha: 0,
@@ -67,7 +51,8 @@ export function AnchorageLength() {
     iptLagerung,
     iptStab,
     iptAlphaA,
-    iptTheta
+    iptTheta,
+    iptLbmin
   ) => {
     setData({
       ...data,
@@ -81,6 +66,7 @@ export function AnchorageLength() {
       fyd: iptFyd,
       lbrqd: iptLbrqd,
       lbeq: iptLbeq,
+      lbmin: iptLbmin,
       lagerung: iptLagerung,
       stab: iptStab,
       alpha: iptAlphaA,

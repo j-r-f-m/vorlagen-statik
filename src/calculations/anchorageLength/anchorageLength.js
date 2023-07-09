@@ -171,15 +171,6 @@ const lbrqd = (theta, fyd, fbd) => {
  * @returns number
  */
 const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
-  // const fyk = 500; // N/mm²
-  // const gamma_s = 1.15;
-
-  // const currFyd = fyd(fyk, gamma_s);
-  // const currFbd = fbd(fck, verbund);
-  // const currLbrqd = lbrqd(theta, currFyd, currFbd);
-
-  console.log(alpha_a);
-  console.log(lbrqd);
   // console.log(currLbrqd);
   return alpha_a * lbrqd * (a_serf / a_svorh);
 };
@@ -247,15 +238,6 @@ const calculateAl = (
   lagerung,
   stab
 ) => {
-  /***
-   * Für den output brauche ich zwei Dinge.
-   * 1. Es müssen alle Berechnungen aufgeschlüssel werden
-   * 2. Es muss der Konkrete Fall gerechnet werden
-   *
-   * Wenn ich die Verankeungslänge wissen will, möchte ich das für den konkreten
-   * Fall machen bzw aus verschiedenen Möglichkeiten wählen können.
-   */
-
   /**
    * Hardcoded values
    * Die Teilsicherheitsbeiwerte soll der user erstmal nicht selber eingeben
@@ -277,12 +259,14 @@ const calculateAl = (
   const roundedCurrFbd = round(currFbd, 2);
 
   const currLbrqd = lbrqd(theta, currFyd, currFbd);
-  // const currLbrqd = lbrqd(theta, roundedCurrFyd, roundedCurrFbd);
   const roundedCurrLbrqd = round(currLbrqd, 0);
 
   const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
   const roundedCurrLbeq = round(currLbeq, 1);
   console.log(roundedCurrLbeq);
+
+  const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
+  const roundedCurrLbmin = round(currLbmin, 2);
 
   return {
     name: "anchorage length results",
@@ -296,11 +280,14 @@ const calculateAl = (
     fyd: roundedCurrFyd,
     lbrqd: roundedCurrLbrqd,
     lbeq: roundedCurrLbeq,
+    lbmin: roundedCurrLbmin,
     lagerung: lagerung,
     stab: stab,
   };
 };
 
+// export only for testing purposes
+// only calculateAl() can be called from the interface
 export {
   roundWhole,
   round1decimal,

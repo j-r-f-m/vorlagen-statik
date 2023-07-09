@@ -51,7 +51,8 @@ export function AlForm(props) {
       currAnchorageLength.lagerung,
       currAnchorageLength.stab,
       currAnchorageLength.alpha,
-      currAnchorageLength.theta
+      currAnchorageLength.theta,
+      currAnchorageLength.lbmin
     );
   };
 
