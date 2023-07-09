@@ -39,7 +39,7 @@ export function AlOutput(props) {
                   <MathJax>
                     {"\\(Verbundbedingung:\\)"}
                     &nbsp;
-                    {props.data.verbund} {"\\(,\\)"}&emsp;
+                    {props.data.verbund}&emsp;
                     {"\\(\\alpha_{a} \\)"}&nbsp;
                     {"\\(= \\)"}&nbsp;
                     {props.data.alpha}
@@ -86,24 +86,14 @@ export function AlOutput(props) {
                 className="d-flex justify-content-between align-items-start flex-column"
               >
                 <div className="ms-2 me-auto">
-                  <div className="fw-bold">
-                    Berechnung der maximalen Zahl &rdquo;n&rdquo; der Stäbe imr
-                    Balkenquerschnitt
-                  </div>
+                  <div className="fw-bold">Ersatzverankerungslänge</div>
                   <MathJax>
-                    {`\\(n=Ganzzahl \\left[ \\frac{b \\ - \\ c_{nom,a} \\ - \\ c_{nom,i} \\ - \\ 2 \\ \\cdot \\ \\theta_{Bü} \\ - \\ (1-\\frac{1}{\\sqrt{2}}) \\cdot D_{Bü}\\ - \\ \\frac{1}{\\sqrt{2}} \\cdot \\ \\theta \\ - \\ \\theta \\ - \\ s_{min} }{\\theta \\ + \\ s_{min}}  \\right] \\ + \\ 2 =  \\)`}
-                    {/* &nbsp; {props.data.data.dMin} */}
+                    {"\\(l_{b,eq} = \\)"}&nbsp;
+                    {props.data.lbeq}
+                    &nbsp;{"\\(mm\\)"}&emsp;
                   </MathJax>
                 </div>
-                <div className="mt-2">
-                  {/* <MathJax hideUntilTypeset={"first"} inline dynamic>
-                    <mrow>
-                      <mi>x</mi>
-                      <mo>=</mo>
-                      <mi>{props.data.data.n}</mi>
-                    </mrow>
-                  </MathJax> */}
-                </div>
+                <div className="mt-2"></div>
               </ListGroup.Item>
             </ListGroup>
           </Accordion.Body>

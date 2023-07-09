@@ -68,12 +68,13 @@ export function AlForm(props) {
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Form.Group className="mb-3" controlId="formGroupEmail">
                 {/* ---------------------------- inputs -------------------------- */}
-                {/* stegbreite */}
                 <MathJax>
                   {
                     "\\(l_{b,eq} = \\alpha_{a} \\cdot l_{b,rqd} \\cdot \\frac{A_{s,erf}}{A_{s,vorh}} 	\\geq l_{b,min}\\)"
                   }
                 </MathJax>
+
+                {/* fck */}
                 <div className="mb-3 mt-2">
                   <InputGroup>
                     <InputGroup.Text id="basic-addon1">
@@ -94,7 +95,6 @@ export function AlForm(props) {
                       <MathJax>{"\\([N/mm²] \\)"}</MathJax>
                     </InputGroup.Text>
                   </InputGroup>
-
                   {errors.fck && (
                     <div className="error-validation mt-1 ms-2 text-danger">
                       Betonfestigkeitsklasse
@@ -117,8 +117,8 @@ export function AlForm(props) {
                   </Form.Select>
                 </div>
 
+                {/* alpha_a */}
                 <div className="mb-3">
-                  {/* alpha_a */}
                   <InputGroup>
                     <InputGroup.Text id="basic-addon1">
                       <MathJax>{"\\(\\alpha_{a} \\)"}</MathJax>
@@ -144,6 +144,7 @@ export function AlForm(props) {
                   )}
                 </div>
 
+                {/* Lagerungsbedingung */}
                 <div className="mb-3">
                   <Form.Select
                     aria-label="Lagerungsart"
@@ -156,8 +157,8 @@ export function AlForm(props) {
                   </Form.Select>
                 </div>
 
+                {/* theta */}
                 <div className="mb-3">
-                  {/* theta */}
                   <InputGroup>
                     <InputGroup.Text id="basic-addon1">
                       <MathJax>{"\\(\\theta_{s} \\)"}</MathJax>
@@ -196,8 +197,8 @@ export function AlForm(props) {
                   </Form.Select>
                 </div>
 
+                {/* A_s,erf */}
                 <div className="mb-3">
-                  {/* theta_bügel */}
                   <InputGroup>
                     <InputGroup.Text id="basic-addon1">
                       <MathJax>{"\\(A_{s,erf} \\)"}</MathJax>
@@ -223,8 +224,8 @@ export function AlForm(props) {
                   )}
                 </div>
 
+                {/* A_s,vorh */}
                 <div className="mb-3">
-                  {/* theta_stab */}
                   <InputGroup>
                     <InputGroup.Text id="basic-addon1">
                       <MathJax>{"\\(A_{s,vorh} \\)"}</MathJax>
@@ -243,7 +244,6 @@ export function AlForm(props) {
                       <MathJax>{"\\([cm] \\)"}</MathJax>
                     </InputGroup.Text>
                   </InputGroup>
-
                   {errors.asVor && (
                     <div className="error-validation mt-1 ms-2 text-danger">
                       As vorhanden in cm²
@@ -251,15 +251,14 @@ export function AlForm(props) {
                   )}
                 </div>
               </Form.Group>
+
               <Button type="submit" variant="primary">
                 Berechne
               </Button>
             </Form>
-            <div className="mt-3 fw-bold">
-              lbeq
-              {/* Anzahl an Stäben: n = {props.data.data.n} */}
-            </div>
-            {/* {renderResult} */}
+
+            {/* Schnelle ergebnisanzeige */}
+            <div className="mt-3 fw-bold">lbeq = {props.data.lbeq} mm</div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>
@@ -271,4 +270,6 @@ export function AlForm(props) {
 
 AlForm.propTypes = {
   setDataChild: PropTypes.func,
+  data: PropTypes.object,
+  lbeq: PropTypes.number,
 };

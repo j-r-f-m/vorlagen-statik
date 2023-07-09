@@ -101,7 +101,7 @@ export function AnchorageLength() {
           imgLink="./imgs/verbundbereich.png"
           heading="Verbundbedingung"
         />
-        <AlForm setDataChild={setDataChild} />
+        <AlForm setDataChild={setDataChild} data={data} />
         <AlOutput data={data} />
       </Container>
     </>
