@@ -19,7 +19,7 @@ export function AlOutput(props) {
                   <MathJax>
                     <div className="fw-bold">Randbedingungen</div>
                     {"\\(fck \\)"}&nbsp;{"\\(= \\)"}&nbsp;
-                    {props.data.data.fck}
+                    {props.data.fck}
                     {/* {`\\(${props.data.data.b} \\)`} */}
                     {/* {props.data.data.b} */}
                     &nbsp;{"\\(N/mm²,\\)"}&emsp;{"\\(Verbundbedingung \\)"}
@@ -99,4 +99,5 @@ export function AlOutput(props) {
 
 AlOutput.propTypes = {
   fck: PropTypes.number,
+  data: PropTypes.object,
 };

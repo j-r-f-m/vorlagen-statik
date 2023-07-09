@@ -1,11 +1,11 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-// import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Button from "react-bootstrap/Button";
 import Accordion from "react-bootstrap/Accordion";
 import { MathJax } from "better-react-mathjax";
 import { calculateAl } from "../../calculations/anchorageLength/anchorageLength";
+import { PropTypes } from "prop-types";
 
 export function AlForm(props) {
   const {
@@ -38,7 +38,6 @@ export function AlForm(props) {
     console.log(currAnchorageLength);
 
     // set state
-    console.log(props);
     props.setDataChild(
       currAnchorageLength.name,
       currAnchorageLength.fck,
@@ -267,3 +266,7 @@ export function AlForm(props) {
     </>
   );
 }
+
+AlForm.propTypes = {
+  setDataChild: PropTypes.func,
+};

@@ -7,21 +7,37 @@ import { ImgAccordion } from "../../components/ImgAccordion";
 import { AlOutput } from "./AlOutput";
 
 export function AnchorageLength() {
+  // old
+  // const [data, setData] = useState({
+  //   data: {
+  //     name: "",
+  //     fck: 0,
+  //     fctk005: 0,
+  //     fctm: 0,
+  //     verbund: "",
+  //     fbd: 0,
+  //     fyd: 0,
+  //     lbrqd: 0,
+  //     lbeq: 0,
+  //     lagerung: "",
+  //     stab: "",
+  //   },
+  // });
+
   const [data, setData] = useState({
-    data: {
-      name: "",
-      fck: 0,
-      fctk005: 0,
-      fctm: 0,
-      verbund: "",
-      fbd: 0,
-      fyd: 0,
-      lbrqd: 0,
-      lbeq: 0,
-      lagerung: "",
-      stab: "",
-    },
+    name: "",
+    fck: 0,
+    fctk005: 0,
+    fctm: 0,
+    verbund: "",
+    fbd: 0,
+    fyd: 0,
+    lbrqd: 0,
+    lbeq: 0,
+    lagerung: "",
+    stab: "",
   });
+
   /**
    * set state from child component
    * @param {string} iptName name of calculation
@@ -51,19 +67,17 @@ export function AnchorageLength() {
   ) => {
     setData({
       ...data,
-      data: {
-        name: iptName,
-        fck: iptFck,
-        fctk005: iptFctk005,
-        fctm: iptFctm,
-        verbund: iptVerbund,
-        fbd: iptFbd,
-        fyd: iptFyd,
-        lbrqd: iptLbrqd,
-        lbeq: iptLbeq,
-        lagerung: iptLagerung,
-        stab: iptStab,
-      },
+      name: iptName,
+      fck: iptFck,
+      fctk005: iptFctk005,
+      fctm: iptFctm,
+      verbund: iptVerbund,
+      fbd: iptFbd,
+      fyd: iptFyd,
+      lbrqd: iptLbrqd,
+      lbeq: iptLbeq,
+      lagerung: iptLagerung,
+      stab: iptStab,
     });
   };
 
