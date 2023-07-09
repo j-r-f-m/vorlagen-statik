@@ -19,7 +19,7 @@ export function AlForm(props) {
 
     // conver strings to numbers
     const iptFck = Number(data.fck);
-    const iptThetaS = Number(data.thetaS);
+    const iptTheta = Number(data.theta);
     const iptAlphaA = Number(data.alphaA);
     const iptAsErf = Number(data.asErf);
     const iptAsVor = Number(data.asVor);
@@ -28,7 +28,7 @@ export function AlForm(props) {
     const currAnchorageLength = calculateAl(
       iptFck,
       data.verbund,
-      iptThetaS,
+      iptTheta,
       iptAlphaA,
       iptAsErf,
       iptAsVor,
@@ -49,7 +49,9 @@ export function AlForm(props) {
       currAnchorageLength.lbrqd,
       currAnchorageLength.lbeq,
       currAnchorageLength.lagerung,
-      currAnchorageLength.stab
+      currAnchorageLength.stab,
+      currAnchorageLength.alpha,
+      currAnchorageLength.theta
     );
   };
 
@@ -166,7 +168,7 @@ export function AlForm(props) {
                       placeholder="Stabdurchmesser"
                       aria-label="Stabdurchmesser"
                       aria-describedby="basic-addon1"
-                      {...register("thetaS", {
+                      {...register("theta", {
                         required: true,
                       })}
                     />

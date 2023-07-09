@@ -18,14 +18,15 @@ export function AlOutput(props) {
                 <div className="ms-2 me-auto d-flex">
                   <MathJax>
                     <div className="fw-bold">Randbedingungen</div>
-                    {"\\(fck \\)"}&nbsp;{"\\(= \\)"}&nbsp;
+                    {"\\(f_{ck} \\)"}&nbsp;{"\\(= \\)"}&nbsp;
                     {props.data.fck}
-                    {/* {`\\(${props.data.data.b} \\)`} */}
-                    {/* {props.data.data.b} */}
-                    &nbsp;{"\\(N/mm²,\\)"}&emsp;{"\\(Verbundbedingung \\)"}
-                    &nbsp;
-                    {"\\(= \\)"}&nbsp;
-                    {/* {props.data.data.cNomA} */}
+                    &nbsp;{"\\(N/mm²\\)"}&emsp;
+                    {"\\(f_{ctm} = \\)"}&nbsp;
+                    {props.data.fctm}
+                    &nbsp;{"\\(N/mm²\\)"}&emsp;
+                    {"\\(f_{ctk;0,05} = \\)"}&nbsp;
+                    {props.data.fctk005}
+                    &nbsp;{"\\(N/mm²\\)"}&emsp;
                   </MathJax>
                 </div>
               </ListGroup.Item>
@@ -36,14 +37,13 @@ export function AlOutput(props) {
               >
                 <div className="ms-2 me-auto d-flex">
                   <MathJax>
+                    {"\\(Verbundbedingung:\\)"}
+                    &nbsp;
+                    {props.data.verbund} {"\\(,\\)"}&emsp;
                     {"\\(\\alpha_{a} \\)"}&nbsp;
                     {"\\(= \\)"}&nbsp;
-                    {/* {props.data.data.thetaBügel} */}
-                    &nbsp;{"\\(cm,\\)"}&emsp;
-                    {"\\(\\theta \\)"}&nbsp;
-                    {"\\(= \\)"}&nbsp;
-                    {/* {props.data.data.theta} */}
-                    &nbsp;{"\\(cm,\\)"}
+                    {props.data.alpha}
+                    &emsp;
                   </MathJax>
                 </div>
               </ListGroup.Item>
@@ -55,12 +55,28 @@ export function AlOutput(props) {
                 <div className="ms-2 me-auto">
                   <MathJax>
                     <div className="fw-bold">Zwischenergebnisse</div>
+                    {"\\(\\theta = \\)"}&nbsp;
+                    {props.data.theta}
+                    &nbsp;{"\\(mm\\)"}&emsp;
                     {"\\(f_{yd} = \\)"}&nbsp;
-                    {/* {"\\(= \\)"}&nbsp; {props.data.data.dMin} */}
+                    {props.data.fyd}
                     &nbsp;{"\\(N/mm²\\)"}&emsp;
                     {"\\(f_{bd} = \\)"}&nbsp;
-                    {/* {"\\(= \\)"}&nbsp; {props.data.data.sMin} */}
-                    &nbsp;{"\\(N/mm²,\\)"}
+                    {props.data.fbd}
+                    &nbsp;{"\\(N/mm²\\)"}
+                  </MathJax>
+                </div>
+              </ListGroup.Item>
+
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start"
+              >
+                <div className="ms-2 me-auto">
+                  <MathJax>
+                    {"\\(l_{b,rqd} = \\)"}&nbsp;
+                    {props.data.lbrqd}
+                    &nbsp;{"\\(mm\\)"}&emsp;
                   </MathJax>
                 </div>
               </ListGroup.Item>
@@ -98,6 +114,7 @@ export function AlOutput(props) {
 }
 
 AlOutput.propTypes = {
-  fck: PropTypes.number,
   data: PropTypes.object,
+  fck: PropTypes.number,
+  verbund: PropTypes.string,
 };
