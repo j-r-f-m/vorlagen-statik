@@ -54,7 +54,10 @@ export function AlForm(props) {
       currAnchorageLength.alpha,
       currAnchorageLength.theta,
       currAnchorageLength.lbmin,
-      currAnchorageLength.lbeqDir
+      currAnchorageLength.lbeqDir,
+      currAnchorageLength.lbeqIndir,
+      currAnchorageLength.asErf,
+      currAnchorageLength.asVorh
     );
   };
 
@@ -195,8 +198,8 @@ export function AlForm(props) {
                       required: true,
                     })}
                   >
-                    <option value="zugstab">Zugstab</option>
-                    <option value="druckstab">Druckstab</option>
+                    <option value="Zugstab">Zugstab</option>
+                    <option value="Druckstab">Druckstab</option>
                   </Form.Select>
                 </div>
 

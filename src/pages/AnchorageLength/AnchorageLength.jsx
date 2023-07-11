@@ -19,10 +19,14 @@ export function AnchorageLength() {
     lbrqd: 0,
     lbeq: 0,
     lbeqDir: 0,
+    lbeqIndir: 0,
     lbmin: 0,
     lagerung: "",
     stab: "",
     alpha: 0,
+    asErf: 0,
+    asVorh: 0,
+    calculated: false,
   });
 
   /**
@@ -54,7 +58,10 @@ export function AnchorageLength() {
     iptAlphaA,
     iptTheta,
     iptLbmin,
-    iptLbeqDir
+    iptLbeqDir,
+    iptLbeqIndir,
+    iptAsErf,
+    iptAsVorh
   ) => {
     setData({
       ...data,
@@ -69,10 +76,14 @@ export function AnchorageLength() {
       lbrqd: iptLbrqd,
       lbeq: iptLbeq,
       lbeqDir: iptLbeqDir,
+      lbeqIndir: iptLbeqIndir,
       lbmin: iptLbmin,
       lagerung: iptLagerung,
       stab: iptStab,
       alpha: iptAlphaA,
+      asErf: iptAsErf,
+      asVorh: iptAsVorh,
+      calculated: true,
     });
   };
 

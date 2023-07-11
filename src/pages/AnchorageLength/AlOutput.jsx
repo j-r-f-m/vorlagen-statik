@@ -4,30 +4,24 @@ import { MathJax } from "better-react-mathjax";
 import { PropTypes } from "prop-types";
 
 export function AlOutput(props) {
-  // function LagerungEndauflager(lagerung) {
-  //   console.log(lagerung);
-  //   if (lagerung === "direkt") {
-  //     return (
-  //       <MathJax>
-  //         {"\\(l_{b,dir} = \\)"}&nbsp;
-  //         {props.data.lbeqDir}
-  //         &nbsp;{"\\(mm\\)"}&emsp;
-  //       </MathJax>
-  //     );
-  //   } else if (lagerung === "indirekt") {
-  //     <MathJax>
-  //       {"\\(l_{b,indir} = \\)"}&nbsp;
-  //       {props.data.lbeqDir}
-  //       &nbsp;{"\\(mm\\)"}&emsp;
-  //     </MathJax>;
+  // Nachweis lbeq >= lbmin
+  // const nachweisLbeq = `\\(l_{b,eq} = ${props.data.alpha} \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${props.data.asVorh}} 	\\geq ${props.data.lbmin} = l_{b,min}\\)`;
+
+  // function Nachweis(bigger) {
+  //   if (bigger) {
+  //     return `\\(l_{b,eq} = ${props.data.alpha} \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${props.data.asVorh}} 	\\geq ${props.data.lbmin} = l_{b,min}\\)`;
   //   } else {
-  //     <MathJax>
-  //       {"\\(l_{b,indir} = \\)"}&nbsp;
-  //       {0}
-  //       &nbsp;{"\\(mm\\)"}&emsp;
-  //     </MathJax>;
+  //     `\\(l_{b,eq} = ${props.data.alpha} \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${props.data.asVorh}} 	asdasdfasdf ${props.data.lbmin} = l_{b,min}\\)`;
   //   }
   // }
+
+  // const checkLbeq = () => {
+  //   if (props.data.lbeq >= props.data.lbmin) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // };
 
   return (
     <>
@@ -56,6 +50,22 @@ export function AlOutput(props) {
                 </div>
               </ListGroup.Item>
 
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start"
+              >
+                <div className="ms-2 me-auto d-flex">
+                  <MathJax>
+                    {"\\(A_{s,erf}=\\)"}
+                    &nbsp;
+                    {props.data.asErf}&emsp;
+                    {"\\(A_{s,vorh} \\)"}&nbsp;
+                    {"\\(= \\)"}&nbsp;
+                    {props.data.asVorh}
+                    &emsp;
+                  </MathJax>
+                </div>
+              </ListGroup.Item>
               <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-start"
@@ -130,6 +140,7 @@ export function AlOutput(props) {
                     {"\\(l_{b,min} = \\)"}&nbsp;
                     {props.data.lbmin}
                     &nbsp;{"\\(mm\\)"}&emsp;
+                    {props.data.stab}
                   </MathJax>
                 </div>
                 <div className="mt-2"></div>
@@ -139,8 +150,51 @@ export function AlOutput(props) {
                 as="li"
                 className="d-flex justify-content-between align-items-start flex-column"
               >
-                <div className="ms-2 me-auto"></div>
+                <div className="ms-2 me-auto">
+                  <MathJax>
+                    {"\\(l_{b,eq,dir} = \\)"}&nbsp;
+                    {props.data.lbeqDir}
+                    &nbsp;{"\\(mm\\)"}&emsp;
+                  </MathJax>
+                </div>
                 <div className="mt-2"></div>
+              </ListGroup.Item>
+
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start flex-column"
+              >
+                <div className="ms-2 me-auto">
+                  <MathJax>
+                    {"\\(l_{b,eq,indir} = \\)"}&nbsp;
+                    {props.data.lbeqIndir}
+                    &nbsp;{"\\(mm\\)"}&emsp;
+                  </MathJax>
+                </div>
+                <div className="mt-2"></div>
+              </ListGroup.Item>
+
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start flex-column"
+              >
+                <div className="ms-2  me-auto">
+                  <div className="fw-bold">Nachweis</div>
+
+                  <MathJax className="mb-2">
+                    {
+                      "\\(l_{b,eq} = \\alpha_{a} \\cdot l_{b,rqd} \\cdot \\frac{A_{s,erf}}{A_{s,vorh}} 	\\geq l_{b,min}\\)"
+                    }{" "}
+                  </MathJax>
+                  <MathJax>
+                    {/* check if calculation run for at least one time 
+                    if calculation ran for one time call the Nachweis component
+                    if calculation did not run do show anything*/}
+                    {/* {props.data.calculated ? (
+                      <Nachweis isBigger={checkLbeq} />
+                    ) : null}*/}
+                  </MathJax>
+                </div>
               </ListGroup.Item>
             </ListGroup>
           </Accordion.Body>

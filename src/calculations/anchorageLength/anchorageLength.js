@@ -213,9 +213,9 @@ const lBminDruck = (lbrqd, theta) => {
  * @returns number lbmin
  */
 const lBmin = (lbrqd, theta, alpha, stab) => {
-  if (stab === "zugstab") {
+  if (stab === "Zugstab") {
     return lBminZug(lbrqd, theta, alpha);
-  } else if (stab === "druckstab") {
+  } else if (stab === "Druckstab") {
     return lBminDruck(lbrqd, theta, alpha);
   }
 };
@@ -299,6 +299,9 @@ const calculateAl = (
   const currLbeqDir = lbeqDir(currLbeq);
   const roundedCurrLbeqDir = round(currLbeqDir, 2);
 
+  const currLbeqIndir = lbeqIndir(currLbeq);
+  const roundedCurrLbeqIndir = round(currLbeqIndir, 2);
+
   return {
     name: "anchorage length results",
     fck: currfck,
@@ -312,9 +315,12 @@ const calculateAl = (
     lbrqd: roundedCurrLbrqd,
     lbeq: roundedCurrLbeq,
     lbeqDir: roundedCurrLbeqDir,
+    lbeqIndir: roundedCurrLbeqIndir,
     lbmin: roundedCurrLbmin,
     lagerung: lagerung,
     stab: stab,
+    asErf: a_serf,
+    asVorh: a_svorh,
   };
 };
 
