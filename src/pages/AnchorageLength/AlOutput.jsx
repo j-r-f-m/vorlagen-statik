@@ -4,6 +4,31 @@ import { MathJax } from "better-react-mathjax";
 import { PropTypes } from "prop-types";
 
 export function AlOutput(props) {
+  // function LagerungEndauflager(lagerung) {
+  //   console.log(lagerung);
+  //   if (lagerung === "direkt") {
+  //     return (
+  //       <MathJax>
+  //         {"\\(l_{b,dir} = \\)"}&nbsp;
+  //         {props.data.lbeqDir}
+  //         &nbsp;{"\\(mm\\)"}&emsp;
+  //       </MathJax>
+  //     );
+  //   } else if (lagerung === "indirekt") {
+  //     <MathJax>
+  //       {"\\(l_{b,indir} = \\)"}&nbsp;
+  //       {props.data.lbeqDir}
+  //       &nbsp;{"\\(mm\\)"}&emsp;
+  //     </MathJax>;
+  //   } else {
+  //     <MathJax>
+  //       {"\\(l_{b,indir} = \\)"}&nbsp;
+  //       {0}
+  //       &nbsp;{"\\(mm\\)"}&emsp;
+  //     </MathJax>;
+  //   }
+  // }
+
   return (
     <>
       <Accordion className="mt-3 mb-3" style={{ width: "100%" }}>
@@ -86,13 +111,35 @@ export function AlOutput(props) {
                 className="d-flex justify-content-between align-items-start flex-column"
               >
                 <div className="ms-2 me-auto">
-                  <div className="fw-bold">Ersatzverankerungslänge</div>
+                  <div className="fw-bold">Verankerungslängen</div>
                   <MathJax>
                     {"\\(l_{b,eq} = \\)"}&nbsp;
                     {props.data.lbeq}
                     &nbsp;{"\\(mm\\)"}&emsp;
                   </MathJax>
                 </div>
+                <div className="mt-2"></div>
+              </ListGroup.Item>
+
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start flex-column"
+              >
+                <div className="ms-2 me-auto">
+                  <MathJax>
+                    {"\\(l_{b,min} = \\)"}&nbsp;
+                    {props.data.lbmin}
+                    &nbsp;{"\\(mm\\)"}&emsp;
+                  </MathJax>
+                </div>
+                <div className="mt-2"></div>
+              </ListGroup.Item>
+
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start flex-column"
+              >
+                <div className="ms-2 me-auto"></div>
                 <div className="mt-2"></div>
               </ListGroup.Item>
             </ListGroup>

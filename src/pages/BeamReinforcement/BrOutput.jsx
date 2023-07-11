@@ -80,7 +80,7 @@ export function BrOutput(props) {
                   </div>
                   <MathJax>
                     {`\\(n=Ganzzahl \\left[ \\frac{b \\ - \\ c_{nom,a} \\ - \\ c_{nom,i} \\ - \\ 2 \\ \\cdot \\ \\theta_{Bü} \\ - \\ (1-\\frac{1}{\\sqrt{2}}) \\cdot D_{Bü}\\ - \\ \\frac{1}{\\sqrt{2}} \\cdot \\ \\theta \\ - \\ \\theta \\ - \\ s_{min} }{\\theta \\ + \\ s_{min}}  \\right] \\ + \\ 2 =  \\)`}
-                    &nbsp; {props.data.data.dMin}
+                    &nbsp; {props.data.data.n}
                   </MathJax>
                 </div>
                 <div className="mt-2">

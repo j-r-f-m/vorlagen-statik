@@ -239,6 +239,7 @@ const lbeqIndir = (lbeq) => {
 };
 
 /**
+ * Entscheidungsfunktion
  * Berechnet die erforderliche Vernakerungslänge am Endauflager
  * @param {number} lbeq Ersatzverankerungslänge
  * @param {string} lagerung Lagerungsbedingung
@@ -338,4 +339,5 @@ export {
   lBminDruck,
   lBmin,
   calculateAl,
+  verankerungEndauflager,
 };
