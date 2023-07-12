@@ -16,14 +16,13 @@ export function AlOutput(props) {
             <MathJax>
               <div className="fw-bold">Randbedingungen</div>
               {"\\(f_{ck} \\)"}&nbsp;{"\\(= \\)"}&nbsp;
-              {props.data.fck}
-              &nbsp;{"\\(N/mm²\\)"}&emsp;
+              {`\\(${props.data.fck}\\)`}&nbsp;{"\\(N/mm^{2}\\)"}
+              &emsp;
               {"\\(f_{ctm} = \\)"}&nbsp;
-              {props.data.fctm}
-              &nbsp;{"\\(N/mm²\\)"}&emsp;
-              {"\\(f_{ctk;0,05} = \\)"}&nbsp;
-              {props.data.fctk005}
-              &nbsp;{"\\(N/mm²\\)"}&emsp;
+              {`\\(${props.data.fctm}\\)`}&nbsp;{"\\(N/mm^{2}\\)"}
+              &emsp;
+              {"\\(f_{ctk;0,05} = \\)"}&nbsp;{"\\(N/mm^{2}\\)"}
+              {`\\(${props.data.fctk005}\\)`}&nbsp;{"\\(N/mm^{2}\\)"}
             </MathJax>
           </div>
         </ListGroup.Item>
@@ -36,10 +35,11 @@ export function AlOutput(props) {
             <MathJax>
               {"\\(A_{s,erf}=\\)"}
               &nbsp;
-              {props.data.asErf}&emsp;
+              {`\\(${props.data.asErf}\\)`}&nbsp;{"\\(cm^{2}\\)"}&emsp;
               {"\\(A_{s,vorh} \\)"}&nbsp;
               {"\\(= \\)"}&nbsp;
-              {props.data.asVorh}
+              {`\\(${props.data.asVorh}\\)`}
+              &nbsp;{"\\(cm^{2}\\)"}
               &emsp;
             </MathJax>
           </div>
@@ -55,7 +55,7 @@ export function AlOutput(props) {
               {props.data.verbund}&emsp;
               {"\\(\\alpha_{a} \\)"}&nbsp;
               {"\\(= \\)"}&nbsp;
-              {props.data.alpha}
+              {`\\(${props.data.alpha}\\)`}
               &emsp;
             </MathJax>
           </div>
@@ -69,13 +69,13 @@ export function AlOutput(props) {
             <MathJax>
               <div className="fw-bold">Zwischenergebnisse</div>
               {"\\(\\theta = \\)"}&nbsp;
-              {props.data.theta}
+              {`\\(${props.data.theta}\\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
               {"\\(f_{yd} = \\)"}&nbsp;
-              {props.data.fyd}
-              &nbsp;{"\\(N/mm²\\)"}&emsp;
+              {`\\(${props.data.fyd}\\)`}
+              &nbsp;{"\\(N/mm^{2}\\)"}&emsp;
               {"\\(f_{bd} = \\)"}&nbsp;
-              {props.data.fbd}
+              {`\\(${props.data.fbd}\\)`}
               &nbsp;{"\\(N/mm²\\)"}
             </MathJax>
           </div>
@@ -88,7 +88,8 @@ export function AlOutput(props) {
           <div className="ms-2 me-auto">
             <MathJax>
               {"\\(l_{b,rqd} = \\)"}&nbsp;
-              {props.data.lbrqd}
+              {`\\(\\frac{${props.data.theta}}{4} \\cdot \\frac{${props.data.fyd}}{${props.data.fbd}} = \\)`}
+              &nbsp;{`\\(${props.data.lbrqd}\\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
             </MathJax>
           </div>
@@ -101,8 +102,7 @@ export function AlOutput(props) {
           <div className="ms-2 me-auto">
             <div className="fw-bold">Verankerungslängen</div>
             <MathJax>
-              {"\\(l_{b,eq} = \\)"}&nbsp;
-              {props.data.lbeq}
+              {`\\(l_{b,eq} = ${props.data.alpha} \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${props.data.asVorh}} = ${props.data.lbeq} \\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
             </MathJax>
           </div>
@@ -118,7 +118,8 @@ export function AlOutput(props) {
               {"\\(l_{b,min} = \\)"}&nbsp;
               {props.data.lbmin}
               &nbsp;{"\\(mm\\)"}&emsp;
-              {props.data.stab}
+              {/* {props.data.stab} */}
+              {/* {props.data.stab === "Zugstab" ? <LbminZugRender /> : null} */}
             </MathJax>
           </div>
           <div className="mt-2"></div>
@@ -162,7 +163,7 @@ export function AlOutput(props) {
             <MathJax className="mb-2">
               {
                 "\\(l_{b,eq} = \\alpha_{a} \\cdot l_{b,rqd} \\cdot \\frac{A_{s,erf}}{A_{s,vorh}} 	\\geq l_{b,min}\\)"
-              }{" "}
+              }
             </MathJax>
             <MathJax>{/* hier mit Nachweis beginnen */}</MathJax>
           </div>
@@ -170,6 +171,18 @@ export function AlOutput(props) {
       </ListGroup>
     );
   };
+
+  // const LbminZugRender = () => {
+  //   if (props.data.lbmin >= 10 * props.data.theta) {
+  //     return (
+  //       <MathJax>{`\\(l_{b,min} = 0.3 \\cdot ${props.data.lbrqd} = ${props.data.lbmin} mm \\)`}</MathJax>
+  //     );
+  //   } else {
+  //     return (
+  //       <MathJax>{`\\(l_{b,min} = 10 \\cdot ${props.data.theta} = ${props.data.lbmin} mm \\)`}</MathJax>
+  //     );
+  //   }
+  // };
 
   return (
     <>

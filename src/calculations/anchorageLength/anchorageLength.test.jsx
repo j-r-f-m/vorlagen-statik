@@ -601,7 +601,7 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 /**
  * Test für die Mindestverankerungslänge
  */
-describe.skip("Mindestverankerungslänge", () => {
+describe("Mindestverankerungslänge", () => {
   it("l_bmin bei Zugstäben", () => {
     const fyk = 500; // N/mm²
     const gamma_s = 1.15;

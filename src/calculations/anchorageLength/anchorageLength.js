@@ -182,9 +182,10 @@ const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
  * @param {number} alpha Beiwert zur Berücksichtigung der Verankerungsart
  * @returns number lBminZug
  */
-const lBminZug = (lbrqd, theta, alpha) => {
-  if (0.3 * alpha * lbrqd >= 10 * theta) {
-    return 0.3 * alpha * lbrqd;
+const lBminZug = (lbrqd, theta) => {
+  console.log(theta);
+  if (0.3 * lbrqd >= 10 * theta) {
+    return 0.3 * lbrqd;
   } else {
     return 10 * theta;
   }
@@ -212,11 +213,13 @@ const lBminDruck = (lbrqd, theta) => {
  * @param {string} stab Belastungsart des Stabes (Zug oder Druck)
  * @returns number lbmin
  */
-const lBmin = (lbrqd, theta, alpha, stab) => {
+const lBmin = (lbrqd, theta, stab) => {
+  console.log(lbrqd, theta, stab);
   if (stab === "Zugstab") {
-    return lBminZug(lbrqd, theta, alpha);
+    console.log("lol");
+    return lBminZug(lbrqd, theta);
   } else if (stab === "Druckstab") {
-    return lBminDruck(lbrqd, theta, alpha);
+    return lBminDruck(lbrqd, theta);
   }
 };
 
@@ -290,7 +293,9 @@ const calculateAl = (
   const roundedCurrLbeq = round(currLbeq, 1);
   console.log(roundedCurrLbeq);
 
-  const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
+  const currLbmin = lBmin(currLbrqd, theta, stab);
+  // const roundedCurrLbmin = round(currLbmin, 2);
+  console.log(currLbmin);
   const roundedCurrLbmin = round(currLbmin, 2);
 
   // const currVerankerungAlr = verankerungEndauflager(currLbeq, lagerung);
