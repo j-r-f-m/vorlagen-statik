@@ -52,7 +52,10 @@ export function AlOutput(props) {
             <MathJax>
               {"\\(Verbundbedingung:\\)"}
               &nbsp;
-              {props.data.verbund}&emsp;
+              {props.data.verbund === "guterVerbund"
+                ? guterVerbundString
+                : schlechterVerbundString}
+              &emsp;
               {"\\(\\alpha_{a} \\)"}&nbsp;
               {"\\(= \\)"}&nbsp;
               {`\\(${props.data.alpha}\\)`}
@@ -116,7 +119,7 @@ export function AlOutput(props) {
           <div className="ms-2 me-auto">
             <MathJax>
               {"\\(l_{b,min} = \\)"}&nbsp;
-              {props.data.lbmin}
+              {`\\(${props.data.lbmin}\\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
               {/* {props.data.stab} */}
               {/* {props.data.stab === "Zugstab" ? <LbminZugRender /> : null} */}
@@ -132,7 +135,7 @@ export function AlOutput(props) {
           <div className="ms-2 me-auto">
             <MathJax>
               {"\\(l_{b,eq,dir} = \\)"}&nbsp;
-              {props.data.lbeqDir}
+              {`\\(${props.data.lbeqDir}\\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
             </MathJax>
           </div>
@@ -146,7 +149,7 @@ export function AlOutput(props) {
           <div className="ms-2 me-auto">
             <MathJax>
               {"\\(l_{b,eq,indir} = \\)"}&nbsp;
-              {props.data.lbeqIndir}
+              {`\\(${props.data.lbeqIndir}\\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
             </MathJax>
           </div>
@@ -171,6 +174,19 @@ export function AlOutput(props) {
       </ListGroup>
     );
   };
+
+  const guterVerbundString = (
+    <span>
+      {"\\(Guter\\)"}&nbsp;
+      {"\\(Verbund\\)"}
+    </span>
+  );
+
+  const schlechterVerbundString = (
+    <span>
+      {"\\(Schlechter)"}&nbsp;{"\\(Verbund)"}
+    </span>
+  );
 
   // const LbminZugRender = () => {
   //   if (props.data.lbmin >= 10 * props.data.theta) {
