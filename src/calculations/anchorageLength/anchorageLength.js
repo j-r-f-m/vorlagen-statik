@@ -174,19 +174,19 @@ const lbrqd = (theta, fyd, fbd) => {
  * @returns number
  */
 const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
-  console.log(alpha_a, lbrqd, a_serf, a_svorh);
   return alpha_a * lbrqd * (a_serf / a_svorh);
 };
 
 /**
  * Mindestverankerungslänge bei Zugstäben
+ * Bemessungs im Konstruktiven Ingeniuerbau, s.551
  * @param {number} lbrqd Grundwert der Verankerungslänge
  * @param {number} theta Durchmesser längsstab
  * @param {number} alpha Beiwert zur Berücksichtigung der Verankerungsart
  * @returns number lBminZug
  */
-const lBminZug = (lbrqd, theta) => {
-  if (0.3 * lbrqd >= 10 * theta) {
+const lBminZug = (lbrqd, theta, alpha) => {
+  if (0.3 * lbrqd >= 10 * alpha * theta) {
     return 0.3 * lbrqd;
   } else {
     return 10 * theta;
@@ -215,9 +215,9 @@ const lBminDruck = (lbrqd, theta) => {
  * @param {string} stab Belastungsart des Stabes (Zug oder Druck)
  * @returns number lbmin
  */
-const lBmin = (lbrqd, theta, stab) => {
+const lBmin = (lbrqd, theta, stab, alpha) => {
   if (stab === "Zugstab") {
-    return lBminZug(lbrqd, theta);
+    return lBminZug(lbrqd, theta, alpha);
   } else if (stab === "Druckstab") {
     return lBminDruck(lbrqd, theta);
   }
@@ -291,8 +291,6 @@ const calculateAl = (
 
   const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
   const roundedCurrLbeq = round(currLbeq, 1);
-  console.log("lol");
-  console.log(currLbeq);
 
   const currLbmin = lBmin(currLbrqd, theta, stab);
   // const roundedCurrLbmin = round(currLbmin, 2);

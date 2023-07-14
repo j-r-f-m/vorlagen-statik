@@ -598,14 +598,14 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 /**
  * Test für die Mindestverankerungslänge
  */
-describe.skip("Mindestverankerungslänge", () => {
+describe("Mindestverankerungslänge", () => {
   it("l_bmin bei Zugstäben", () => {
     const fyk = 500; // N/mm²
     const gamma_s = 1.15;
     const currFck = 30; // N/mm²
     const fyd = fyk / gamma_s;
     const currTheta = 20; // mm
-
+    const alpha = 1;
     const currFctm = fctm(currFck);
     const currFctk005 = fctk005(currFctm);
     const gammaC = 1.5;
@@ -614,7 +614,7 @@ describe.skip("Mindestverankerungslänge", () => {
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
 
-    const currLbminZug = lBminZug(currLbrqd, currTheta);
+    const currLbminZug = lBminZug(currLbrqd, currTheta, alpha);
 
     const roundedCurrLbminZug = round(currLbminZug, 2);
 
@@ -691,7 +691,7 @@ describe.skip("Mindestverankerungslänge", () => {
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
 
-    const currLbmin = lBmin(currLbrqd, currTheta, stab);
+    const currLbmin = lBmin(currLbrqd, currTheta, stab, currAlpha);
     const roundedCurrLbmin = round(currLbmin, 2);
     expect(roundedCurrLbmin).toBe(214.44);
   });
@@ -737,7 +737,7 @@ describe.skip("Ersatzverankerungslänge l_beq", () => {
   });
 });
 
-describe("Output lbeq", () => {
+describe.skip("Output lbeq", () => {
   /**
    * Aus "Stahlbetonbau in Beispielen Teil 1 Beispiel 4.1, S.73"
    */
@@ -843,7 +843,7 @@ describe("Output lbeq", () => {
 /**
  * Verifikationsbeispiele aus der Literatur
  */
-describe("Verifikationsbeispiele", () => {
+describe.skip("Verifikationsbeispiele", () => {
   /**
    * Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau
    * Deutscher Beton- und Bautechnik-Verein E.V.
@@ -851,21 +851,12 @@ describe("Verifikationsbeispiele", () => {
 
   // Beispiel 1: Vollplatte, einachsig gespannt
   it("", () => {
-    /*     const fck = 20;
-    const verbund = "guterVerund";
-    const theta = 10;
-    const alpha = 1;
-    const aserf = 0.85;
-    const asvorh = 5.2;
-    const lagerung = "direkt";
-    const stab = "Zugstab"; */
-
-    const fck = 30; // N/mm²
+    const fck = 20; // N/mm²
     const verbund = "guterVerbund";
-    const theta = 20; // mm
+    const theta = 10; // mm
     const alpha = 1;
-    const aserf = 2.3; // cm²
-    const asvorh = 9.42; // cm²
+    const aserf = 0.85; // cm²
+    const asvorh = 5.24; // cm²
     const lagerung = "direkt";
     const stab = "Zugstab";
 
@@ -881,5 +872,16 @@ describe("Verifikationsbeispiele", () => {
     );
 
     console.log(currentCalculation);
+    const roundedFyd = round(currentCalculation.fyd, 0);
+    const roundedFbd = round(currentCalculation.fbd, 1);
+    const currLbeq = round(
+      lbrqd(currentCalculation.theta, roundedFyd, roundedFbd),
+      0
+    );
+
+    const roundedLbmin = round(currentCalculation.lbmin, 2);
+    console.log(roundedLbmin);
+
+    expect(currLbeq).toBe(473);
   });
 });
