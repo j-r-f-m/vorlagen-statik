@@ -211,7 +211,7 @@ export function AlForm(props) {
                     </InputGroup.Text>
                     <Form.Control
                       type="number"
-                      step="0.1"
+                      step="0.01"
                       placeholder="As erforderlich"
                       aria-label="As erforderlichl"
                       aria-describedby="basic-addon1"
@@ -238,7 +238,7 @@ export function AlForm(props) {
                     </InputGroup.Text>
                     <Form.Control
                       type="number"
-                      step="0.1"
+                      step="0.01"
                       placeholder="As vorhanden"
                       aria-label="As vorhanden"
                       aria-describedby="basic-addon1"

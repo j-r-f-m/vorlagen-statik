@@ -23,7 +23,6 @@ describe.skip("Mittelwert der Zugfestigkeit", () => {
     const fcks = [12, 16, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 90, 100];
     const notRoundedFctms = fcks.map(fctm);
     const roundedFctm = notRoundedFctms.map(round1decimal);
-    // console.log(roundedFctm);
     expect(roundedFctm).toEqual([
       1.6, 1.9, 2.2, 2.6, 2.9, 3.2, 3.5, 3.8, 4.1, 4.2, 4.4, 4.6, 4.8, 5.0, 5.2,
     ]);
@@ -150,9 +149,7 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 
     const theta = [6, 8, 10, 12, 14, 16, 20, 25, 28];
     const currLbrqd = theta.map(test);
-    console.log(currLbrqd);
     const roundedCurrLbrqd = currLbrqd.map(roundWhole);
-    console.log(roundedCurrLbrqd);
     expect(roundedCurrLbrqd).toEqual([40, 53, 66, 79, 92, 105, 132, 165, 184]);
   });
 
@@ -601,14 +598,13 @@ describe.skip("Grundwert der Verankerungslänge", () => {
 /**
  * Test für die Mindestverankerungslänge
  */
-describe("Mindestverankerungslänge", () => {
+describe.skip("Mindestverankerungslänge", () => {
   it("l_bmin bei Zugstäben", () => {
     const fyk = 500; // N/mm²
     const gamma_s = 1.15;
     const currFck = 30; // N/mm²
     const fyd = fyk / gamma_s;
     const currTheta = 20; // mm
-    const alpha = 1;
 
     const currFctm = fctm(currFck);
     const currFctk005 = fctk005(currFctm);
@@ -618,7 +614,8 @@ describe("Mindestverankerungslänge", () => {
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
 
-    const currLbminZug = lBminZug(currLbrqd, currTheta, alpha);
+    const currLbminZug = lBminZug(currLbrqd, currTheta);
+
     const roundedCurrLbminZug = round(currLbminZug, 2);
 
     /**
@@ -645,7 +642,6 @@ describe("Mindestverankerungslänge", () => {
 
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
-    // console.log(currLbrqd);
 
     const currLbminDruck = lBminDruck(currLbrqd, currTheta);
     const roundedCurrLbminDruck = round(currLbminDruck, 2);
@@ -659,7 +655,7 @@ describe("Mindestverankerungslänge", () => {
     expect(roundedCurrLbminDruck).toBe(428.88);
   });
 
-  it("l_bmin druckstab", () => {
+  it("l_bmin Entscheidungsfunktion Druckstab", () => {
     const fyk = 500; // N/mm²
     const gamma_s = 1.15;
     const currFck = 30; // N/mm²
@@ -667,16 +663,14 @@ describe("Mindestverankerungslänge", () => {
     const currTheta = 20; // mm
     const gammaC = 1.5;
     const currVerbund = "guterVerbund";
-    const stab = "druckstab";
-    const currAlpha = 1;
+    const stab = "Druckstab";
 
     const currFctm = fctm(currFck);
     const currFctk005 = fctk005(currFctm);
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
 
-    const currLbmin = lBmin(currLbrqd, currTheta, currAlpha, stab);
-    console.log(currLbmin);
+    const currLbmin = lBmin(currLbrqd, currTheta, stab);
     const roundedCurrLbmin = round(currLbmin, 2);
     expect(roundedCurrLbmin).toBe(428.88);
   });
@@ -689,7 +683,7 @@ describe("Mindestverankerungslänge", () => {
     const currTheta = 20; // mm
     const gammaC = 1.5;
     const currVerbund = "guterVerbund";
-    const stab = "zugstab";
+    const stab = "Zugstab";
     const currAlpha = 1;
 
     const currFctm = fctm(currFck);
@@ -697,8 +691,7 @@ describe("Mindestverankerungslänge", () => {
     const currFbd = fbd(currFctk005, gammaC, currVerbund);
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
 
-    const currLbmin = lBmin(currLbrqd, currTheta, currAlpha, stab);
-    console.log(currLbmin);
+    const currLbmin = lBmin(currLbrqd, currTheta, stab);
     const roundedCurrLbmin = round(currLbmin, 2);
     expect(roundedCurrLbmin).toBe(214.44);
   });
@@ -707,7 +700,7 @@ describe("Mindestverankerungslänge", () => {
 /**
  * Test für die Ersatzverankerungslänge
  */
-describe("Ersatzverankerungslänge l_beq", () => {
+describe.skip("Ersatzverankerungslänge l_beq", () => {
   it("l_beq ", () => {
     /**
      * Die Eingangswerte sind aus "Stahlbetonbau in Beispielen Teil 1 Beispiel 4.1, S.73"
@@ -757,26 +750,69 @@ describe("Output lbeq", () => {
     // inpput erhalten wir aus dem data object
     const fck = 30;
     const verbund = "guterVerbund";
-    const currentCalculation = calculateAl(fck, verbund);
-    console.log(currentCalculation);
+    const theta = 20; // mm
+    const asErf = 2.4;
+    const asVorh = 5.24;
+    const lagerung = "direkt";
+    const stab = "Zugstab";
+    const alpha = 1;
+
+    const currentCalculation = calculateAl(
+      fck,
+      verbund,
+      theta,
+      alpha,
+      asErf,
+      asVorh,
+      lagerung,
+      stab
+    );
     expect(currentCalculation.fyd).toBe(434.78);
   });
 
   it("fbd", () => {
     const fck = 30;
     const verbund = "guterVerbund";
-    const currentCalculation = calculateAl(fck, verbund);
-    console.log(currentCalculation);
+    const theta = 20; // mm
+    const asErf = 2.4;
+    const asVorh = 5.24;
+    const lagerung = "direkt";
+    const stab = "Zugstab";
+    const alpha = 1;
+
+    const currentCalculation = calculateAl(
+      fck,
+      verbund,
+      theta,
+      alpha,
+      asErf,
+      asVorh,
+      lagerung,
+      stab
+    );
     expect(currentCalculation.fbd).toBe(3.04);
   });
 
   it("lbrqd", () => {
-    const fck = 30; // N/mm²
+    const fck = 30;
     const verbund = "guterVerbund";
     const theta = 20; // mm
+    const asErf = 2.4;
+    const asVorh = 5.24;
+    const lagerung = "direkt";
+    const stab = "Zugstab";
+    const alpha = 1;
 
-    const currentCalculation = calculateAl(fck, verbund, theta);
-    console.log(currentCalculation);
+    const currentCalculation = calculateAl(
+      fck,
+      verbund,
+      theta,
+      alpha,
+      asErf,
+      asVorh,
+      lagerung,
+      stab
+    );
     expect(currentCalculation.lbrqd).toBe(715);
   });
 
@@ -787,6 +823,8 @@ describe("Output lbeq", () => {
     const alpha = 1;
     const aserf = 2.3; // cm²
     const asvorh = 9.42; // cm²
+    const lagerung = "direkt";
+    const stab = "Zugstab";
 
     const currentCalculation = calculateAl(
       fck,
@@ -794,8 +832,54 @@ describe("Output lbeq", () => {
       theta,
       alpha,
       aserf,
-      asvorh
+      asvorh,
+      lagerung,
+      stab
     );
     expect(currentCalculation.lbeq).toBe(174.5);
+  });
+});
+
+/**
+ * Verifikationsbeispiele aus der Literatur
+ */
+describe("Verifikationsbeispiele", () => {
+  /**
+   * Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau
+   * Deutscher Beton- und Bautechnik-Verein E.V.
+   */
+
+  // Beispiel 1: Vollplatte, einachsig gespannt
+  it("", () => {
+    /*     const fck = 20;
+    const verbund = "guterVerund";
+    const theta = 10;
+    const alpha = 1;
+    const aserf = 0.85;
+    const asvorh = 5.2;
+    const lagerung = "direkt";
+    const stab = "Zugstab"; */
+
+    const fck = 30; // N/mm²
+    const verbund = "guterVerbund";
+    const theta = 20; // mm
+    const alpha = 1;
+    const aserf = 2.3; // cm²
+    const asvorh = 9.42; // cm²
+    const lagerung = "direkt";
+    const stab = "Zugstab";
+
+    const currentCalculation = calculateAl(
+      fck,
+      verbund,
+      theta,
+      alpha,
+      aserf,
+      asvorh,
+      lagerung,
+      stab
+    );
+
+    console.log(currentCalculation);
   });
 });

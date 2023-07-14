@@ -1,16 +1,19 @@
 import { round } from "mathjs";
 
 /**
+ * Offene Punkte:
+ * Bemessungswet der Betonzugfestigkeit könnte implementiert werden
+ * fctd = alpha_ct * fctk_005/ gamma_c ist im mmoment mit fctk_005/ gamma_c
+ * berücksichtigt
+ *
+ */
+
+/**
  * Returns rounded number
  * @param {number} decimals
  * @param {number} num number you want to round
  * @returns number
  */
-// const round = (decimals, num) => {
-//   const roundedFctm =
-//     (Math.round((num + Number.EPSILON) * 1 * decimals) / 10) * decimals;
-//   return roundedFctm;
-// };
 
 const roundWhole = (num) => {
   const roundedNum = Math.round(num);
@@ -171,7 +174,7 @@ const lbrqd = (theta, fyd, fbd) => {
  * @returns number
  */
 const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
-  // console.log(currLbrqd);
+  console.log(alpha_a, lbrqd, a_serf, a_svorh);
   return alpha_a * lbrqd * (a_serf / a_svorh);
 };
 
@@ -183,7 +186,6 @@ const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
  * @returns number lBminZug
  */
 const lBminZug = (lbrqd, theta) => {
-  console.log(theta);
   if (0.3 * lbrqd >= 10 * theta) {
     return 0.3 * lbrqd;
   } else {
@@ -214,9 +216,7 @@ const lBminDruck = (lbrqd, theta) => {
  * @returns number lbmin
  */
 const lBmin = (lbrqd, theta, stab) => {
-  console.log(lbrqd, theta, stab);
   if (stab === "Zugstab") {
-    console.log("lol");
     return lBminZug(lbrqd, theta);
   } else if (stab === "Druckstab") {
     return lBminDruck(lbrqd, theta);
@@ -291,11 +291,11 @@ const calculateAl = (
 
   const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
   const roundedCurrLbeq = round(currLbeq, 1);
-  console.log(roundedCurrLbeq);
+  console.log("lol");
+  console.log(currLbeq);
 
   const currLbmin = lBmin(currLbrqd, theta, stab);
   // const roundedCurrLbmin = round(currLbmin, 2);
-  console.log(currLbmin);
   const roundedCurrLbmin = round(currLbmin, 2);
 
   // const currVerankerungAlr = verankerungEndauflager(currLbeq, lagerung);

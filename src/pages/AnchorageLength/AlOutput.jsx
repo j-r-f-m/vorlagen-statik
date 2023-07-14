@@ -21,7 +21,7 @@ export function AlOutput(props) {
               {"\\(f_{ctm} = \\)"}&nbsp;
               {`\\(${props.data.fctm}\\)`}&nbsp;{"\\(N/mm^{2}\\)"}
               &emsp;
-              {"\\(f_{ctk;0,05} = \\)"}&nbsp;{"\\(N/mm^{2}\\)"}
+              {"\\(f_{ctk;0,05} = \\)"}&nbsp;
               {`\\(${props.data.fctk005}\\)`}&nbsp;{"\\(N/mm^{2}\\)"}
             </MathJax>
           </div>
@@ -41,6 +41,10 @@ export function AlOutput(props) {
               {`\\(${props.data.asVorh}\\)`}
               &nbsp;{"\\(cm^{2}\\)"}
               &emsp;
+              {"\\(\\alpha_{a} \\)"}&nbsp;
+              {"\\(= \\)"}&nbsp;
+              {`\\(${props.data.alpha}\\)`}
+              &emsp;
             </MathJax>
           </div>
         </ListGroup.Item>
@@ -55,10 +59,6 @@ export function AlOutput(props) {
               {props.data.verbund === "guterVerbund"
                 ? guterVerbundString
                 : schlechterVerbundString}
-              &emsp;
-              {"\\(\\alpha_{a} \\)"}&nbsp;
-              {"\\(= \\)"}&nbsp;
-              {`\\(${props.data.alpha}\\)`}
               &emsp;
             </MathJax>
           </div>
