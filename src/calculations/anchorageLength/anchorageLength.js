@@ -134,7 +134,6 @@ const fbdMaessigerVerbund = (fctk005, eta1, gammaC) => {
  * bedingung entspricht. Deswegen erhält er die Möglichkeit sich zwischen
  * zwei Strings zu entscheiden welche selbst erklärend sind
  * @param {number} fctk005 5 % Quantil der Zugfestigkeit
- * @param {number} eta1 faktor zur Berücksichtigung der Verbundbedingung
  * @param {number} gammaC Teilsicherheitsbeiwert Beton
  * @param {string} verbund "guterVerbund" "schlechterVerbund"
  * @returns
@@ -164,14 +163,12 @@ const lbrqd = (theta, fyd, fbd) => {
 };
 
 /**
- * Berechnet die Ersatzverankerungslänge
- * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
- * @param {number} alpha_a Beiwert zur Berücksichtigung der Verankerungsart
- * @param {string} verbund Verbundbedingung
- * @param {number} theta Durchmesser
- * @param {number} a_serf Erforderliche Stahlfäche
- * @param {number} a_svorh Vorhandene Stahlfläche
- * @returns number
+ *
+ * @param {number} alpha_a Faktor zur Berücksichtigung der Verankerungsart
+ * @param {number} lbrqd Grundwert der Verankerungslänge
+ * @param {number} a_serf As,erf
+ * @param {number} a_svorh As, vorh
+ * @returns
  */
 const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
   return alpha_a * lbrqd * (a_serf / a_svorh);
@@ -186,9 +183,16 @@ const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
  * @returns number lBminZug
  */
 const lBminZug = (lbrqd, theta, alpha) => {
-  if (0.3 * lbrqd >= 10 * alpha * theta) {
-    return 0.3 * lbrqd;
+  /*   console.log(alpha);
+  console.log("lbrqd");
+  console.log(lbrqd); */
+  if (0.3 * lbrqd * alpha >= 10 * theta) {
+    const currLbminZug = 0.3 * alpha * lbrqd;
+    /*     console.log("lBminZug");
+    console.log(currLbminZug); */
+    return currLbminZug;
   } else {
+    /*     console.log("lbminzug 10*theta"); */
     return 10 * theta;
   }
 };
@@ -215,9 +219,11 @@ const lBminDruck = (lbrqd, theta) => {
  * @param {string} stab Belastungsart des Stabes (Zug oder Druck)
  * @returns number lbmin
  */
-const lBmin = (lbrqd, theta, stab, alpha) => {
+const lBmin = (lbrqd, theta, alpha, stab) => {
   if (stab === "Zugstab") {
-    return lBminZug(lbrqd, theta, alpha);
+    const currLbmin = lBminZug(lbrqd, theta, alpha);
+    /* console.log(currLbmin); */
+    return currLbmin;
   } else if (stab === "Druckstab") {
     return lBminDruck(lbrqd, theta);
   }
@@ -256,6 +262,18 @@ const verankerungEndauflager = (lbeq, lagerung) => {
   }
 };
 
+/**
+ * Berechnung der Verankeungslänge
+ * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
+ * @param {string} verbund Verbundbedingung
+ * @param {number} theta Durchmesser Längseisen
+ * @param {number} alpha_a Faktor zur Berücksichtigung
+ * @param {number} a_serf As,erforderlich
+ * @param {number} a_svorh As,vorhanden
+ * @param {string} lagerung Lagersituation
+ * @param {string} stab Zug- oder Druckstab
+ * @returns
+ */
 const calculateAl = (
   fck,
   verbund,
@@ -292,9 +310,11 @@ const calculateAl = (
   const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
   const roundedCurrLbeq = round(currLbeq, 1);
 
-  const currLbmin = lBmin(currLbrqd, theta, stab);
+  const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
+  /* console.log(currLbmin); */
   // const roundedCurrLbmin = round(currLbmin, 2);
   const roundedCurrLbmin = round(currLbmin, 2);
+  /*   console.log(roundedCurrLbmin); */
 
   // const currVerankerungAlr = verankerungEndauflager(currLbeq, lagerung);
   // const roundedCurrVerankerungAlr = round(currVerankerungAlr, 2);
