@@ -248,6 +248,8 @@ const lBmin = (lbrqd, theta, alpha, stab) => {
  * @returns number
  */
 const lbeqDir = (lbeq) => {
+  // implementieren
+  // lbdir = max {2/3 * lbmin; 6,7 * theta}
   return (2 / 3) * lbeq;
 };
 
@@ -374,9 +376,12 @@ export {
   fbd,
   lbrqd,
   lbeq,
+  lbeqEntscheidung,
   lBminZug,
   lBminDruck,
   lBmin,
+  lbeqDir,
+  lbeqIndir,
   calculateAl,
   verankerungEndauflager,
 };

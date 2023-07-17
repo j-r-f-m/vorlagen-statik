@@ -9,9 +9,12 @@ import {
   fbd,
   lbrqd,
   lbeq,
+  lbeqEntscheidung,
   lBminZug,
   lBminDruck,
   lBmin,
+  lbeqDir,
+  lbeqIndir,
   calculateAl,
 } from "./anchorageLength";
 
@@ -45,6 +48,7 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
       lagerung,
       stab
     );
+    console.log(currentCalculation);
 
     /**
      * Die berechneten Zwischenergebnisse müssen entsprechend gerundet werden,
@@ -52,21 +56,42 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
      */
     const roundedFyd = round(currentCalculation.fyd, 0);
     const roundedFbd = round(currentCalculation.fbd, 1);
-    const currLbeq = round(
+    const currLbrqd = round(
       lbrqd(currentCalculation.theta, roundedFyd, roundedFbd),
       0
     );
 
-    console.log(currentCalculation);
-
-    const currLbmin = lBmin(
-      currentCalculation.lbrqd,
-      currentCalculation.theta,
-      currentCalculation.stab,
-      currentCalculation.alpha
+    const currLbmin = round(
+      lBmin(
+        currLbrqd,
+        currentCalculation.theta,
+        currentCalculation.alpha,
+        currentCalculation.stab
+      ),
+      0
     );
     console.log(currLbmin);
 
-    expect(currLbeq).toBe(473);
+    // Linke seite der Gleichung
+    const rawLbeq = round(
+      lbeq(
+        currentCalculation.alpha,
+        currLbrqd,
+        currentCalculation.asErf,
+        currentCalculation.asVorh
+      ),
+      0
+    );
+    console.log(rawLbeq);
+
+    const currLbeq = lbeqEntscheidung(currLbmin, rawLbeq);
+    console.log(currLbeq);
+
+    const currLbeqDir = lbeqDir(currLbeq);
+    console.log(currLbeqDir);
+
+    expect(currLbrqd).toBe(473);
+    expect(currLbmin).toBe(142);
+    expect(currLbeq).toBe(142);
   });
 });
