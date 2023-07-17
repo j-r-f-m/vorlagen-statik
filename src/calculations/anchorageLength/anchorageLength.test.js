@@ -693,9 +693,9 @@ describe("Mindestverankerungslänge", () => {
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
 
     const currLbmin = lBmin(currLbrqd, currTheta, currAlpha, stab);
-    console.log(currLbmin);
-    /* const roundedCurrLbmin = round(currLbmin, 2); */
-    /* expect(roundedCurrLbmin).toBe(214.44); */
+
+    const roundedCurrLbmin = round(currLbmin, 2);
+    expect(roundedCurrLbmin).toBe(214.44);
   });
 });
 
@@ -838,6 +838,7 @@ describe("Output lbeq", () => {
       lagerung,
       stab
     );
-    expect(currentCalculation.lbeq).toBe(174.5);
+
+    expect(currentCalculation.lbeq).toBe(214.4);
   });
 });

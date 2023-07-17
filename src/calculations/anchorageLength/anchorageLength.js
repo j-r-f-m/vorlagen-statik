@@ -163,7 +163,7 @@ const lbrqd = (theta, fyd, fbd) => {
 };
 
 /**
- *
+ * Berechne Ersatzverankerungslänge
  * @param {number} alpha_a Faktor zur Berücksichtigung der Verankerungsart
  * @param {number} lbrqd Grundwert der Verankerungslänge
  * @param {number} a_serf As,erf
@@ -172,6 +172,19 @@ const lbrqd = (theta, fyd, fbd) => {
  */
 const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
   return alpha_a * lbrqd * (a_serf / a_svorh);
+};
+
+/**
+ * Entscheidungsfunktion
+ * lBmin und lBeq werden verglichen der höhere Wert wird zurückgegeben
+ * @param {number} lBmin Mindestverankerungslänge
+ * @param {number} lbeq Ersatzverankerunslänge
+ * @returns Engültige Ersatzverankerungslänge
+ */
+const lbeqEntscheidung = (lBmin, lbeq) => {
+  if (lbeq >= lBmin) {
+    return lbeq;
+  } else if (lbeq < lBmin) return lBmin;
 };
 
 /**
@@ -307,17 +320,14 @@ const calculateAl = (
   const currLbrqd = lbrqd(theta, currFyd, currFbd);
   const roundedCurrLbrqd = round(currLbrqd, 0);
 
+  const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
+  const roundedCurrLbmin = round(currLbmin, 2);
+
   const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
   const roundedCurrLbeq = round(currLbeq, 1);
 
-  const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
-  /* console.log(currLbmin); */
-  // const roundedCurrLbmin = round(currLbmin, 2);
-  const roundedCurrLbmin = round(currLbmin, 2);
-  /*   console.log(roundedCurrLbmin); */
-
-  // const currVerankerungAlr = verankerungEndauflager(currLbeq, lagerung);
-  // const roundedCurrVerankerungAlr = round(currVerankerungAlr, 2);
+  const lbeqFinal = lbeqEntscheidung(roundedCurrLbmin, roundedCurrLbeq);
+  const roundedLbeqFinal = round(lbeqFinal, 1);
 
   const currLbeqDir = lbeqDir(currLbeq);
   const roundedCurrLbeqDir = round(currLbeqDir, 2);
@@ -336,7 +346,7 @@ const calculateAl = (
     theta: theta,
     fyd: roundedCurrFyd,
     lbrqd: roundedCurrLbrqd,
-    lbeq: roundedCurrLbeq,
+    lbeq: roundedLbeqFinal,
     lbeqDir: roundedCurrLbeqDir,
     lbeqIndir: roundedCurrLbeqIndir,
     lbmin: roundedCurrLbmin,

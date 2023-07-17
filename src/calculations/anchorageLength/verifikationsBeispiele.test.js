@@ -59,13 +59,13 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
 
     console.log(currentCalculation);
 
-    /*    const currLbmin = lBmin(
+    const currLbmin = lBmin(
       currentCalculation.lbrqd,
       currentCalculation.theta,
       currentCalculation.stab,
       currentCalculation.alpha
-    ); */
-    /* console.log(currLbmin); */
+    );
+    console.log(currLbmin);
 
     expect(currLbeq).toBe(473);
   });
