@@ -168,7 +168,12 @@ export function AlOutput(props) {
                 "\\(l_{b,eq} = \\alpha_{a} \\cdot l_{b,rqd} \\cdot \\frac{A_{s,erf}}{A_{s,vorh}} 	\\geq l_{b,min}\\)"
               }
             </MathJax>
-            <MathJax>{/* hier mit Nachweis beginnen */}</MathJax>
+            {/* <MathJax>{`\\(l_{b,eq} = ${props.data.alpha} \\cdot ${
+              props.data.lbrqd
+            } \\cdot \\frac{${props.data.asErf}}{${
+              props.data.asVorh
+            }} 	\\geq     ${LbminZugDruckRender()} \\)`}</MathJax> */}
+            {/* {LbminZugDruckRender()} */}
           </div>
         </ListGroup.Item>
       </ListGroup>
@@ -187,6 +192,44 @@ export function AlOutput(props) {
       {"\\(Schlechter)"}&nbsp;{"\\(Verbund)"}
     </span>
   );
+
+  const LbminZugDruckRender = () => {
+    if (props.data.stab === "Zugstab") {
+      if (0.3 * props.data.lbrqd >= 10 * props.data.theta) {
+        // return <MathJax>{`\\(0.3 \\cdot ${props.data.lbrqd}  \\)`}</MathJax>;
+        return (
+          <>
+            <MathJax className="mb-2">{`\\(l_{b,eq} = ${
+              props.data.alpha
+            } \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${
+              props.data.asVorh
+            }} 	${
+              props.data.lbeq > 0.3 * props.data.lbrqd ? "\\geq" : "<"
+            } 0.3 \\cdot ${props.data.lbrqd}  = l_{b,min} \\)`}</MathJax>
+            <MathJax>
+              {`\\(l_{b,eq} = ${props.data.lbeq}  	\\)`}&nbsp;{"\\(mm\\)"}
+            </MathJax>
+          </>
+        );
+      }
+      // } else if (0.3 * props.data.lbrqd < 10 * props.data.theta) {
+      //   return (
+      //     <>
+      //       <MathJax className="mb-2">{`\\(l_{b,eq} = ${
+      //         props.data.alpha
+      //       } \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${
+      //         props.data.asVorh
+      //       }} 	${
+      //         props.data.lbeq < 0.3 * props.data.lbrqd ? "\\geq" : "<"
+      //       } 0.3 \\cdot ${props.data.lbrqd}  = l_{b,min} \\)`}</MathJax>
+      //       <MathJax>
+      //         {`\\(l_{b,eq} = ${props.data.lbeq}  	\\)`}&nbsp;{"\\(mm\\)"}
+      //       </MathJax>
+      //     </>
+      //   );
+      // }
+    }
+  };
 
   // const LbminZugRender = () => {
   //   if (props.data.lbmin >= 10 * props.data.theta) {

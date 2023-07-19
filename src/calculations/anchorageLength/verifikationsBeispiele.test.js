@@ -92,6 +92,6 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
 
     expect(currLbrqd).toBe(473);
     expect(currLbmin).toBe(142);
-    expect(currLbeq).toBe(142);
+    expect(currLbeq.lbeqFinal).toBe(142);
   });
 });

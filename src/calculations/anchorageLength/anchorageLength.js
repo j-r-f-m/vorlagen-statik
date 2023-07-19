@@ -2,10 +2,17 @@ import { round } from "mathjs";
 
 /**
  * Offene Punkte:
- * Bemessungswet der Betonzugfestigkeit könnte implementiert werden
+ * 1. Bemessungswet der Betonzugfestigkeit könnte implementiert werden
  * fctd = alpha_ct * fctk_005/ gamma_c ist im mmoment mit fctk_005/ gamma_c
  * berücksichtigt
  *
+ * 2. Die einzelnen Berechnungsfunktionen sollten ein object zurückgeben mit
+ * allen relevanten Zwischenberechnungen. Bsp. Bei der Berechnung von lbeq
+ * sollte der linke und der rechter Term von
+ * lbeq = alpha * lbrqd * Aserf/Asvorh >= 0.3 * lbrqd = lbmin zurückgegeben
+ * werden
+ *
+ * 3.
  */
 
 /**
@@ -163,7 +170,9 @@ const lbrqd = (theta, fyd, fbd) => {
 };
 
 /**
- * Berechne Ersatzverankerungslänge
+ * Berechne den linken Term der gleichung
+ * lbeq = alpha * lbrqd * as,erf/asvorh >= lbmin
+ * die Funktiokn sollte in lbeqLeftTerm oder etwas sinnvolleres unbenannt werden
  * @param {number} alpha_a Faktor zur Berücksichtigung der Verankerungsart
  * @param {number} lbrqd Grundwert der Verankerungslänge
  * @param {number} a_serf As,erf
@@ -181,10 +190,28 @@ const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
  * @param {number} lbeq Ersatzverankerunslänge
  * @returns Engültige Ersatzverankerungslänge
  */
+// const lbeqEntscheidung = (lBmin, lbeq) => {
+//   if (lbeq >= lBmin) {
+//     const lbeqFinal = lbeq;
+//     return lbeqFinal;
+//   } else if (lbeq < lBmin) return lBmin;
+// };
+
 const lbeqEntscheidung = (lBmin, lbeq) => {
   if (lbeq >= lBmin) {
-    return lbeq;
-  } else if (lbeq < lBmin) return lBmin;
+    return {
+      lbeqFinal: lbeq,
+      lbeqSmaller: lBmin,
+      lbeqLeftTerm: lbeq,
+      lbeqRightTerm: lBmin,
+    };
+  } else if (lbeq < lBmin)
+    return {
+      lbeqFinal: lBmin,
+      lbeqSmaller: lbeq,
+      lbeqLeftTerm: lbeq,
+      lbeqRightTerm: lBmin,
+    };
 };
 
 /**
@@ -323,18 +350,20 @@ const calculateAl = (
   const roundedCurrLbrqd = round(currLbrqd, 0);
 
   const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
-  const roundedCurrLbmin = round(currLbmin, 2);
+  const roundedCurrLbmin = round(currLbmin, 1);
 
   const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
   const roundedCurrLbeq = round(currLbeq, 1);
 
   const lbeqFinal = lbeqEntscheidung(roundedCurrLbmin, roundedCurrLbeq);
-  const roundedLbeqFinal = round(lbeqFinal, 1);
+  const roundedLbeqFinal = round(lbeqFinal.lbeqFinal, 1);
 
-  const currLbeqDir = lbeqDir(currLbeq);
+  console.log(lbeqFinal);
+
+  const currLbeqDir = lbeqDir(lbeqFinal.lbeqFinal);
   const roundedCurrLbeqDir = round(currLbeqDir, 2);
 
-  const currLbeqIndir = lbeqIndir(currLbeq);
+  const currLbeqIndir = lbeqIndir(lbeqFinal.lbeqFinal);
   const roundedCurrLbeqIndir = round(currLbeqIndir, 2);
 
   return {
