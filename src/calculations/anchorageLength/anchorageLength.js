@@ -223,16 +223,11 @@ const lbeqEntscheidung = (lBmin, lbeq) => {
  * @returns number lBminZug
  */
 const lBminZug = (lbrqd, theta, alpha) => {
-  /*   console.log(alpha);
-  console.log("lbrqd");
-  console.log(lbrqd); */
   if (0.3 * lbrqd * alpha >= 10 * theta) {
     const currLbminZug = 0.3 * alpha * lbrqd;
-    /*     console.log("lBminZug");
-    console.log(currLbminZug); */
+
     return currLbminZug;
   } else {
-    /*     console.log("lbminzug 10*theta"); */
     return 10 * theta;
   }
 };
@@ -262,7 +257,7 @@ const lBminDruck = (lbrqd, theta) => {
 const lBmin = (lbrqd, theta, alpha, stab) => {
   if (stab === "Zugstab") {
     const currLbmin = lBminZug(lbrqd, theta, alpha);
-    /* console.log(currLbmin); */
+
     return currLbmin;
   } else if (stab === "Druckstab") {
     return lBminDruck(lbrqd, theta);
@@ -272,12 +267,15 @@ const lBmin = (lbrqd, theta, alpha, stab) => {
 /**
  * Berechnet die Ersatzverankerungslänge bei direkter Lagerung
  * @param {number} lbeq Ersatzverankerungslänge
+ * @param {number} theta Stabdurchmesser
  * @returns number
  */
-const lbeqDir = (lbeq) => {
+const lbeqDir = (lbeq, theta) => {
   // implementieren
   // lbdir = max {2/3 * lbmin; 6,7 * theta}
-  return (2 / 3) * lbeq;
+  if ((2 / 3) * lbeq >= 6.7 * theta) {
+    return (2 / 3) * lbeq;
+  } else return 6.7 * theta;
 };
 
 /**
@@ -305,7 +303,9 @@ const verankerungEndauflager = (lbeq, lagerung) => {
 };
 
 /**
- * Berechnung der Verankeungslänge
+ * Berechnungsobjekt welches alle verfügbaren Berechnungs - und
+ * Zwischenergebnisse enthält. Das Objekt wird erstelllt wenn der
+ * Berechnungs-Button betätigt wird.
  * @param {number} fck char. Zylinderdruckfestigkeit des Betons nach 28d
  * @param {string} verbund Verbundbedingung
  * @param {number} theta Durchmesser Längseisen
@@ -361,9 +361,7 @@ const calculateAl = (
   const lbeqFinal = lbeqEntscheidung(roundedCurrLbmin, roundedCurrLbeq);
   // const roundedLbeqFinal = round(lbeqFinal.lbeqFinal, 1);
 
-  console.log(lbeqFinal);
-
-  const currLbeqDir = lbeqDir(lbeqFinal.lbeqFinal);
+  const currLbeqDir = lbeqDir(lbeqFinal.lbeqFinal, theta);
   const roundedCurrLbeqDir = round(currLbeqDir, 2);
 
   const currLbeqIndir = lbeqIndir(lbeqFinal.lbeqFinal);
