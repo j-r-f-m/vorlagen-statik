@@ -839,6 +839,6 @@ describe("Output lbeq", () => {
       stab
     );
 
-    expect(currentCalculation.lbeq).toBe(214.4);
+    expect(currentCalculation.lbeq.lbeqFinal).toBe(214.4);
   });
 });

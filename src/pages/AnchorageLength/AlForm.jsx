@@ -264,7 +264,9 @@ export function AlForm(props) {
             </Form>
 
             {/* Schnelle ergebnisanzeige */}
-            <div className="mt-3 fw-bold">lbeq = {props.data.lbeq} mm</div>
+            <div className="mt-3 fw-bold">
+              lbeq = {props.data.lbeq.lbeqFinal} mm
+            </div>
           </Accordion.Body>
         </Accordion.Item>
       </Accordion>

@@ -1,20 +1,11 @@
 import { describe, it, expect } from "vitest";
 import { round } from "mathjs";
 import {
-  fctm,
-  fctk005,
-  fyd,
-  fbdGuterVerbund,
-  fbdMaessigerVerbund,
-  fbd,
   lbrqd,
   lbeq,
   lbeqEntscheidung,
-  lBminZug,
-  lBminDruck,
   lBmin,
   lbeqDir,
-  lbeqIndir,
   calculateAl,
 } from "./anchorageLength";
 

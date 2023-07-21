@@ -105,7 +105,7 @@ export function AlOutput(props) {
           <div className="ms-2 me-auto">
             <div className="fw-bold">Verankerungslängen</div>
             <MathJax>
-              {`\\(l_{b,eq} = ${props.data.alpha} \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${props.data.asVorh}} = ${props.data.lbeq} \\)`}
+              {`\\(l_{b,eq} = ${props.data.alpha} \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${props.data.asVorh}} = ${props.data.lbeq.lbeqFinal} \\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
             </MathJax>
           </div>
@@ -162,17 +162,13 @@ export function AlOutput(props) {
         >
           <div className="ms-2  me-auto">
             <div className="fw-bold">Nachweis</div>
-
-            <MathJax className="mb-2">
+            {/* <MathJax className="mb-2">
               {
                 "\\(l_{b,eq} = \\alpha_{a} \\cdot l_{b,rqd} \\cdot \\frac{A_{s,erf}}{A_{s,vorh}} 	\\geq l_{b,min}\\)"
               }
-            </MathJax>
-            {/* <MathJax>{`\\(l_{b,eq} = ${props.data.alpha} \\cdot ${
-              props.data.lbrqd
-            } \\cdot \\frac{${props.data.asErf}}{${
-              props.data.asVorh
-            }} 	\\geq     ${LbminZugDruckRender()} \\)`}</MathJax> */}
+            </MathJax> */}
+            {/* <MathJax className="mb-2">{`\\(l_{b,eq} = ${props.data.lbeq.lbeqFinal}  \\)`}</MathJax> */}
+            <LbminFinalRender />
             {/* {LbminZugDruckRender()} */}
           </div>
         </ListGroup.Item>
@@ -193,43 +189,55 @@ export function AlOutput(props) {
     </span>
   );
 
-  const LbminZugDruckRender = () => {
-    if (props.data.stab === "Zugstab") {
-      if (0.3 * props.data.lbrqd >= 10 * props.data.theta) {
-        // return <MathJax>{`\\(0.3 \\cdot ${props.data.lbrqd}  \\)`}</MathJax>;
-        return (
-          <>
-            <MathJax className="mb-2">{`\\(l_{b,eq} = ${
-              props.data.alpha
-            } \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${
-              props.data.asVorh
-            }} 	${
-              props.data.lbeq > 0.3 * props.data.lbrqd ? "\\geq" : "<"
-            } 0.3 \\cdot ${props.data.lbrqd}  = l_{b,min} \\)`}</MathJax>
-            <MathJax>
-              {`\\(l_{b,eq} = ${props.data.lbeq}  	\\)`}&nbsp;{"\\(mm\\)"}
-            </MathJax>
-          </>
-        );
-      }
-      // } else if (0.3 * props.data.lbrqd < 10 * props.data.theta) {
-      //   return (
-      //     <>
-      //       <MathJax className="mb-2">{`\\(l_{b,eq} = ${
-      //         props.data.alpha
-      //       } \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${
-      //         props.data.asVorh
-      //       }} 	${
-      //         props.data.lbeq < 0.3 * props.data.lbrqd ? "\\geq" : "<"
-      //       } 0.3 \\cdot ${props.data.lbrqd}  = l_{b,min} \\)`}</MathJax>
-      //       <MathJax>
-      //         {`\\(l_{b,eq} = ${props.data.lbeq}  	\\)`}&nbsp;{"\\(mm\\)"}
-      //       </MathJax>
-      //     </>
-      //   );
-      // }
+  const LbminFinalRender = () => {
+    if (props.data.lbeq.lbeqLeftTerm >= props.data.lbeq.lbeqRightTerm) {
+      return (
+        <MathJax className="mb-2">{`\\(l_{b,eq} = ${props.data.lbeq.lbeqLeftTerm} \\geq ${props.data.lbeq.lbeqRightTerm} \\)`}</MathJax>
+      );
+    } else if (props.data.lbeq.lbeqLeftTerm < props.data.lbeq.lbeqRightTerm) {
+      return (
+        <MathJax className="mb-2">{`\\(l_{b,eq} = ${props.data.lbeq.lbeqLeftTerm} mm < ${props.data.lbeq.lbeqRightTerm} \\)`}</MathJax>
+      );
     }
   };
+
+  // const LbminZugDruckRender = () => {
+  //   if (props.data.stab === "Zugstab") {
+  //     if (0.3 * props.data.lbrqd >= 10 * props.data.theta) {
+  //       // return <MathJax>{`\\(0.3 \\cdot ${props.data.lbrqd}  \\)`}</MathJax>;
+  //       return (
+  //         <>
+  //           <MathJax className="mb-2">{`\\(l_{b,eq} = ${
+  //             props.data.alpha
+  //           } \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${
+  //             props.data.asVorh
+  //           }} 	${
+  //             props.data.lbeq > 0.3 * props.data.lbrqd ? "\\geq" : "<"
+  //           } 0.3 \\cdot ${props.data.lbrqd}  = l_{b,min} \\)`}</MathJax>
+  //           <MathJax>
+  //             {`\\(l_{b,eq} = ${props.data.lbeq}  	\\)`}&nbsp;{"\\(mm\\)"}
+  //           </MathJax>
+  //         </>
+  //       );
+  //     }
+  //     // } else if (0.3 * props.data.lbrqd < 10 * props.data.theta) {
+  //     //   return (
+  //     //     <>
+  //     //       <MathJax className="mb-2">{`\\(l_{b,eq} = ${
+  //     //         props.data.alpha
+  //     //       } \\cdot ${props.data.lbrqd} \\cdot \\frac{${props.data.asErf}}{${
+  //     //         props.data.asVorh
+  //     //       }} 	${
+  //     //         props.data.lbeq < 0.3 * props.data.lbrqd ? "\\geq" : "<"
+  //     //       } 0.3 \\cdot ${props.data.lbrqd}  = l_{b,min} \\)`}</MathJax>
+  //     //       <MathJax>
+  //     //         {`\\(l_{b,eq} = ${props.data.lbeq}  	\\)`}&nbsp;{"\\(mm\\)"}
+  //     //       </MathJax>
+  //     //     </>
+  //     //   );
+  //     // }
+  //   }
+  // };
 
   // const LbminZugRender = () => {
   //   if (props.data.lbmin >= 10 * props.data.theta) {

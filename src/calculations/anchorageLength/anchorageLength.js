@@ -349,14 +349,17 @@ const calculateAl = (
   const currLbrqd = lbrqd(theta, currFyd, currFbd);
   const roundedCurrLbrqd = round(currLbrqd, 0);
 
+  // right term of lbeq = alpha * lbrqd * as,erf/as,vorh
   const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
   const roundedCurrLbmin = round(currLbmin, 1);
 
+  // left term of lbeq = alpha * lbrqd * as,erf/as,vorh
   const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
   const roundedCurrLbeq = round(currLbeq, 1);
 
+  // final lbeq object
   const lbeqFinal = lbeqEntscheidung(roundedCurrLbmin, roundedCurrLbeq);
-  const roundedLbeqFinal = round(lbeqFinal.lbeqFinal, 1);
+  // const roundedLbeqFinal = round(lbeqFinal.lbeqFinal, 1);
 
   console.log(lbeqFinal);
 
@@ -377,7 +380,7 @@ const calculateAl = (
     theta: theta,
     fyd: roundedCurrFyd,
     lbrqd: roundedCurrLbrqd,
-    lbeq: roundedLbeqFinal,
+    lbeq: lbeqFinal,
     lbeqDir: roundedCurrLbeqDir,
     lbeqIndir: roundedCurrLbeqIndir,
     lbmin: roundedCurrLbmin,
