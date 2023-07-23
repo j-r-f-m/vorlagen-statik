@@ -167,9 +167,8 @@ export function AlOutput(props) {
                 "\\(l_{b,eq} = \\alpha_{a} \\cdot l_{b,rqd} \\cdot \\frac{A_{s,erf}}{A_{s,vorh}} 	\\geq l_{b,min}\\)"
               }
             </MathJax>
-            {/* <MathJax className="mb-2">{`\\(l_{b,eq} = ${props.data.lbeq.lbeqFinal}  \\)`}</MathJax> */}
-            <LbminFinalRender />
-            {/* {LbminZugDruckRender()} */}
+
+            <LbeqFinalRender />
           </div>
         </ListGroup.Item>
       </ListGroup>
@@ -189,10 +188,15 @@ export function AlOutput(props) {
     </span>
   );
 
-  const LbminFinalRender = () => {
+  const LbeqFinalRender = () => {
     if (props.data.lbeq.lbeqLeftTerm >= props.data.lbeq.lbeqRightTerm) {
       return (
-        <MathJax className="mb-2">{`\\(l_{b,eq} = ${props.data.lbeq.lbeqLeftTerm} \\geq ${props.data.lbeq.lbeqRightTerm} \\)`}</MathJax>
+        <MathJax className="mb-2">
+          {`\\(l_{b,eq} = ${props.data.lbeq.lbeqLeftTerm}\\)`} &nbsp;
+          {"\\(mm\\geq\\)"}&nbsp; {`\\(${props.data.lbeq.lbeqRightTerm}\\)`}
+          &nbsp;
+          {"\\(mm\\)"}
+        </MathJax>
       );
     } else if (props.data.lbeq.lbeqLeftTerm < props.data.lbeq.lbeqRightTerm) {
       return (

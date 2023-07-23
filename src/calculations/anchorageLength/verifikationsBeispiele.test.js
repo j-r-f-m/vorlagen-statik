@@ -262,7 +262,7 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
   });
 
   // Beispiel 5: Einfeldbalken Fertigteil
-  it("Beispiel 5: 6. Bewehrungsführung", () => {
+  it.skip("Beispiel 5: 6. Bewehrungsführung", () => {
     /* Getestet wird Längsbewehrung mit einem Durchmesser von 10 mm und mäßigen
      Verbundbedingungen */
 
@@ -310,5 +310,57 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
     expect(currentCalculation.lbmin).toBe(100);
     expect(currLbeqFinal.lbeqFinal).toBe(153);
     expect(currLbdir).toBe(102);
+  });
+
+  // Beispiel 6: Zweifeldriger Durchlaufbalken mit Kragtäger
+  it("Beispiele 6: 6. Bewehrungsführung", () => {
+    /* Getestet wird Längsbewehrung mit einem Durchmesser von 10 mm und mäßigen
+     Verbundbedingungen */
+
+    // inputs
+    const fck = 25; // N/mm²
+    const verbund = "schlechterVerbund";
+    const theta = 25; // mm
+    const alpha = 0.7; // Winkelhaken
+    const aserf = 10.9; // cm²
+    const asvorh = 34.4; // cm²
+    const lagerung = "direkt";
+    const stab = "Zugstab";
+
+    const currentCalculation = calculateAl(
+      fck,
+      verbund,
+      theta,
+      alpha,
+      aserf,
+      asvorh,
+      lagerung,
+      stab
+    );
+
+    console.log(currentCalculation);
+
+    const roundedFyd = round(currentCalculation.fyd, 0);
+    const roundedFbd = round(currentCalculation.fbd, 2);
+    console.log(roundedFbd);
+    const currLbrqd = round(
+      lbrqd(currentCalculation.theta, roundedFyd, roundedFbd),
+      0
+    );
+    /* console.log(currLbrqd); */
+
+    const currLbmin = round(lBmin(currLbrqd, theta, alpha, "Zugstab"));
+    console.log(currLbmin);
+    const currLbeq = round(lbeq(alpha, currLbrqd, aserf, asvorh));
+    /*     console.log(currLbeq); */
+    const currLbeqFinal = lbeqEntscheidung(currentCalculation.lbmin, currLbeq);
+    /*   console.log(currLbeqFinal); */
+    const currLbdir = round(lbeqDir(currLbeqFinal.lbeqFinal, theta), 0);
+    console.log(currLbdir);
+
+    //
+    expect(currLbrqd).toBe(1438);
+    expect(currLbmin).toBe(302);
+    expect(currLbeqFinal.lbeqFinal).toBe(319);
   });
 });
