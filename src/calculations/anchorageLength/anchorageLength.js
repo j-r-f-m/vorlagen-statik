@@ -177,7 +177,7 @@ const lbrqd = (theta, fyd, fbd) => {
  * @param {number} lbrqd Grundwert der Verankerungslänge
  * @param {number} a_serf As,erf
  * @param {number} a_svorh As, vorh
- * @returns
+ * @returns number lbeq linker Term
  */
 const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
   return alpha_a * lbrqd * (a_serf / a_svorh);
@@ -190,12 +190,6 @@ const lbeq = (alpha_a, lbrqd, a_serf, a_svorh) => {
  * @param {number} lbeq Ersatzverankerunslänge
  * @returns Engültige Ersatzverankerungslänge
  */
-// const lbeqEntscheidung = (lBmin, lbeq) => {
-//   if (lbeq >= lBmin) {
-//     const lbeqFinal = lbeq;
-//     return lbeqFinal;
-//   } else if (lbeq < lBmin) return lBmin;
-// };
 
 const lbeqEntscheidung = (lBmin, lbeq) => {
   if (lbeq >= lBmin) {

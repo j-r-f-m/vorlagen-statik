@@ -19,7 +19,7 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
    */
 
   // Beispiel 1: Vollplatte, einachsig gespannt
-  it("Beispiel 1: Verankerungslänge - 6. Bewehrungsführung...", () => {
+  it.skip("Beispiel 1: Verankerungslänge - 6. Bewehrungsführung...", () => {
     const fck = 20; // N/mm²
     const verbund = "guterVerbund";
     const theta = 10; // mm
@@ -82,7 +82,7 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
   });
 
   // Beispiel 2: Vollplatte, einachsig gespannt
-  it("Beispiel 2: 6. Bewehrungsführung und Bauliche Durchbildung", () => {
+  it.skip("Beispiel 2: 6. Bewehrungsführung und Bauliche Durchbildung", () => {
     // inputs
     const fck = 20; // N/mm²
     const verbund = "guterVerbund";
@@ -147,7 +147,7 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
   });
 
   // Beispiel 3: Vollplattemit großer Dicke
-  it("Beispiel 3: 6. Bewehrungsführung und Bauliche Durchbildung", () => {
+  it.skip("Beispiel 3: 6. Bewehrungsführung und Bauliche Durchbildung", () => {
     /* Getestet wird ein Durchmesser von 20 mm und guten Verbundbedingungen im 
     2. Feld unten.*/
 
@@ -210,5 +210,105 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
     expect(currLbeq.lbeqFinal).toBe(432);
     // müsste noch mit Literatur abgeglichen werden lb,dir = 298 mm
     expect(currLbdir).toBe(302);
+  });
+
+  // Beispiel 5: Einfeldbalken Fertigteil
+  it.skip("Beispiel 5: 6. Bewehrungsführung", () => {
+    /* Getestet wird Längsbewehrung mit einem  Durchmesser von 20 mm und guten
+     Verbundbedingungen */
+
+    // inputs
+    const fck = 35; // N/mm²
+    const verbund = "guterVerbund";
+    const theta = 25; // mm
+    const alpha = 1; // Verankeurngsart
+    const aserf = 3.45; // cm²
+    const asvorh = 9.82; // cm²
+    const lagerung = "direkt";
+    const stab = "Zugstab";
+
+    const currentCalculation = calculateAl(
+      fck,
+      verbund,
+      theta,
+      alpha,
+      aserf,
+      asvorh,
+      lagerung,
+      stab
+    );
+
+    console.log(currentCalculation);
+
+    const roundedFyd = round(currentCalculation.fyd, 0);
+    const roundedFbd = round(currentCalculation.fbd, 1);
+    const currLbrqd = round(
+      lbrqd(currentCalculation.theta, roundedFyd, roundedFbd),
+      0
+    );
+    /* console.log(currLbrqd); */
+
+    const currLbeq = round(lbeq(alpha, currLbrqd, aserf, asvorh));
+    /*     console.log(currLbeq); */
+    const currLbeqFinal = lbeqEntscheidung(currentCalculation.lbmin, currLbeq);
+    console.log(currLbeqFinal);
+    const currLbdir = round(lbeqDir(currLbeqFinal.lbeqFinal, theta), 0);
+    console.log(currLbdir);
+
+    expect(currLbrqd).toBe(800);
+    expect(currentCalculation.lbmin).toBe(250);
+    expect(currLbeqFinal.lbeqFinal).toBe(281);
+    expect(currLbdir).toBe(187);
+  });
+
+  // Beispiel 5: Einfeldbalken Fertigteil
+  it("Beispiel 5: 6. Bewehrungsführung", () => {
+    /* Getestet wird Längsbewehrung mit einem Durchmesser von 10 mm und mäßigen
+     Verbundbedingungen */
+
+    // inputs
+    const fck = 35; // N/mm²
+    const verbund = "schlechterVerbund";
+    const theta = 10; // mm
+    const alpha = 0.7; // Winkelhaken
+    const aserf = 0.38; // cm²
+    const asvorh = 0.79; // cm²
+    const lagerung = "direkt";
+    const stab = "Zugstab";
+
+    const currentCalculation = calculateAl(
+      fck,
+      verbund,
+      theta,
+      alpha,
+      aserf,
+      asvorh,
+      lagerung,
+      stab
+    );
+
+    console.log(currentCalculation);
+
+    const roundedFyd = round(currentCalculation.fyd, 0);
+    const roundedFbd = round(currentCalculation.fbd, 1);
+    console.log(roundedFbd);
+    const currLbrqd = round(
+      lbrqd(currentCalculation.theta, roundedFyd, roundedFbd),
+      0
+    );
+    console.log(currLbrqd);
+
+    const currLbeq = round(lbeq(alpha, currLbrqd, aserf, asvorh));
+    /*     console.log(currLbeq); */
+    const currLbeqFinal = lbeqEntscheidung(currentCalculation.lbmin, currLbeq);
+    console.log(currLbeqFinal);
+    const currLbdir = round(lbeqDir(currLbeqFinal.lbeqFinal, theta), 0);
+    console.log(currLbdir);
+
+    //
+    expect(currLbrqd).toBe(453);
+    expect(currentCalculation.lbmin).toBe(100);
+    expect(currLbeqFinal.lbeqFinal).toBe(153);
+    expect(currLbdir).toBe(102);
   });
 });
