@@ -1,5 +1,6 @@
 import Image from "react-bootstrap/Image";
 import Accordion from "react-bootstrap/Accordion";
+import { PropTypes } from "prop-types";
 
 export function ImgAccordion(props) {
   // const imageLink = "./imgs/verankerungsarten.png";
@@ -16,3 +17,8 @@ export function ImgAccordion(props) {
     </Accordion>
   );
 }
+ImgAccordion.propTypes = {
+  data: PropTypes.object,
+  imgLink: PropTypes.string,
+  heading: PropTypes.string,
+};

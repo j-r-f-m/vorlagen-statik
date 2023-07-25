@@ -217,12 +217,23 @@ const lbeqEntscheidung = (lBmin, lbeq) => {
  * @returns number lBminZug
  */
 const lBminZug = (lbrqd, theta, alpha) => {
-  if (0.3 * lbrqd * alpha >= 10 * theta) {
-    const currLbminZug = 0.3 * alpha * lbrqd;
-
-    return currLbminZug;
+  // lbmin >= max {0.3 * lbrqd : 10 * theta}
+  const leftTerm = 0.3 * lbrqd * alpha;
+  const rightTerm = 10 * theta;
+  if (leftTerm >= rightTerm) {
+    return {
+      lBminZugFinal: leftTerm,
+      lBminZugSmaller: rightTerm,
+      lBminLeftTerm: leftTerm,
+      lBminRightTerm: rightTerm,
+    };
   } else {
-    return 10 * theta;
+    return {
+      lBminZugFinal: rightTerm,
+      lBminZugSmaller: leftTerm,
+      lBminLeftTerm: leftTerm,
+      lBminRightTerm: rightTerm,
+    };
   }
 };
 
@@ -233,10 +244,19 @@ const lBminZug = (lbrqd, theta, alpha) => {
  * @returns number lBminDruck
  */
 const lBminDruck = (lbrqd, theta) => {
-  if (0.6 * lbrqd >= 10 * theta) {
-    return 0.6 * lbrqd;
+  // lbmin >= max {0.6 * lbrqd : 10 * theta}
+  const leftTerm = 0.6 * lbrqd;
+  const rightTerm = 10 * theta;
+  if (leftTerm >= rightTerm) {
+    // return leftTerm;
+    return {
+      lBminDruckFinal: leftTerm,
+      lBminDruckSmaller: rightTerm,
+      lBminLeftTerm: leftTerm,
+      lBminRightTerm: rightTerm,
+    };
   } else {
-    return 10 * theta;
+    return rightTerm;
   }
 };
 
@@ -251,10 +271,9 @@ const lBminDruck = (lbrqd, theta) => {
 const lBmin = (lbrqd, theta, alpha, stab) => {
   if (stab === "Zugstab") {
     const currLbmin = lBminZug(lbrqd, theta, alpha);
-
-    return currLbmin;
+    return currLbmin.lBminZugFinal;
   } else if (stab === "Druckstab") {
-    return lBminDruck(lbrqd, theta);
+    return lBminDruck(lbrqd, theta).lBminDruckFinal;
   }
 };
 
