@@ -119,7 +119,7 @@ export function AlOutput(props) {
           <div className="ms-2 me-auto">
             <MathJax>
               {"\\(l_{b,min} = \\)"}&nbsp;
-              {`\\(${props.data.lbmin}\\)`}
+              {`\\(${props.data.lbmin.lBminFinal}\\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
               {/* {props.data.stab} */}
               {/* {props.data.stab === "Zugstab" ? <LbminZugRender /> : null} */}
@@ -211,6 +211,10 @@ export function AlOutput(props) {
       );
     }
   };
+
+  // const LbminFinalRender= () => {
+  //   if(props.data.lbmin)
+  // }
 
   return (
     <>

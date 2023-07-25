@@ -218,19 +218,19 @@ const lbeqEntscheidung = (lBmin, lbeq) => {
  */
 const lBminZug = (lbrqd, theta, alpha) => {
   // lbmin >= max {0.3 * lbrqd : 10 * theta}
-  const leftTerm = 0.3 * lbrqd * alpha;
-  const rightTerm = 10 * theta;
+  const leftTerm = round(0.3 * lbrqd * alpha, 2);
+  const rightTerm = round(10 * theta, 2);
   if (leftTerm >= rightTerm) {
     return {
-      lBminZugFinal: leftTerm,
-      lBminZugSmaller: rightTerm,
+      lBminFinal: leftTerm,
+      lBminSmaller: rightTerm,
       lBminLeftTerm: leftTerm,
       lBminRightTerm: rightTerm,
     };
   } else {
     return {
-      lBminZugFinal: rightTerm,
-      lBminZugSmaller: leftTerm,
+      lBminFinal: rightTerm,
+      lBminSmaller: leftTerm,
       lBminLeftTerm: leftTerm,
       lBminRightTerm: rightTerm,
     };
@@ -250,8 +250,8 @@ const lBminDruck = (lbrqd, theta) => {
   if (leftTerm >= rightTerm) {
     // return leftTerm;
     return {
-      lBminDruckFinal: leftTerm,
-      lBminDruckSmaller: rightTerm,
+      lBminFinal: leftTerm,
+      lBminSmaller: rightTerm,
       lBminLeftTerm: leftTerm,
       lBminRightTerm: rightTerm,
     };
@@ -270,10 +270,11 @@ const lBminDruck = (lbrqd, theta) => {
  */
 const lBmin = (lbrqd, theta, alpha, stab) => {
   if (stab === "Zugstab") {
-    const currLbmin = lBminZug(lbrqd, theta, alpha);
-    return currLbmin.lBminZugFinal;
+    const lBminObj = lBminZug(lbrqd, theta, alpha);
+    return lBminObj;
   } else if (stab === "Druckstab") {
-    return lBminDruck(lbrqd, theta).lBminDruckFinal;
+    const lBminObj = lBminDruck(lbrqd, theta);
+    return lBminObj;
   }
 };
 
@@ -362,9 +363,10 @@ const calculateAl = (
   const currLbrqd = lbrqd(theta, currFyd, currFbd);
   const roundedCurrLbrqd = round(currLbrqd, 0);
 
+  // final lbmin object
   // right term of lbeq = alpha * lbrqd * as,erf/as,vorh
   const currLbmin = lBmin(currLbrqd, theta, alpha_a, stab);
-  const roundedCurrLbmin = round(currLbmin, 1);
+  const roundedCurrLbmin = round(currLbmin.lBminFinal, 1);
 
   // left term of lbeq = alpha * lbrqd * as,erf/as,vorh
   const currLbeq = lbeq(alpha_a, currLbrqd, a_serf, a_svorh);
@@ -394,7 +396,7 @@ const calculateAl = (
     lbeq: lbeqFinal,
     lbeqDir: roundedCurrLbeqDir,
     lbeqIndir: roundedCurrLbeqIndir,
-    lbmin: roundedCurrLbmin,
+    lbmin: currLbmin,
     lagerung: lagerung,
     stab: stab,
     asErf: a_serf,

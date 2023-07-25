@@ -349,12 +349,17 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
     );
     /* console.log(currLbrqd); */
 
-    const currLbmin = round(lBmin(currLbrqd, theta, alpha, "Zugstab"));
+    const currLbmin = round(
+      lBmin(currLbrqd, theta, alpha, "Zugstab").lBminFinal
+    );
     console.log(currLbmin);
     const currLbeq = round(lbeq(alpha, currLbrqd, aserf, asvorh));
     /*     console.log(currLbeq); */
-    const currLbeqFinal = lbeqEntscheidung(currentCalculation.lbmin, currLbeq);
-    /*   console.log(currLbeqFinal); */
+    const currLbeqFinal = lbeqEntscheidung(
+      currentCalculation.lbmin.lBminFinal,
+      currLbeq
+    );
+    console.log(currLbeqFinal);
     const currLbdir = round(lbeqDir(currLbeqFinal.lbeqFinal, theta), 0);
     console.log(currLbdir);
 

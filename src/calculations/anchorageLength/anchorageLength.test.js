@@ -616,7 +616,7 @@ describe("Mindestverankerungslänge", () => {
 
     const currLbminZug = lBminZug(currLbrqd, currTheta, alpha);
 
-    const roundedCurrLbminZug = round(currLbminZug.lBminZugFinal, 2);
+    const roundedCurrLbminZug = round(currLbminZug.lBminFinal, 2);
 
     /**
      * Handrechnung Zwischenergebnisse
@@ -644,7 +644,7 @@ describe("Mindestverankerungslänge", () => {
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
 
     const currLbminDruck = lBminDruck(currLbrqd, currTheta);
-    const roundedCurrLbminDruck = round(currLbminDruck.lBminDruckFinal, 2);
+    const roundedCurrLbminDruck = round(currLbminDruck.lBminFinal, 2);
     /**
      * Handrechnung Zwischenergebnisse
      * lbrqd = 20/4 *(500/1.1)/(2.25*1*(0.7*(0.3*30**(2/3)))/1.5) 714.7992882
@@ -672,7 +672,7 @@ describe("Mindestverankerungslänge", () => {
     const currLbrqd = lbrqd(currTheta, fyd, currFbd);
 
     const currLbmin = lBmin(currLbrqd, currTheta, alpha, stab);
-    const roundedCurrLbmin = round(currLbmin, 2);
+    const roundedCurrLbmin = round(currLbmin.lBminFinal, 2);
     expect(roundedCurrLbmin).toBe(428.88);
   });
 
@@ -694,7 +694,7 @@ describe("Mindestverankerungslänge", () => {
 
     const currLbmin = lBmin(currLbrqd, currTheta, currAlpha, stab);
 
-    const roundedCurrLbmin = round(currLbmin, 2);
+    const roundedCurrLbmin = round(currLbmin.lBminFinal, 2);
     expect(roundedCurrLbmin).toBe(214.44);
   });
 });
