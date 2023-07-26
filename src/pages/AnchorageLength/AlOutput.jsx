@@ -171,6 +171,10 @@ export function AlOutput(props) {
             <LbeqFinalRender />
           </div>
         </ListGroup.Item>
+
+        <ListGroup.Item>
+          <LBminFinalRender />
+        </ListGroup.Item>
       </ListGroup>
     );
   };
@@ -212,9 +216,49 @@ export function AlOutput(props) {
     }
   };
 
-  // const LbminFinalRender= () => {
-  //   if(props.data.lbmin)
-  // }
+  const LBminFinalRender = () => {
+    if (
+      props.data.stab === "Zugstab" &&
+      props.data.lbmin.lBminLeftTerm >= props.data.lbmin.lBminRightTerm
+    ) {
+      return (
+        <>
+          <MathJax className="mb-2">
+            {
+              "\\(l_{b,min} \\geq max \\{ 0,3 \\cdot l_{b,rqd}:10 \\cdot \\theta_{s} \\} \\)"
+            }
+            &emsp; Bei Zugstäben
+          </MathJax>
+          <MathJax>
+            {`\\(l_{b,min} = ${props.data.lbmin.lBminLeftTerm}\\)`} &nbsp;
+            {"\\(mm\\geq\\)"}&nbsp; {`\\(${props.data.lbmin.lBminRightTerm}\\)`}
+            &nbsp;
+            {"\\(mm\\)"}
+          </MathJax>
+        </>
+      );
+    } else if (
+      props.data.stab === "Zugstab" &&
+      props.data.lbmin.lBminLeftTerm < props.data.lbmin.lBminRightTerm
+    ) {
+      return (
+        <>
+          <MathJax className="mb-2">
+            {
+              "\\(l_{b,min} \\geq max \\{ 0,3 \\cdot l_{b,rqd}:10 \\cdot \\theta_{s} \\} \\)"
+            }
+            &emsp; Bei Zugstäben
+          </MathJax>
+          <MathJax className="mb-2">
+            {`\\(l_{b,min} = ${props.data.lbmin.lBminLeftTerm}   \\)`}&nbsp;{" "}
+            {"\\(mm<\\)"}&nbsp; {`\\(${props.data.lbmin.lBminRightTerm}\\)`}
+            &nbsp;
+            {"\\(mm\\)"}
+          </MathJax>
+        </>
+      );
+    }
+  };
 
   return (
     <>
