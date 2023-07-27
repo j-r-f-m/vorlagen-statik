@@ -172,8 +172,13 @@ export function AlOutput(props) {
           </div>
         </ListGroup.Item>
 
-        <ListGroup.Item>
-          <LBminFinalRender />
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start flex-column"
+        >
+          <div className="ms-2 me-auto">
+            <LBminFinalRender />
+          </div>
         </ListGroup.Item>
       </ListGroup>
     );
