@@ -245,8 +245,8 @@ const lBminZug = (lbrqd, theta, alpha) => {
  */
 const lBminDruck = (lbrqd, theta) => {
   // lbmin >= max {0.6 * lbrqd : 10 * theta}
-  const leftTerm = 0.6 * lbrqd;
-  const rightTerm = 10 * theta;
+  const leftTerm = round(0.6 * lbrqd, 2);
+  const rightTerm = round(10 * theta);
   if (leftTerm >= rightTerm) {
     // return leftTerm;
     return {

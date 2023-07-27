@@ -262,7 +262,11 @@ export function AlOutput(props) {
 
   return (
     <>
-      <Accordion className="mt-3 mb-3" style={{ width: "100%" }}>
+      <Accordion
+        className="mt-3 mb-3"
+        style={{ width: "100%" }}
+        defaultActiveKey="0"
+      >
         <Accordion.Item eventKey="0">
           <Accordion.Header>Bemessungsprotokoll</Accordion.Header>
           <Accordion.Body className="d-flex align-items-center justify-content-center flex-column p-0">
