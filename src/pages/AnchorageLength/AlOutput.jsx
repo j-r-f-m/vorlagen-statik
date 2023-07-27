@@ -262,6 +262,46 @@ export function AlOutput(props) {
           </MathJax>
         </>
       );
+    } else if (
+      props.data.stab === "Druckstab" &&
+      props.data.lbmin.lBminLeftTerm >= props.data.lbmin.lBminRightTerm
+    ) {
+      return (
+        <>
+          <MathJax className="mb-2">
+            {
+              "\\(l_{b,min} \\geq max \\{ 0,6 \\cdot l_{b,rqd}:10 \\cdot \\theta_{s} \\} \\)"
+            }
+            &emsp; Bei Druchstäben
+          </MathJax>
+          <MathJax>
+            {`\\(l_{b,min} = ${props.data.lbmin.lBminLeftTerm}\\)`} &nbsp;
+            {"\\(mm\\geq\\)"}&nbsp; {`\\(${props.data.lbmin.lBminRightTerm}\\)`}
+            &nbsp;
+            {"\\(mm\\)"}
+          </MathJax>
+        </>
+      );
+    } else if (
+      props.data.stab === "Druckstab" &&
+      props.data.lbmin.lBminLeftTerm < props.data.lbmin.lBminRightTerm
+    ) {
+      return (
+        <>
+          <MathJax className="mb-2">
+            {
+              "\\(l_{b,min} \\geq max \\{ 0,6 \\cdot l_{b,rqd}:10 \\cdot \\theta_{s} \\} \\)"
+            }
+            &emsp; Bei Druchstäben
+          </MathJax>
+          <MathJax>
+            {`\\(l_{b,min} = ${props.data.lbmin.lBminLeftTerm}\\)`} &nbsp;
+            {"\\(mm\\geq\\)"}&nbsp; {`\\(${props.data.lbmin.lBminRightTerm}\\)`}
+            &nbsp;
+            {"\\(mm\\)"}
+          </MathJax>
+        </>
+      );
     }
   };
 
