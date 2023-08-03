@@ -285,12 +285,42 @@ const lBmin = (lbrqd, theta, alpha, stab) => {
  * @returns number
  */
 const lbeqDir = (lbeq, theta) => {
+  const leftTerm = (2 / 3) * lbeq;
+  const rightTerm = 6.7 * theta;
   // implementieren
   // lbdir = max {2/3 * lbmin; 6,7 * theta}
-  if ((2 / 3) * lbeq >= 6.7 * theta) {
-    return (2 / 3) * lbeq;
-  } else return 6.7 * theta;
+  if (leftTerm >= rightTerm) {
+    return {
+      lbeqDirFinal: leftTerm,
+      lbeqDirSmaller: rightTerm,
+      lbeqDirLeftTerm: leftTerm,
+      lbeqDirRightTerm: rightTerm,
+    };
+  } else
+    return {
+      lbeqDirFinal: rightTerm,
+      lbeqDirSmaller: leftTerm,
+      lbeqDirLeftTerm: leftTerm,
+      lbeqDirRightTerm: rightTerm,
+    };
 };
+
+/* const lbeqDir = (lbeq, theta) => {
+  const leftTerm = (2 / 3) * lbeq;
+  const rightTerm = 6.7 * theta;
+  // implementieren
+  // lbdir = max {2/3 * lbmin; 6,7 * theta}
+  if (leftTerm >= rightTerm) {
+    return leftTerm;
+  } else return rightTerm;
+}; */
+
+/* {
+  lbeqDirFinal: leftTerm,
+  lbeqDirSmaller: rightTerm,
+  lbeqDirLeftTerm: leftTerm,
+  lbeqDirRightTerm: rightTerm,
+} */
 
 /**
  * Berechnet die Ersatzverankerungslänge bei indirekter Lagerung
@@ -377,7 +407,7 @@ const calculateAl = (
   // const roundedLbeqFinal = round(lbeqFinal.lbeqFinal, 1);
 
   const currLbeqDir = lbeqDir(lbeqFinal.lbeqFinal, theta);
-  const roundedCurrLbeqDir = round(currLbeqDir, 2);
+  const roundedCurrLbeqDir = round(currLbeqDir.lbeqDirFinal, 2);
 
   const currLbeqIndir = lbeqIndir(lbeqFinal.lbeqFinal);
   const roundedCurrLbeqIndir = round(currLbeqIndir, 2);

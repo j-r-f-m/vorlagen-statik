@@ -360,7 +360,10 @@ describe("Beispiele zur Bemessung nach Eurocode 2 Band 1: Hochbau", () => {
       currLbeq
     );
     console.log(currLbeqFinal);
-    const currLbdir = round(lbeqDir(currLbeqFinal.lbeqFinal, theta), 0);
+    const currLbdir = round(
+      lbeqDir(currLbeqFinal.lbeqFinal, theta).lbeqDirFinal,
+      0
+    );
     console.log(currLbdir);
 
     //

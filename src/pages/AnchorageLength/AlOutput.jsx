@@ -3,6 +3,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 import { MathJax } from "better-react-mathjax";
 import { PropTypes } from "prop-types";
 import { LBminFinalRender } from "./AlLBminFinalRender";
+import { LbeqFinalRender } from "./AlLbeqFinalRender";
+import { LbeqDirFinalRender } from "./AlLbeqDirFinalRender";
 
 export function AlOutput(props) {
   // Das Bemessungsprotokoll soll erst nach einer ersten Berechnung sichtbar sein
@@ -187,7 +189,7 @@ export function AlOutput(props) {
               }
             </MathJax>
 
-            <LbeqFinalRender />
+            <LbeqFinalRender data={props.data} />
           </div>
         </ListGroup.Item>
 
@@ -197,6 +199,15 @@ export function AlOutput(props) {
         >
           <div className="ms-2 me-auto">
             <LBminFinalRender data={props.data} />
+          </div>
+        </ListGroup.Item>
+
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start flex-column"
+        >
+          <div className="ms-2 me-auto">
+            <LbeqDirFinalRender data={props.data} />
           </div>
         </ListGroup.Item>
       </ListGroup>
@@ -212,30 +223,6 @@ export function AlOutput(props) {
 
   const lagerungDirektString = <span>{"\\(Direkte\\)"}</span>;
   const lagerungIndirektString = <span>{"\\(Indirekte\\)"}</span>;
-
-  const LbeqFinalRender = () => {
-    if (props.data.lbeq.lbeqLeftTerm >= props.data.lbeq.lbeqRightTerm) {
-      return (
-        <MathJax className="mb-2">
-          {`\\(l_{b,eq} = ${props.data.lbeq.lbeqLeftTerm}\\)`} &nbsp;
-          {"\\(mm\\geq\\)"}&nbsp; {`\\(${props.data.lbeq.lbeqRightTerm}\\)`}
-          &nbsp;
-          {"\\(mm\\)"}
-        </MathJax>
-      );
-    } else if (props.data.lbeq.lbeqLeftTerm < props.data.lbeq.lbeqRightTerm) {
-      return (
-        <>
-          {/* <MathJax className="mb-2">{`\\(l_{b,eq} = ${props.data.lbeq.lbeqLeftTerm} mm < ${props.data.lbeq.lbeqRightTerm} \\)`}</MathJax> */}
-          <MathJax className="mb-2">
-            {`\\(l_{b,eq} = ${props.data.lbeq.lbeqLeftTerm}   \\)`}&nbsp;{" "}
-            {"\\(mm<\\)"}&nbsp; {`\\(${props.data.lbeq.lbeqRightTerm}\\)`}&nbsp;
-            {"\\(mm\\)"}
-          </MathJax>
-        </>
-      );
-    }
-  };
 
   return (
     <>
