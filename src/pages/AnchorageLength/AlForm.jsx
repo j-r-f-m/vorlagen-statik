@@ -109,7 +109,7 @@ export function AlForm(props) {
                 </div>
 
                 {/* Verbundbedingung */}
-                <div className="mb-3">
+                {/*       <div className="mb-3">
                   <Form.Select
                     aria-label="Lagerungsart"
                     {...register("verbund", {
@@ -121,7 +121,7 @@ export function AlForm(props) {
                       Schlechte Verbundbedingung
                     </option>
                   </Form.Select>
-                </div>
+                </div> */}
 
                 {/* alpha_a */}
                 <div className="mb-3">
@@ -151,7 +151,7 @@ export function AlForm(props) {
                 </div>
 
                 {/* Lagerungsbedingung */}
-                <div className="mb-3">
+                {/*               <div className="mb-3">
                   <Form.Select
                     aria-label="Lagerungsart"
                     {...register("lagerung", {
@@ -161,7 +161,7 @@ export function AlForm(props) {
                     <option value="direkt">Direkte Lagerung</option>
                     <option value="indirekt">Indirekte Lagerung</option>
                   </Form.Select>
-                </div>
+                </div> */}
 
                 {/* theta */}
                 <div className="mb-3">
@@ -191,7 +191,7 @@ export function AlForm(props) {
                 </div>
 
                 {/* Stabart */}
-                <div className="mb-3">
+                {/*                 <div className="mb-3">
                   <Form.Select
                     aria-label="Stabart"
                     {...register("stab", {
@@ -201,7 +201,7 @@ export function AlForm(props) {
                     <option value="Zugstab">Zugstab</option>
                     <option value="Druckstab">Druckstab</option>
                   </Form.Select>
-                </div>
+                </div> */}
 
                 {/* A_s,erf */}
                 <div className="mb-3">
@@ -256,7 +256,48 @@ export function AlForm(props) {
                     </div>
                   )}
                 </div>
+
+                {/* Verbundbedingung */}
+                <div className="mb-3">
+                  <Form.Select
+                    aria-label="Lagerungsart"
+                    {...register("verbund", {
+                      required: true,
+                    })}
+                  >
+                    <option value="guterVerbund">Gute Verbundbedingung</option>
+                    <option value="schlechterVerbund">
+                      Schlechte Verbundbedingung
+                    </option>
+                  </Form.Select>
+                </div>
+
+                {/* Lagerungsbedingung */}
+                <div className="mb-3">
+                  <Form.Select
+                    aria-label="Lagerungsart"
+                    {...register("lagerung", {
+                      required: true,
+                    })}
+                  >
+                    <option value="direkt">Direkte Lagerung</option>
+                    <option value="indirekt">Indirekte Lagerung</option>
+                  </Form.Select>
+                </div>
               </Form.Group>
+
+              {/* Stabart */}
+              <div className="mb-3">
+                <Form.Select
+                  aria-label="Stabart"
+                  {...register("stab", {
+                    required: true,
+                  })}
+                >
+                  <option value="Zugstab">Zugstab</option>
+                  <option value="Druckstab">Druckstab</option>
+                </Form.Select>
+              </div>
 
               <Button type="submit" variant="primary">
                 Berechne

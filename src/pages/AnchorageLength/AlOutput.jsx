@@ -48,17 +48,37 @@ export function AlOutput(props) {
             </MathJax>
           </div>
         </ListGroup.Item>
+
         <ListGroup.Item
           as="li"
           className="d-flex justify-content-between align-items-start"
         >
           <div className="ms-2 me-auto d-flex">
+            {/* Verbundbedingung */}
             <MathJax>
-              {"\\(Verbundbedingung:\\)"}
+              {"\\(Verbund:\\)"}
               &nbsp;
               {props.data.verbund === "guterVerbund"
                 ? guterVerbundString
                 : schlechterVerbundString}
+              &emsp;
+            </MathJax>
+
+            {/* Stabart */}
+            <MathJax>
+              {"\\(Stabart:\\)"}
+              &nbsp;
+              {props.data.stab === "Zugstab" ? zugStabString : druckStabString}
+              &emsp;
+            </MathJax>
+
+            {/* Lagerbedingung */}
+            <MathJax>
+              {"\\(Lagerung:\\)"}
+              &nbsp;
+              {props.data.lagerung === "direkt"
+                ? lagerungDirektString
+                : lagerungIndirektString}
               &emsp;
             </MathJax>
           </div>
@@ -184,18 +204,15 @@ export function AlOutput(props) {
     );
   };
 
-  const guterVerbundString = (
-    <span>
-      {"\\(Guter\\)"}&nbsp;
-      {"\\(Verbund\\)"}
-    </span>
-  );
+  const guterVerbundString = <>{"\\(Gut\\)"}&nbsp;</>;
 
-  const schlechterVerbundString = (
-    <span>
-      {"\\(Schlechter)"}&nbsp;{"\\(Verbund)"}
-    </span>
-  );
+  const schlechterVerbundString = <span>{"\\(Schlecht)"}&nbsp;</span>;
+
+  const druckStabString = <span>{"\\(Druck\\)"}&nbsp;</span>;
+  const zugStabString = <span>{"\\(Zug\\)"}&nbsp;</span>;
+
+  const lagerungDirektString = <span>{"\\(Direkte\\)"}</span>;
+  const lagerungIndirektString = <span>{"\\(Indirekte\\)"}</span>;
 
   const LbeqFinalRender = () => {
     if (props.data.lbeq.lbeqLeftTerm >= props.data.lbeq.lbeqRightTerm) {
@@ -272,7 +289,7 @@ export function AlOutput(props) {
             {
               "\\(l_{b,min} \\geq max \\{ 0,6 \\cdot l_{b,rqd}:10 \\cdot \\theta_{s} \\} \\)"
             }
-            &emsp; Bei Druchstäben
+            &emsp; Bei Druckstäben
           </MathJax>
           <MathJax>
             {`\\(l_{b,min} = ${props.data.lbmin.lBminLeftTerm}\\)`} &nbsp;
@@ -292,7 +309,7 @@ export function AlOutput(props) {
             {
               "\\(l_{b,min} \\geq max \\{ 0,6 \\cdot l_{b,rqd}:10 \\cdot \\theta_{s} \\} \\)"
             }
-            &emsp; Bei Druchstäben
+            &emsp; Bei Druckstäben
           </MathJax>
           <MathJax>
             {`\\(l_{b,min} = ${props.data.lbmin.lBminLeftTerm}\\)`} &nbsp;
