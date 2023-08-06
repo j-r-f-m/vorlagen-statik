@@ -181,8 +181,17 @@ export function AlOutput(props) {
           as="li"
           className="d-flex justify-content-between align-items-start flex-column"
         >
-          <div className="ms-2  me-auto">
+          <div className="ms-2 me-auto">
             <div className="fw-bold">Nachweis</div>
+            <LBminFinalRender data={props.data} />
+          </div>
+        </ListGroup.Item>
+
+        <ListGroup.Item
+          as="li"
+          className="d-flex justify-content-between align-items-start flex-column"
+        >
+          <div className="ms-2  me-auto">
             <MathJax className="mb-2">
               {
                 "\\(l_{b,eq} = \\alpha_{a} \\cdot l_{b,rqd} \\cdot \\frac{A_{s,erf}}{A_{s,vorh}} 	\\geq l_{b,min}\\)"
@@ -198,18 +207,9 @@ export function AlOutput(props) {
           className="d-flex justify-content-between align-items-start flex-column"
         >
           <div className="ms-2 me-auto">
-            <LBminFinalRender data={props.data} />
-          </div>
-        </ListGroup.Item>
-
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start flex-column"
-        >
-          <div className="ms-2 me-auto">
             <MathJax className="mb-2">
               {
-                "\\(l_{bd,dir} = 2/3 \\cdot l_{b,eq} \\geq 6,7 \\cdot \\theta \\)"
+                "\\(l_{b,eq,dir} = 2/3 \\cdot l_{b,eq} \\geq 6,7 \\cdot \\theta \\)"
               }
             </MathJax>
             <LbeqDirFinalRender data={props.data} />
@@ -221,7 +221,7 @@ export function AlOutput(props) {
 
   const guterVerbundString = <>{"\\(Gut\\)"}&nbsp;</>;
 
-  const schlechterVerbundString = <span>{"\\(Schlecht)"}&nbsp;</span>;
+  const schlechterVerbundString = <span>{"\\(Schlecht\\)"}&nbsp;</span>;
 
   const druckStabString = <span>{"\\(Druck\\)"}&nbsp;</span>;
   const zugStabString = <span>{"\\(Zug\\)"}&nbsp;</span>;
