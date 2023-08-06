@@ -28,12 +28,12 @@ export function Landing() {
       id: uniqid(),
       link: "/anchorageLength",
     },
-    /*     {
+    {
       title: "Lastannahmen",
       img: "imgs/lastannahmen.png",
       description: "Lastannahmen und Teilsicherheitswerte",
       id: uniqid(),
-    }, */
+    },
   ]);
 
   return (
