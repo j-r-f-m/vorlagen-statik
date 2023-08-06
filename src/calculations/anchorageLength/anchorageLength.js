@@ -285,8 +285,8 @@ const lBmin = (lbrqd, theta, alpha, stab) => {
  * @returns number
  */
 const lbeqDir = (lbeq, theta) => {
-  const leftTerm = (2 / 3) * lbeq;
-  const rightTerm = 6.7 * theta;
+  const leftTerm = round((2 / 3) * lbeq, 2);
+  const rightTerm = round(6.7 * theta, 2);
   // implementieren
   // lbdir = max {2/3 * lbmin; 6,7 * theta}
   if (leftTerm >= rightTerm) {
@@ -407,7 +407,7 @@ const calculateAl = (
   // const roundedLbeqFinal = round(lbeqFinal.lbeqFinal, 1);
 
   const currLbeqDir = lbeqDir(lbeqFinal.lbeqFinal, theta);
-  const roundedCurrLbeqDir = round(currLbeqDir.lbeqDirFinal, 2);
+  /*   const roundedCurrLbeqDir = round(currLbeqDir.lbeqDirFinal, 2); */
 
   const currLbeqIndir = lbeqIndir(lbeqFinal.lbeqFinal);
   const roundedCurrLbeqIndir = round(currLbeqIndir, 2);
@@ -424,7 +424,7 @@ const calculateAl = (
     fyd: roundedCurrFyd,
     lbrqd: roundedCurrLbrqd,
     lbeq: lbeqFinal,
-    lbeqDir: roundedCurrLbeqDir,
+    lbeqDir: currLbeqDir,
     lbeqIndir: roundedCurrLbeqIndir,
     lbmin: currLbmin,
     lagerung: lagerung,

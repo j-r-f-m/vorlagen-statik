@@ -156,7 +156,7 @@ export function AlOutput(props) {
           <div className="ms-2 me-auto">
             <MathJax>
               {"\\(l_{b,eq,dir} = \\)"}&nbsp;
-              {`\\(${props.data.lbeqDir}\\)`}
+              {`\\(${props.data.lbeqDir.lbeqDirFinal}\\)`}
               &nbsp;{"\\(mm\\)"}&emsp;
             </MathJax>
           </div>
@@ -207,6 +207,11 @@ export function AlOutput(props) {
           className="d-flex justify-content-between align-items-start flex-column"
         >
           <div className="ms-2 me-auto">
+            <MathJax className="mb-2">
+              {
+                "\\(l_{bd,dir} = 2/3 \\cdot l_{b,eq} \\geq 6,7 \\cdot \\theta \\)"
+              }
+            </MathJax>
             <LbeqDirFinalRender data={props.data} />
           </div>
         </ListGroup.Item>
