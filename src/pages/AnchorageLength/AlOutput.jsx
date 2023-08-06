@@ -5,6 +5,7 @@ import { PropTypes } from "prop-types";
 import { LBminFinalRender } from "./AlLBminFinalRender";
 import { LbeqFinalRender } from "./AlLbeqFinalRender";
 import { LbeqDirFinalRender } from "./AlLbeqDirFinalRender";
+import { LatexOuputSingle } from "../../components/LatexOutputSingle";
 
 export function AlOutput(props) {
   // Das Bemessungsprotokoll soll erst nach einer ersten Berechnung sichtbar sein
@@ -121,68 +122,37 @@ export function AlOutput(props) {
           </div>
         </ListGroup.Item>
 
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start flex-column"
-        >
-          <div className="ms-2 me-auto">
-            <div className="fw-bold">Verankerungslängen</div>
-            <MathJax>
-              {`\\(l_{b,eq} = ${props.data.lbeq.lbeqFinal} \\)`}
-              &nbsp;{"\\(mm\\)"}&emsp;
-            </MathJax>
-          </div>
-          <div className="mt-2"></div>
-        </ListGroup.Item>
+        <LatexOuputSingle
+          name={"\\(l_{b,eq} = \\)"}
+          data={`\\(${props.data.lbeq.lbeqFinal}\\)`}
+          unit={"\\(mm\\)"}
+          title="Verankerunglängen"
+        />
+
+        <LatexOuputSingle
+          name={"\\(l_{b,min} = \\)"}
+          data={`\\(${props.data.lbmin.lBminFinal}\\)`}
+          unit={"\\(mm\\)"}
+        />
+
+        <LatexOuputSingle
+          name={"\\(l_{b,eq,dir} = \\)"}
+          data={`\\(${props.data.lbeqDir.lbeqDirFinal}\\)`}
+          unit={"\\(mm\\)"}
+        />
+
+        <LatexOuputSingle
+          name={"\\(l_{b,eq,indir} = \\)"}
+          data={`\\(${props.data.lbeqIndir}\\)`}
+          unit={"\\(mm\\)"}
+        />
 
         <ListGroup.Item
           as="li"
           className="d-flex justify-content-between align-items-start flex-column"
         >
+          <div className="fw-bold ms-2 me-auto">Nachweis</div>
           <div className="ms-2 me-auto">
-            <MathJax>
-              {"\\(l_{b,min} = \\)"}&nbsp;
-              {`\\(${props.data.lbmin.lBminFinal}\\)`}
-              &nbsp;{"\\(mm\\)"}&emsp;
-            </MathJax>
-          </div>
-          <div className="mt-2"></div>
-        </ListGroup.Item>
-
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start flex-column"
-        >
-          <div className="ms-2 me-auto">
-            <MathJax>
-              {"\\(l_{b,eq,dir} = \\)"}&nbsp;
-              {`\\(${props.data.lbeqDir.lbeqDirFinal}\\)`}
-              &nbsp;{"\\(mm\\)"}&emsp;
-            </MathJax>
-          </div>
-          <div className="mt-2"></div>
-        </ListGroup.Item>
-
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start flex-column"
-        >
-          <div className="ms-2 me-auto">
-            <MathJax>
-              {"\\(l_{b,eq,indir} = \\)"}&nbsp;
-              {`\\(${props.data.lbeqIndir}\\)`}
-              &nbsp;{"\\(mm\\)"}&emsp;
-            </MathJax>
-          </div>
-          <div className="mt-2"></div>
-        </ListGroup.Item>
-
-        <ListGroup.Item
-          as="li"
-          className="d-flex justify-content-between align-items-start flex-column"
-        >
-          <div className="ms-2 me-auto">
-            <div className="fw-bold">Nachweis</div>
             <LBminFinalRender data={props.data} />
           </div>
         </ListGroup.Item>

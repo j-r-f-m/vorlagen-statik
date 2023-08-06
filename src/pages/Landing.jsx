@@ -16,23 +16,24 @@ export function Landing() {
     {
       title: "Balken Bewehrung",
       img: "imgs/bewehrung.png",
-      description: "Ermittelt die maximale Anzahl an Bewehrungseisen",
+      description:
+        "Ermittelt die maximale Anzahl an Bewehrungseisen in einer Lage",
       id: uniqid(),
       link: "/balkenBewehrung",
     },
     {
       title: "Verankerungslänge",
       img: "imgs/verankerungslänge.png",
-      description: "Ermittelt Verankerungs- oder Übergreifungslänge",
+      description: "Ermittelt die Verankerungslänge",
       id: uniqid(),
       link: "/anchorageLength",
     },
-    {
+    /*     {
       title: "Lastannahmen",
       img: "imgs/lastannahmen.png",
       description: "Lastannahmen und Teilsicherheitswerte",
       id: uniqid(),
-    },
+    }, */
   ]);
 
   return (
@@ -44,16 +45,18 @@ export function Landing() {
             className="d-flex align-items-center justify-content-center"
           >
             <Card
+              className="mb-2
+              "
               bg="light"
               style={{ width: "18rem", height: "25rem", marginTop: "2rem" }}
             >
               <CardHeader>{module.title}</CardHeader>
               <Card.Img variant="top" src={module.img} />
-              <Card.Body>
+              <Card.Body className="d-flex flex-column justify-content-between align-items-center">
                 <Card.Text>{module.description}</Card.Text>
                 <Button variant="primary">
                   <Nav.Link to={module.link} as={NavLink}>
-                    Balken Bewehrung
+                    {module.title}
                   </Nav.Link>
                 </Button>
               </Card.Body>
