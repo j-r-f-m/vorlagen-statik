@@ -74,3 +74,44 @@ Direkt
 Zugstab
 
 PASST
+
+---
+
+Beispiel 6. - 6.2
+
+fck = 35 N/mm²
+alpha_a = 0.7
+theta = 25 mm
+aserf = 10.9 cm²
+asvorh = 34.4 cm²
+Schlecht
+Direkt
+Zugstab
+
+PASST
+
+---
+
+Beispiel 6. - 6.2
+
+fck = 30 N/mm²
+alpha_a = 1
+theta = 7 mm
+aserf = 0.33 cm²
+asvorh = 2.57 cm²
+Schlecht
+Direkt
+Zugstab
+
+PASST
+
+fck = 35 N/mm²
+alpha_a = 1
+theta = 25 mm
+aserf = 4.17 cm²
+asvorh = 14.7 cm²
+Schlecht
+Direkt
+Zugstab
+
+PASST

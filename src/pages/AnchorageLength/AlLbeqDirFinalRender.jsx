@@ -2,7 +2,9 @@ import { PropTypes } from "prop-types";
 import { MathJax } from "better-react-mathjax";
 
 export function LbeqDirFinalRender(props) {
-  if (props.data.lbeq.lbeqLeftTerm >= props.data.lbeq.lbeqRightTerm) {
+  if (
+    props.data.lbeqDir.lbeqDirLeftTerm >= props.data.lbeqDir.lbeqDirRightTerm
+  ) {
     return (
       <MathJax className="mb-2">
         {`\\(l_{b,eq,dir} = ${props.data.lbeqDir.lbeqDirLeftTerm}\\)`} &nbsp;
@@ -11,10 +13,12 @@ export function LbeqDirFinalRender(props) {
         {"\\(mm\\)"}
       </MathJax>
     );
-  } else if (props.data.lbeq.lbeqLeftTerm < props.data.lbeq.lbeqRightTerm) {
+  } else if (
+    props.data.lbeqDir.lbeqDirLeftTerm < props.data.lbeqDir.lbeqDirRightTerm
+  ) {
     return (
       <MathJax className="mb-2">
-        {`\\(l_{b,eq} = ${props.data.lbeqDir.lbeqDirLeftTerm}   \\)`}&nbsp;{" "}
+        {`\\(l_{b,eq,dir} = ${props.data.lbeqDir.lbeqDirLeftTerm}   \\)`}&nbsp;{" "}
         {"\\(mm<\\)"}&nbsp; {`\\(${props.data.lbeqDir.lbeqDirRightTerm}\\)`}
         &nbsp;
         {"\\(mm\\)"}
